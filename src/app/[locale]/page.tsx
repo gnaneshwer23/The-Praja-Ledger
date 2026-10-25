@@ -15,6 +15,7 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Landing");
+  const profile = await getTranslations("Profile");
   const nav = await getTranslations("Nav");
   const records = await getTranslations("Records");
   const rythu = entries.find((entry) => entry.id === "PL-P-02");
@@ -72,7 +73,8 @@ export default async function HomePage({
                   slug: leader.slug,
                   name: leader.name,
                   nameTe: leader.nameTe,
-                  party: leader.party,
+                  party:
+                    leader.party === "Not compiled yet" ? profile("missing") : leader.party,
                   office: leader.office,
                   photo: leader.photo,
                 }))}

@@ -577,7 +577,7 @@ export const leaders: Leader[] = [
     slug: "k-kavitha",
     name: "K. Kavitha",
     nameTe: "కె. కవిత",
-    party: "None recorded",
+    party: "Not compiled yet",
     office: "Former MLC, no current assembly seat",
     summary:
       "These reports describe her as a former BRS member of the legislative council. She does not appear in the current assembly member list used here. Siasat reported that a Delhi court on 27 February 2026 discharged all 23 accused in the Delhi liquor-policy case, including her. A discharge is not a conviction. The court order is not linked.",

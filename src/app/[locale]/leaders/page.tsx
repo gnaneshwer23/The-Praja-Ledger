@@ -44,7 +44,7 @@ export default async function LeadersPage() {
             slug: leader.slug,
             name: leader.name,
             nameTe: leader.nameTe,
-            party: leader.party,
+            party: leader.party === "Not compiled yet" ? t("noLines") : leader.party,
             office: leader.office,
             photo: leader.photo,
             lines,

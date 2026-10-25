@@ -34,7 +34,7 @@ const monthAbbrev = [
   "Dec",
 ];
 
-/** Congress, BRS, BJP and AIMIM keep their own rows. Every other label, including "None recorded", is others. */
+/** Congress, BRS, BJP and AIMIM keep their own rows. Every other label, including "Not compiled yet", is others. */
 export function partyBucket(party: string): PartyBucket {
   if (party === "Congress") return "INC";
   if (party === "BRS") return "BRS";

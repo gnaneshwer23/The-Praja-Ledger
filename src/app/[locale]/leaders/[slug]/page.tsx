@@ -62,7 +62,9 @@ async function LeaderRecord({
             </p>
             <p className="leader-office">{leader.office}</p>
             <p className="leader-party">
-              <span className="chip">{leader.party}</span>
+              <span className="chip">
+                {leader.party === "Not compiled yet" ? t("missing") : leader.party}
+              </span>
             </p>
             {leader.partyHistory ? <p>{leader.partyHistory}</p> : null}
             {leader.photoSourceUrl ? (
