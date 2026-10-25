@@ -118,7 +118,7 @@ a {
   padding: 1.75rem 0 5rem;
 }
 
-.site-main:has(.landing),
+.site-main:has(.landing:not([style*="display: none"])),
 .site-main:has(.share-page) {
   width: 100%;
   max-width: none;
@@ -360,8 +360,9 @@ a {
 .stages small {
   display: block;
   margin-top: 0;
-  max-width: 8.5rem;
+  max-width: min(8.5rem, 100%);
   margin-inline: auto;
+  overflow-wrap: anywhere;
   font-size: 0.75rem;
   line-height: 1.2;
   color: var(--pl-quiet);
@@ -1011,21 +1012,21 @@ a {
   }
 }
 
-.site:has(.landing) {
+.site:has(.landing:not([style*="display: none"])) {
   background: #040e21;
 }
 
-.site:has(.landing) .site-header {
+.site:has(.landing:not([style*="display: none"])) .site-header {
   display: none;
 }
 
-.site:has(.landing) .site-footer {
+.site:has(.landing:not([style*="display: none"])) .site-footer {
   color: #e7eed4;
   border-top-color: rgba(231, 238, 212, 0.2);
 }
 
-.site:has(.landing) .site-footer p,
-.site:has(.landing) .site-footer a {
+.site:has(.landing:not([style*="display: none"])) .site-footer p,
+.site:has(.landing:not([style*="display: none"])) .site-footer a {
   color: #d5dfc4;
 }
 
