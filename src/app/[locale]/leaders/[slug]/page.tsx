@@ -4,7 +4,6 @@ import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { FollowButton } from "@/components/follow-button";
-import { LeaderPortrait } from "@/components/leader-portrait";
 import { RecordList } from "@/components/record-list";
 import { SourceKey } from "@/components/source-key";
 import { entriesByIds, getLeader, leaders } from "@/data/ledger";
@@ -54,7 +53,6 @@ async function LeaderRecord({
     <>
       <header className="intro profile">
         <div className="profile-head">
-          <LeaderPortrait name={leader.name} photo={leader.photo} />
           <div className="profile-id">
             <h1>{leader.name}</h1>
             <p className="title-te" lang="te">
@@ -67,13 +65,6 @@ async function LeaderRecord({
               </span>
             </p>
             {leader.partyHistory ? <p>{leader.partyHistory}</p> : null}
-            {leader.photoSourceUrl ? (
-              <p className="quiet">
-                <a href={leader.photoSourceUrl} rel="noreferrer">
-                  {t("portrait")}
-                </a>
-              </p>
-            ) : null}
           </div>
         </div>
         <div className="profile-actions">

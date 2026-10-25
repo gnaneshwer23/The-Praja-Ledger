@@ -3,7 +3,6 @@
 import { Link } from "@/i18n/navigation";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { LeaderPortrait } from "@/components/leader-portrait";
 import type { SourceMark } from "@/data/source-mark";
 import { swatchClass } from "@/data/source-mark";
 
@@ -19,7 +18,6 @@ type Row = {
   nameTe: string;
   party: string;
   office: string;
-  photo?: string;
   lines: Line[];
 };
 
@@ -75,7 +73,6 @@ export function LeaderFinder({ leaders }: { leaders: Row[] }) {
           {shown.map((leader) => (
             <li key={leader.slug} className="leader-card">
               <Link href={`/leaders/${leader.slug}`} className="leader-id">
-                <LeaderPortrait name={leader.name} photo={leader.photo} />
                 <span className="leader-name">{leader.name}</span>
                 <span className="leader-te" lang="te">
                   {leader.nameTe}

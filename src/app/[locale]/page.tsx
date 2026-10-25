@@ -76,7 +76,6 @@ export default async function HomePage({
                   party:
                     leader.party === "Not compiled yet" ? profile("missing") : leader.party,
                   office: leader.office,
-                  photo: leader.photo,
                 }))}
               />
             </div>

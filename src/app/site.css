@@ -224,11 +224,6 @@ a {
   text-decoration: none;
 }
 
-.search-results .portrait {
-  width: 2.75rem;
-  height: 3.1rem;
-}
-
 .search-results a:hover {
   background: var(--pl-paper);
 }

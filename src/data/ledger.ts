@@ -37,8 +37,6 @@ export type Leader = {
   summary: string;
   recordIds: string[];
   sources: Source[];
-  photo?: string;
-  photoSourceUrl?: string;
   affidavit?: Affidavit;
 };
 
@@ -491,8 +489,6 @@ export const leaders: Leader[] = [
     summary:
       "The council of ministers lists Anumula Revanth Reddy as Chief Minister, with municipal administration and urban development, general administration, law and order, and every portfolio not allotted to another minister. The Hindu was still describing him as Chief Minister on 24 October 2026. He is the Congress MLA for Kodangal.",
     recordIds: ["PL-E-01", "PL-P-01", "PL-P-02", "PL-P-07", "PL-F-01"],
-    photo: "/leaders/revanth-reddy.png",
-    photoSourceUrl: "https://www.telangana.gov.in/wp-content/uploads/2025/11/cm-telangana.png",
     sources: [
       {
         title: "Council of Ministers",
@@ -523,9 +519,6 @@ export const leaders: Leader[] = [
     summary:
       "The council of ministers lists him as Deputy Chief Minister, with finance and planning, and energy. His constituency is Madhira, reserved for Scheduled Castes. PRS records that he presented the 2026–27 budget.",
     recordIds: ["PL-F-01", "PL-F-02", "PL-F-04", "PL-P-07"],
-    photo: "/leaders/bhatti-vikramarka-mallu.jpg",
-    photoSourceUrl:
-      "https://www.telangana.gov.in/wp-content/uploads/2023/12/Sri-Bhatti-Vikramarka-Mallu.jpg",
     sources: [
       {
         title: "Council of Ministers",
@@ -544,8 +537,6 @@ export const leaders: Leader[] = [
     summary:
       "The assembly member list records Kalvakuntla Chandrashekar Rao as the BRS MLA for Gajwel. He resigned as Chief Minister on 3 December 2023, after Congress won a majority. The Hans India reported that the High Court ruled “no action” on the Kaleshwaram report regarding him and T. Harish Rao. Business Standard reported that an investigation team questioned him in a phone-tapping case. Questioning is not a chargesheet or a conviction.",
     recordIds: ["PL-E-01", "PL-E-03", "PL-C-03", "PL-C-04"],
-    photo: "/leaders/k-chandrashekar-rao.png",
-    photoSourceUrl: "https://www.telangana.gov.in/wp-content/uploads/elementor/thumbs/KChandrashekar-Rao-q8vaz26nstlscgmwp86ywrdlo264c0yz0u0g8isq20.png",
     sources: [
       {
         title: "Members of the Legislative Assembly",
@@ -600,9 +591,6 @@ export const leaders: Leader[] = [
     summary:
       "The Election Commission records that G. Kishan Reddy won Secunderabad for the BJP in 2024, with 4,73,012 votes and a margin of 49,944. The Ministry of Coal lists him as Union Minister of Coal and Mines. Affidavit totals for 2024 are not entered.",
     recordIds: ["PL-E-02"],
-    photo: "/leaders/g-kishan-reddy.jpg",
-    photoSourceUrl:
-      "https://sansad.in/getFile/dms/fetch/70c82c8d-e92c-43f4-94c1-73992d202341?source=dsp2",
     sources: [
       {
         title: "Shri G. Kishan Reddy",
@@ -621,9 +609,6 @@ export const leaders: Leader[] = [
     summary:
       "The Election Commission records that Asaduddin Owaisi won Hyderabad for AIMIM in 2024. The constituency page shows the result as declared, by a margin of 3,38,087. AIMIM also won 7 assembly seats in 2023.",
     recordIds: ["PL-E-02", "PL-E-01"],
-    photo: "/leaders/asaduddin-owaisi.jpg",
-    photoSourceUrl:
-      "https://sansad.in/getFile/dms/fetch/f8229ce2-ef98-470b-a580-8248de87620a?source=dsp2",
     sources: [],
   },
   {
@@ -691,8 +676,6 @@ export const leaders: Leader[] = [
     summary:
       "The Ministry of Home Affairs says he is Minister of State for Home Affairs and the MP for Karimnagar, appointed on 9 June 2024. The Lok Sabha member list records the same constituency and party. His affidavit figures are not entered.",
     recordIds: ["PL-E-05"],
-    photo: "/leaders/bandi-sanjay-kumar.jpg",
-    photoSourceUrl: "https://www.mha.gov.in/files/key_person_images/bandi-sanjay-kumar.jpg",
     sources: [
       {
         title: "Shri Bandi Sanjay Kumar, Minister of State",
