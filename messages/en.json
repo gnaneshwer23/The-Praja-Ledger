@@ -250,6 +250,7 @@
   },
   "Records": {
     "read": "Read the line",
+    "verify": "Verify",
     "noDocument": "This line describes the edition itself. It has no external document."
   },
   "CasesPage": {

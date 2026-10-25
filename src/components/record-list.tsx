@@ -25,7 +25,10 @@ export async function RecordList({
             <div className="record-scan">
               <p className="record-id">{entry.id}</p>
               <h2>{entry.title}</h2>
-              <p className={`status tone-${entry.tone}`}>{entry.status}</p>
+              <p className={`status tone-${entry.tone}`}>
+                {entry.status}
+                {entry.verify ? <span className="verify"> {t("verify")}</span> : null}
+              </p>
               {entry.sources[0] ? (
                 <p className="record-cite">
                   {mark ? <i className={`swatch ${swatchClass(mark)}`} /> : null}

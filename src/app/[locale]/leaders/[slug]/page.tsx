@@ -64,6 +64,7 @@ async function LeaderRecord({
             <p className="leader-party">
               <span className="chip">{leader.party}</span>
             </p>
+            {leader.partyHistory ? <p>{leader.partyHistory}</p> : null}
             {leader.photoSourceUrl ? (
               <p className="quiet">
                 <a href={leader.photoSourceUrl} rel="noreferrer">

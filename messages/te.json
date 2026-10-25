@@ -250,6 +250,7 @@
   },
   "Records": {
     "read": "వాక్యం చదవండి",
+    "verify": "Verify",
     "noDocument": "ఈ వాక్యం ఎడిషన్ గురించి. బయటి పత్రం లేదు."
   },
   "CasesPage": {

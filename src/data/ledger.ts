@@ -16,6 +16,7 @@ export type Entry = {
   body: string;
   status: string;
   tone: Tone;
+  verify?: boolean;
   sources: Source[];
 };
 
@@ -32,6 +33,7 @@ export type Leader = {
   nameTe: string;
   party: string;
   office: string;
+  partyHistory?: string;
   summary: string;
   recordIds: string[];
   sources: Source[];
@@ -414,9 +416,11 @@ export const entries: Entry[] = [
     id: "PL-C-05",
     section: "cases",
     title: "Disqualification reported against Danam Nagender",
-    status: "Media report of a disqualification. The assembly list still names him. The order is not linked.",
+    status:
+      "Disqualified by the Telangana High Court, 18 Sep 2026; the Supreme Court declined to interfere, 24 Sep 2026",
     tone: "pending",
-    body: "The News Minute and The South First reported on 18 September 2026 that a Telangana High Court division bench of Chief Justice Aparesh Kumar Singh and Justice G. M. Mohiuddin set aside Assembly Speaker Gaddam Prasad Kumar’s order and held Danam Nagender disqualified as MLA for Khairatabad with effect from 23 April 2024, under paragraph 2(1)(a) of the Tenth Schedule. The papers say he won the seat on a BRS ticket in 2023 and later contested the Secunderabad Lok Sabha seat as a Congress candidate. This is a reported disqualification under the anti-defection law. It is not a criminal conviction. This edition does not link the order. The assembly member list read on 25 October 2026 still records him as the BRS MLA for Khairatabad.",
+    verify: true,
+    body: "The News Minute and The South First reported on 18 Sep 2026 that a Telangana High Court division bench of Chief Justice Aparesh Kumar Singh and Justice G. M. Mohiuddin set aside Assembly Speaker Gaddam Prasad Kumar’s order and held Danam Nagender disqualified as MLA for Khairatabad with effect from 23 Apr 2024, under paragraph 2(1)(a) of the Tenth Schedule. The papers say he was elected as BRS in 2023 and contested the 2024 Lok Sabha election for Congress. The Hindu reported on 24 Sep 2026 that the Supreme Court said there was no ground to interfere with the High Court order. These lines follow news reports. The court order PDFs are not linked. This is a reported disqualification under the anti-defection law. It is not a criminal conviction. On this record the Khairatabad seat is vacant. The assembly member list read on 25 Oct 2026 still names him.",
     sources: [
       {
         title: "Telangana HC disqualifies MLA Danam Nagender for defecting from BRS to Congress",
@@ -429,6 +433,12 @@ export const entries: Entry[] = [
         publisher: "The South First",
         date: "18 September 2026",
         url: "https://thesouthfirst.com/telangana/telangana-hc-disqualifies-khairatabad-mla-danam-nagender-under-anti-defection-law/",
+      },
+      {
+        title: "SC dismisses Danam Nagender's plea against disqualification",
+        publisher: "The Hindu",
+        date: "24 September 2026",
+        url: "https://www.thehindu.com/news/national/telangana/sc-dismisses-danam-nagenders-plea-against-disqualification/article71503531.ece",
       },
       {
         title: "Members of the Legislative Assembly",
@@ -639,9 +649,11 @@ export const leaders: Leader[] = [
     name: "Danam Nagender",
     nameTe: "దానం నాగేందర్",
     party: "BRS",
-    office: "Listed as MLA for Khairatabad",
+    office: "Khairatabad seat vacant",
+    partyHistory:
+      "Elected as BRS (2023); contested the 2024 Lok Sabha election for Congress",
     summary:
-      "The assembly member list read on 25 October 2026 still records Danam Nagender as the BRS MLA for Khairatabad. The News Minute and The South First reported that the High Court disqualified him on 18 September 2026. This edition does not link the order. The disqualification, as reported, is under the anti-defection law. It is not a criminal conviction.",
+      "Disqualified by the Telangana High Court, 18 Sep 2026; the Supreme Court declined to interfere, 24 Sep 2026. Verify. Khairatabad seat vacant. Elected as BRS (2023); contested the 2024 Lok Sabha election for Congress. The News Minute, The South First and The Hindu reported those steps. The court order PDFs are not linked. The assembly member list read on 25 Oct 2026 still names him. The disqualification, as reported, is under the anti-defection law. It is not a criminal conviction.",
     recordIds: ["PL-C-05"],
     sources: [
       {
