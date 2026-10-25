@@ -3,12 +3,8 @@ import { Link } from "@/i18n/navigation";
 import { CivicIcon } from "@/components/civic-icons";
 import { LeaderSearch } from "@/components/leader-search";
 import { QuestionPath } from "@/components/question-path";
-import { ShareSheet } from "@/components/share-sheet";
 import { SourceKey } from "@/components/source-key";
-import { StageRail } from "@/components/stage-rail";
 import { entries, leaders } from "@/data/ledger";
-import en from "../../../messages/en.json";
-import te from "../../../messages/te.json";
 
 export default async function HomePage({
   params,
@@ -20,7 +16,6 @@ export default async function HomePage({
   const t = await getTranslations("Landing");
   const nav = await getTranslations("Nav");
   const records = await getTranslations("Records");
-  const formula = entries.find((entry) => entry.id === "PL-C-01");
   const rythu = entries.find((entry) => entry.id === "PL-P-02");
   const houses = entries.find((entry) => entry.id === "PL-P-04");
   const promiseCount = entries.filter(
@@ -53,17 +48,7 @@ export default async function HomePage({
             <div>
               <p className="campaign-kicker">{t("kicker")}</p>
               <h1 className={locale === "te" ? "campaign-title is-te" : "campaign-title"}>
-                {locale === "te" ? (
-                  <>
-                    <span>ప్రజా</span>
-                    <span>లెడ్జర్</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="line-blue">Praja</span>
-                    <span className="line-ink">Ledger</span>
-                  </>
-                )}
+                {t("headline")}
               </h1>
               <p className="campaign-sub" lang="te">
                 {t("subhead")}
@@ -79,42 +64,7 @@ export default async function HomePage({
                 }))}
               />
             </div>
-            {locale === "te" ? (
-              <p className="campaign-poster latin">
-                Praja
-                <br />
-                Ledger
-              </p>
-            ) : (
-              <p className="campaign-poster" lang="te">
-                ప్రజా
-                <br />
-                లెడ్జర్
-              </p>
-            )}
-            <aside className="campaign-aside">
-              <Link href="/cases/formula-e">{t("seeRecord")}</Link>
-              <p>{t("headline")}</p>
-              <hr />
-              <p className="hearing-label">{t("hearingLabel")}</p>
-              <p className="hearing-day">{t("hearingDay")}</p>
-              <p className="hearing-year">{t("hearingYear")}</p>
-            </aside>
           </div>
-          <a className="orbit" href="#records">
-            <svg viewBox="0 0 140 140" aria-hidden="true">
-              <defs>
-                <path
-                  id="orbit-path"
-                  d="M70,70 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"
-                />
-              </defs>
-              <text>
-                <textPath href="#orbit-path">{t("orbit")}</textPath>
-              </text>
-            </svg>
-            <span>↓</span>
-          </a>
         </div>
       </div>
       <div className="landing-rest" id="records">
@@ -140,32 +90,6 @@ export default async function HomePage({
       </div>
 
         <div className="wrap cards hero-cards">
-          <article className="record-card media">
-            <div className="card-top">
-              <h2>{t("formulaTitle")}</h2>
-              <span className="status">{t("formulaStatus")}</span>
-            </div>
-            <p className="who">{t("formulaWho")}</p>
-            <StageRail current="chargesheet" note />
-            <p className="hearing">{t("formulaHearing")}</p>
-            <details className="read-line">
-              <summary>{records("read")}</summary>
-              <p>{t("formulaDetail")}</p>
-            </details>
-            <div className="card-links">
-              {formula ? (
-                <a href={formula.sources[0]?.url} rel="noreferrer">
-                  {t("formulaSource")}
-                </a>
-              ) : null}
-              <Link href="/cases/formula-e">{t("openRecord")}</Link>
-              <ShareSheet
-                path="/cases/formula-e"
-                english={en.Share}
-                telugu={te.Share}
-              />
-            </div>
-          </article>
           <article className="record-card claim">
             <div className="card-top">
               <h2>{t("rythuTitle")}</h2>
