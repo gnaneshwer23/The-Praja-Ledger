@@ -1,0 +1,12 @@
+{
+  "_status": "reviewed",
+  "HomePage": {
+    "title": "Praja Ledger",
+    "lede": "A public register of Telangana leaders. This is the project skeleton. Records are not loaded yet."
+  },
+  "LocaleSwitch": {
+    "label": "Language",
+    "en": "English",
+    "te": "Telugu"
+  }
+}

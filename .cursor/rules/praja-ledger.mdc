@@ -1,0 +1,43 @@
+---
+description: Praja Ledger project rules
+alwaysApply: true
+---
+
+You are building Praja Ledger, a non-partisan public register of Telangana leaders' records.
+The full spec is docs/PRD.md. Read it before any non-trivial change.
+
+## Non-negotiables
+- Never write to editorial tables directly from app code. All writes go through the Postgres
+  rpc_* functions in supabase/migrations. If a write path you need doesn't exist, add an rpc_
+  function in a new migration that checks role, source rules, silence windows and reason.
+- Every write must pass a non-empty `reason`, which ends up in audit_log.
+- Never add UPDATE or DELETE paths to audit_log. Never hard-delete published content; retract it.
+- Tier-1 sources (COURT, CAG, ECI, SPKR) require a URL. Enforce in Zod AND in SQL.
+- Legal matters are described by stage only. Do not generate copy that calls anyone corrupt,
+  guilty or a criminal unless quoting a court verdict.
+- Claims (GOV, OPP, PARTY) render as attributed claims, never in the site's own voice.
+- Every person gets identical fields. Missing data renders "Not compiled yet".
+- No scores, rankings, grades, polls or recommendations of any candidate or party.
+- No party colours in the UI. Party is shown as a neutral text chip.
+- Never expose the service-role key to the browser or NEXT_PUBLIC_ env vars.
+- Never store or render addresses, ID numbers, phone numbers or family details.
+
+## Code conventions
+- Next.js App Router, TypeScript strict, server components by default; client components only
+  for interactivity.
+- Data access in /lib/data (reads via public views) and /lib/actions (server actions calling rpc_).
+- Shared Zod schemas in /lib/schemas, used by forms and server actions.
+- All user-facing strings in /messages/en.json and /messages/te.json. No hardcoded copy.
+- Database changes only as new SQL files in supabase/migrations; never edit an applied migration.
+- Generate DB types with `supabase gen types typescript` after each migration.
+- After a publish, call revalidateTag for affected person, case, constituency and 'home'.
+
+## Testing
+- Every rpc_ function gets SQL tests for: allowed role, forbidden role, missing reason,
+  tier-1 without URL, inside silence window, self-approval.
+- Every page gets a Playwright smoke test in en and te.
+- Run tests before saying a task is done. If tests fail, fix them; don't delete them.
+
+## Copy style
+- Plain, neutral, sentence case. Active voice. No adjectives about people.
+- Dates as "25 Oct 2026". Money as "₹4.42 lakh cr" with the definition stated next to any debt figure.
