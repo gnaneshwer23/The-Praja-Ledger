@@ -11,10 +11,10 @@ test("this week keeps one newest dated entry per party", () => {
   const week = thisWeekOnTheRecord(leaders, entries);
 
   expect(week.map((item) => item.party)).toEqual(["BRS", "INC", "others"]);
-  expect(week.map((item) => item.entry.id)).toEqual(["PL-C-01", "PL-P-02", "PL-C-02"]);
+  expect(week.map((item) => item.entry.id)).toEqual(["PL-C-01", "PL-I-02", "PL-C-02"]);
   expect(week.map((item) => formatRecordDate(item.changedOn))).toEqual([
     "12 Oct 2026",
-    "23 Apr 2026",
+    "2 Sep 2026",
     "28 Feb 2026",
   ]);
   expect(week.map((item) => item.leaderSlug)).toEqual([

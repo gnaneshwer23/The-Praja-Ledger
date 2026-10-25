@@ -477,6 +477,60 @@ export const entries: Entry[] = [
     body: "Added a media report that the High Court ruled “no action” on the Kaleshwaram report regarding K. Chandrashekar Rao and T. Harish Rao, a report that he was questioned in a phone-tapping case, a media report of Danam Nagender’s disqualification, and Bandi Sanjay Kumar’s Union office. Official portraits were added only where the file itself came from a government, legislature, or Lok Sabha page. A reported acquittal without a judgment link, affidavit totals, a new party name, and a rounded December 2025 debt line were left out.",
     sources: [],
   },
+  {
+    id: "PL-I-01",
+    section: "cases",
+    title: "Land allotment alleged at Raviryala",
+    status: "Allegation. No FIR or inquiry reported.",
+    tone: "pending",
+    body: "The Times of India reported on 12 Aug 2026 that K. T. Rama Rao, BRS working president, alleged that nearly five acres of government land at Raviryala were allotted to Tesseract Advanced Systems. He said the parcel was worth about ₹200 crore, his figure for its value, and was allotted for about ₹7 crore, the price he stated. He asked the government to publish the allotment order and the valuation. The report does not say an FIR was registered or that an inquiry had opened. This is an allegation by a rival party. It is not a finding.",
+    sources: [
+      {
+        title: "KTR raises questions over ₹200 crore land allotment",
+        publisher: "The Times of India",
+        date: "12 August 2026",
+        url: "https://timesofindia.indiatimes.com/city/hyderabad/ktr-raises-questions-over-200-crore-land-allotment/articleshow/133165195.cms",
+      },
+    ],
+  },
+  {
+    id: "PL-I-02",
+    section: "promises",
+    title: "Mahalakshmi cash assistance of ₹2,500 a month",
+    status: "Rival party claim. Not recorded as paid.",
+    tone: "gap",
+    body: "The New Indian Express reported on 2 Sep 2026 that a BJP document said the ₹2,500 a month promised to women under Mahalakshmi had not been implemented. ₹2,500 a month is the cash assistance named in that document. This is a rival party claim, as reported. It is not the government’s account.",
+    sources: [
+      {
+        title: "Telangana BJP releases ‘1000 Days of Betrayal’ chargesheet against Congress government",
+        publisher: "The New Indian Express",
+        date: "2 September 2026",
+        url: "https://www.newindianexpress.com/states/telangana/2026/Sep/02/telangana-bjp-releases-1000-days-of-betrayal-chargesheet-against-congress-government",
+      },
+    ],
+  },
+  {
+    id: "PL-I-03",
+    section: "promises",
+    title: "Cheyutha pension of ₹4,000 a month",
+    status: "Rival party claim. The amount paid each month is Not compiled yet.",
+    tone: "gap",
+    body: "The New Indian Express reported on 2 Sep 2026 that a BJP document said the promise to raise Cheyutha pensions to ₹4,000 a month had not been carried out. ₹4,000 a month is the pension amount named in that claim. A Warangal district page states a monthly pension of ₹4,000 for the categories it lists and is dated 23 Dec 2023. No later official order opened here states the amount paid each month. The current monthly amount is Not compiled yet.",
+    sources: [
+      {
+        title: "Telangana BJP releases ‘1000 Days of Betrayal’ chargesheet against Congress government",
+        publisher: "The New Indian Express",
+        date: "2 September 2026",
+        url: "https://www.newindianexpress.com/states/telangana/2026/Sep/02/telangana-bjp-releases-1000-days-of-betrayal-chargesheet-against-congress-government",
+      },
+      {
+        title: "Cheyutha Scheme, Warangal district",
+        publisher: "Government of Telangana",
+        date: "23 December 2023",
+        url: "https://warangal.telangana.gov.in/scheme/cheyutha-scheme/",
+      },
+    ],
+  },
 ];
 
 export const leaders: Leader[] = [
@@ -488,7 +542,7 @@ export const leaders: Leader[] = [
     office: "Chief Minister, MLA for Kodangal",
     summary:
       "The council of ministers lists Anumula Revanth Reddy as Chief Minister, with municipal administration and urban development, general administration, law and order, and every portfolio not allotted to another minister. The Hindu was still describing him as Chief Minister on 24 October 2026. He is the Congress MLA for Kodangal.",
-    recordIds: ["PL-E-01", "PL-P-01", "PL-P-02", "PL-P-07", "PL-F-01"],
+    recordIds: ["PL-E-01", "PL-P-01", "PL-P-02", "PL-P-07", "PL-F-01", "PL-I-01", "PL-I-02", "PL-I-03"],
     sources: [
       {
         title: "Council of Ministers",

@@ -14,6 +14,7 @@ const mediaPublishers = [
   "Business Standard",
   "The News Minute",
   "The South First",
+  "The New Indian Express",
 ];
 
 export function sourceMark(source: Source | undefined): SourceMark | null {
