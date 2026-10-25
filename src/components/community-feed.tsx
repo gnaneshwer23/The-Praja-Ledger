@@ -65,7 +65,7 @@ export function CommunityFeed() {
               <p>{t("updateOffice")}</p>
               <p>{t("updateBody")}</p>
               <p>
-                <Link href="/promises">{t("updateLink")}</Link>
+                <Link href="/manifestos/congress-2023/indiramma-indlu">{t("updateLink")}</Link>
               </p>
             </article>
             <article className="feed-card">

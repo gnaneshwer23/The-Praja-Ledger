@@ -20,7 +20,7 @@ export default async function ExampleQuestionPage({
         <h1>{t("heading")}</h1>
         <p>{t("meta")}</p>
         <p>
-          <Link href="/promises">{t("linked")}</Link>
+          <Link href="/manifestos/congress-2023/indiramma-indlu">{t("linked")}</Link>
         </p>
         <h2>{t("office")}</h2>
         <p>{t("officeBody")}</p>

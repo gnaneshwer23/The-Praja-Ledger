@@ -404,6 +404,15 @@ main > h2 {
   color: var(--quiet);
 }
 
+.profile-block h2 {
+  margin: 1.6rem 0 0;
+  font-size: 1.3rem;
+}
+
+.profile-block .empty {
+  margin-top: 0.35rem;
+}
+
 @media (max-width: 800px) {
   .leader-grid {
     grid-template-columns: 1fr;

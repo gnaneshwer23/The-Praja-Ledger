@@ -7,6 +7,8 @@ import { FollowButton } from "@/components/follow-button";
 import { RecordList } from "@/components/record-list";
 import { SourceKey } from "@/components/source-key";
 import { entriesByIds, getLeader, leaders } from "@/data/ledger";
+import { promisesForLeader } from "@/data/manifestos";
+import { profileBlockIds, recordsForBlock } from "@/data/profile";
 
 export function generateStaticParams() {
   return leaders.map((leader) => ({ slug: leader.slug }));
@@ -48,6 +50,8 @@ async function LeaderRecord({
   if (!leader) notFound();
   const records = entriesByIds(leader.recordIds);
   const t = await getTranslations("Profile");
+  const manifesto = await getTranslations("Manifestos");
+  const linkedPromises = promisesForLeader(leader.slug);
 
   return (
     <>
@@ -74,46 +78,63 @@ async function LeaderRecord({
           </Link>
         </div>
         <p className="quiet">{t("followNote")}</p>
-        <dl className="facts">
-          <div>
-            <dt>{t("assets")}</dt>
-            <dd>
-              {leader.affidavit
-                ? `${leader.affidavit.assets} (${leader.affidavit.year})`
-                : t("missing")}
-            </dd>
-          </div>
-          <div>
-            <dt>{t("pending")}</dt>
-            <dd>
-              {leader.affidavit
-                ? `${leader.affidavit.cases} (${leader.affidavit.year})`
-                : t("missing")}
-            </dd>
-          </div>
-        </dl>
-        <p className="quiet">{t("disclaimer")}</p>
         <p className="quiet">{t("office")}</p>
-        <details className="read-line">
-          <summary>{t("read")}</summary>
-          <p className="summary">{leader.summary}</p>
-          {leader.sources.length > 0 ? (
-            <ul className="sources">
-              {leader.sources.map((source) => (
-                <li key={source.url}>
-                  <a href={source.url} rel="noreferrer">
-                    {source.title}
-                  </a>
-                  {`, ${source.publisher}, ${source.date}`}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </details>
       </header>
-      <h2>{t("work")}</h2>
+      <p>{t("intro")}</p>
       <SourceKey />
-      <RecordList entries={records} showFormulaStage />
+      {profileBlockIds.map((block) => {
+        const blockRecords = recordsForBlock(records, block);
+        const filled = blockRecords.length > 0 || block === "office";
+        return (
+          <section key={block} className="profile-block" id={block}>
+            <h2>{t(`blocks.${block}`)}</h2>
+            <p className="quiet">{t(`about.${block}`)}</p>
+            {block === "office" ? (
+              <>
+                <p className="summary">{leader.summary}</p>
+                {leader.sources.length > 0 ? (
+                  <ul className="sources">
+                    {leader.sources.map((source) => (
+                      <li key={source.url}>
+                        <a href={source.url} rel="noreferrer">
+                          {source.title}
+                        </a>
+                        {`, ${source.publisher}, ${source.date}`}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </>
+            ) : null}
+            {blockRecords.length > 0 ? (
+              <RecordList entries={blockRecords} showFormulaStage={block === "cases"} />
+            ) : null}
+            {block === "minister" && linkedPromises.length > 0 ? (
+              <>
+                <h3>{manifesto("leaderHeading")}</h3>
+                <p className="quiet">
+                  {leader.slug === "bhatti-vikramarka-mallu"
+                    ? manifesto("leaderBhatti")
+                    : manifesto("leaderRevanth")}
+                </p>
+                <ul className="sources">
+                  {linkedPromises.map((promise) => (
+                    <li key={promise.slug}>
+                      <Link href={`/manifestos/congress-2023/${promise.slug}`}>
+                        {promise.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+            {block === "cases" && blockRecords.length > 0 ? (
+              <p>{t("pendingCase")}</p>
+            ) : null}
+            {filled ? null : <p className="empty">{t("missing")}</p>}
+          </section>
+        );
+      })}
       <p className="table-note">
         {t("changed")} · <Link href="/changes">{t("log")}</Link>
       </p>

@@ -28,8 +28,8 @@ export default function MethodPage() {
       <h2>What a status word means</h2>
       <p>
         Pending means a court date or an unfinished payment is still open.
-        Operating means the government says the scheme is paying or running.
-        Partial means the same documents show a gap against the figure they
+        A sourced figure has to meet the sourced target before a promise is
+        called delivered as promised. Partial means the same documents show a gap against the figure they
         themselves set. An exoneration is written only as the news report
         described it, until the order is opened. An estimate is a budget
         number, not money already spent.

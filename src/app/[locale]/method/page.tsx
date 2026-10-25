@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "How we record",
@@ -6,7 +7,9 @@ export const metadata: Metadata = {
     "The rules Praja Ledger uses before a line about a Telangana leader is written down.",
 };
 
-export default function MethodPage() {
+export default async function MethodPage() {
+  const t = await getTranslations("MethodManifesto");
+
   return (
     <article className="method">
       <header className="intro">
@@ -27,14 +30,32 @@ export default function MethodPage() {
       </p>
       <h2>What a status word means</h2>
       <p>
-        Pending means a court date or an unfinished payment is still open.
-        Operating means the government says the scheme is paying or running.
-        Partial means the same documents show a gap against the figure they
-        themselves set. A discharge is written only as the news report
-        described it, until the order is opened. A discharge is not a
-        conviction. An estimate is a budget
-        number, not money already spent.
+        Pending means a court date or an unfinished payment is still open. A
+        discharge is written only as the news report described it, until the
+        order is opened. A discharge is not a conviction. An estimate is a
+        budget number, not money already spent.
       </p>
+      <h2>{t("title")}</h2>
+      <p>{t("intro")}</p>
+      <p>{t("delivered")}</p>
+      <p>{t("partial")}</p>
+      <p>{t("progress")}</p>
+      <p>{t("notStarted")}</p>
+      <p>{t("dropped")}</p>
+      <p>{t("unverified")}</p>
+      <h2>{t("rulesTitle")}</h2>
+      <p>{t("ruleFrozen")}</p>
+      <p>{t("ruleEmpty")}</p>
+      <p>{t("ruleMonth")}</p>
+      <p>{t("ruleGap")}</p>
+      <p>{t("ruleClaim")}</p>
+      <h2>{t("freezeTitle")}</h2>
+      <p>{t("freezeCongress")}</p>
+      <p>{t("freezeBrs2014")}</p>
+      <p>{t("freezeBrs2018")}</p>
+      <p>{t("freezeBjpUnion")}</p>
+      <p>{t("freezeBrs2023")}</p>
+      <p>{t("freezeBjp2023")}</p>
       <h2>What stays out</h2>
       <p>
         Speeches that are not tied to a count. Social-media claims. Anything

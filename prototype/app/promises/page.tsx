@@ -17,9 +17,9 @@ export default function PromisesPage() {
           These are the six guarantees of the government that took office after
           the 2023 election. The counts below are the government’s, from the
           Socio-Economic Outlook 2026, unless a line names a newspaper. A
-          government count is not an independent audit. “Operating” means the
-          outlook describes the scheme as paying or running. It does not mean
-          every promise made in the campaign has been met in full.
+          government count is not an independent audit. A sourced figure has to
+          meet the sourced target before a promise is called delivered as
+          promised.
         </p>
       </header>
       <RecordList entries={entriesBySection("promises")} />

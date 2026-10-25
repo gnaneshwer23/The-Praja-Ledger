@@ -91,7 +91,7 @@ export const entries: Entry[] = [
     id: "PL-P-01",
     section: "promises",
     title: "Mahalakshmi",
-    status: "Operating on the government’s figures, with a reported delay in LPG credits.",
+    status: "Free travel is described for 81% of TGRTC buses. A news report says the state’s gas credit was late in some districts.",
     tone: "plain",
     body: "The Socio-Economic Outlook 2026 describes Mahalakshmi as free travel for girls, women, and transgender persons in 81% of TGRTC buses, and cooking-gas refills at Rs 500 for ration-card holders with an active connection. It says that, as of January 2026, women had taken about 269.68 crore trips since the scheme began, that their share of passengers rose from about 40% to 67.39%, and that Rs 9,222 crore in fare is to be reimbursed to the corporation. It says 42.90 lakh people were receiving the gas subsidy as of 15 December 2025. The same outlook says women can convert recurring monthly payments into a lump sum of up to Rs 2 lakh for an enterprise. It does not say how many have done so. ThePrint, writing as the government reached two and a half years, reported that ministers were hearing of districts where the state’s share of the gas subsidy was late, so people paid the full cylinder price first.",
     sources: [
@@ -135,7 +135,7 @@ export const entries: Entry[] = [
     id: "PL-P-03",
     section: "promises",
     title: "Gruha Jyothi",
-    status: "Operating, on the government’s figures.",
+    status: "Up to 200 units for eligible households. The outlook does not define eligible.",
     tone: "plain",
     body: "The Socio-Economic Outlook 2026 says Gruha Jyothi gives eligible households free electricity up to 200 units a month. It says 53.09 lakh families are covered, zero bills have been issued, and the expenditure incurred is Rs 3,901 crore. The outlook does not define “eligible” in the passage used here, so this line does not say that every household receives the waiver.",
     sources: [
@@ -167,7 +167,7 @@ export const entries: Entry[] = [
     id: "PL-P-05",
     section: "promises",
     title: "Cheyutha",
-    status: "Operating, on the government’s account. The monthly amount per person is not in this passage.",
+    status: "Pensions were paid, on the government’s account. The monthly amount per person is not in this passage.",
     tone: "plain",
     body: "The Socio-Economic Outlook 2026 says Cheyutha pays a monthly pension to senior citizens, widows, single women, persons with disabilities, and named categories of workers. From April 2025 to February 2026 it says Rs 10,678.30 crore was paid to 42.23 lakh people across 11 categories. It says Rs 25,655.59 crore was paid over the two years to February 2026, and that the programme has full coverage and pays every month. Those coverage words are the government’s. The passage does not state the rupee amount of the monthly pension.",
     sources: [

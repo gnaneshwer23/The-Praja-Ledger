@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { RegisterMark } from "@/components/civic-icons";
 import { LeaderFinder } from "@/components/leader-finder";
 import { SourceKey } from "@/components/source-key";
@@ -21,6 +22,9 @@ export default async function LeadersPage() {
         <div>
           <h1>{t("title")}</h1>
           <p>{t("intro", { count: leaders.length })}</p>
+          <p>
+            <Link href="/constituencies">{t("constituencies")}</Link>
+          </p>
         </div>
         <RegisterMark kind="leaders" />
       </header>

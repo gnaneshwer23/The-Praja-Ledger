@@ -6,7 +6,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 const links = [
   { href: "/leaders", key: "leaders" },
   { href: "/cases", key: "cases" },
-  { href: "/promises", key: "promises" },
+  { href: "/manifestos", key: "promises" },
   { href: "/ask", key: "ask" },
   { href: "/method", key: "method" },
 ] as const;
@@ -39,6 +39,9 @@ export function SiteHeader({ locale }: { locale: string }) {
         </Link>
         <Link href="/leaders" className="find-link">
           {t("find")}
+        </Link>
+        <Link href="/constituencies" className="find-link">
+          {t("constituencies")}
         </Link>
       </div>
     </header>

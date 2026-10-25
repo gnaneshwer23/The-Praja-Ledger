@@ -4,6 +4,7 @@ import { CivicIcon } from "@/components/civic-icons";
 import { LeaderSearch } from "@/components/leader-search";
 import { QuestionPath } from "@/components/question-path";
 import { SourceKey } from "@/components/source-key";
+import { compiledPromiseCount } from "@/data/manifestos";
 import { entries, leaders } from "@/data/ledger";
 import { formatRecordDate, thisWeekOnTheRecord } from "@/data/this-week";
 
@@ -20,9 +21,7 @@ export default async function HomePage({
   const records = await getTranslations("Records");
   const rythu = entries.find((entry) => entry.id === "PL-P-02");
   const houses = entries.find((entry) => entry.id === "PL-P-04");
-  const promiseCount = entries.filter(
-    (entry) => entry.section === "promises" && entry.id !== "PL-P-07",
-  ).length;
+  const promiseCount = compiledPromiseCount;
   const caseCount = entries.filter((entry) => entry.section === "cases").length;
   const week = thisWeekOnTheRecord(leaders, entries);
   const courtOrders = [
@@ -49,7 +48,7 @@ export default async function HomePage({
             </Link>
             <Link href="/leaders">{nav("leaders")}</Link>
             <Link href="/cases">{nav("cases")}</Link>
-            <Link href="/promises">{nav("promises")}</Link>
+            <Link href="/manifestos">{nav("promises")}</Link>
             <Link href="/ask">{nav("ask")}</Link>
             <Link href="/method">{nav("method")}</Link>
             <Link href="/" locale={locale === "te" ? "en" : "te"} className="campaign-lang">
@@ -142,7 +141,7 @@ export default async function HomePage({
                   {t("rythuSource")}
                 </a>
               ) : null}
-              <Link href="/promises">{t("openRecord")}</Link>
+              <Link href="/manifestos/congress-2023/rythu-bharosa-acre">{t("openRecord")}</Link>
             </div>
           </article>
           <article className="record-card claim">
@@ -161,7 +160,7 @@ export default async function HomePage({
                   {t("houseSource")}
                 </a>
               ) : null}
-              <Link href="/promises">{t("openRecord")}</Link>
+              <Link href="/manifestos/congress-2023/indiramma-indlu">{t("openRecord")}</Link>
             </div>
           </article>
         </div>
@@ -238,6 +237,9 @@ export default async function HomePage({
         <div className="start-actions">
           <Link href="/leaders" className="ink-button">
             {t("startFind")}
+          </Link>
+          <Link href="/constituencies" className="ghost">
+            {t("constituencies")}
           </Link>
           <Link href="/corrections" className="ghost">
             {t("startClaim")}
