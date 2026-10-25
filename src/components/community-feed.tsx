@@ -14,7 +14,7 @@ export function CommunityFeed() {
   return (
     <section className="app-screen">
       <div className="app-top">
-        <strong>{t("title")}</strong>
+        <h1>{t("title")}</h1>
       </div>
       <div className="app-tabs" role="tablist" aria-label={t("title")}>
         {(["following", "constituency", "changes"] as const).map((key) => (
