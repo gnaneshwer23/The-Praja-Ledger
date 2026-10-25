@@ -416,11 +416,12 @@ a {
   line-height: 1;
 }
 
-.stats span {
+.stats span,
+.stats a {
   display: block;
   margin-top: 0.4rem;
   color: var(--pl-quiet);
-  max-width: 16ch;
+  max-width: 22ch;
 }
 
 .section {

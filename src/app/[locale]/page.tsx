@@ -24,6 +24,18 @@ export default async function HomePage({
   ).length;
   const caseCount = entries.filter((entry) => entry.section === "cases").length;
   const week = thisWeekOnTheRecord(leaders, entries);
+  const courtOrders = [
+    {
+      href: "https://tshc.gov.in/documents/currentsection_2026_04_23T11_09_12.pdf",
+      label: t("orderKaleshwaram"),
+    },
+  ];
+  const counters = [
+    { key: "leaders", value: leaders.length, label: t("statsLeaders") },
+    { key: "cases", value: caseCount, label: t("statsCases") },
+    { key: "promises", value: promiseCount, label: t("statsPromises") },
+    { key: "orders", value: courtOrders.length, label: t("statsOrders") },
+  ].filter((item) => item.value > 0);
 
   return (
     <div className="landing">
@@ -95,22 +107,19 @@ export default async function HomePage({
       </section>
       <div className="wrap">
         <section className="stats" aria-label={t("kicker")}>
-          <div>
-            <strong>{leaders.length}</strong>
-            <span>{t("statsLeaders")}</span>
-          </div>
-          <div>
-            <strong>{caseCount}</strong>
-            <span>{t("statsCases")}</span>
-          </div>
-          <div>
-            <strong>{promiseCount}</strong>
-            <span>{t("statsPromises")}</span>
-          </div>
-          <div>
-            <strong>0</strong>
-            <span>{t("statsOrders")}</span>
-          </div>
+          {counters.map((item) => (
+            <div key={item.key}>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+              {item.key === "orders"
+                ? courtOrders.map((order) => (
+                    <a key={order.href} href={order.href} rel="noreferrer">
+                      {order.label}
+                    </a>
+                  ))
+                : null}
+            </div>
+          ))}
         </section>
       </div>
 
