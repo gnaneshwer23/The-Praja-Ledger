@@ -195,6 +195,7 @@ export default async function HomePage({
             <p>{t("shareBody")}</p>
           </article>
         </div>
+        <p className="coming-next">{t("comingNext")}</p>
       </section>
 
       <section className="section wrap rules" id="rules">

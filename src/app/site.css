@@ -1127,6 +1127,11 @@ a {
   padding: 2.5rem 0 0;
 }
 
+.coming-next {
+  margin: 1.4rem 0 0;
+  font-size: 0.95rem;
+}
+
 .week-rule {
   margin: 0.2rem 0 0.9rem;
   font-size: 0.82rem;
