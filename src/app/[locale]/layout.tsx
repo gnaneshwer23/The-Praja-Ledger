@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
-import { Noto_Sans, Noto_Sans_Telugu, Noto_Serif_Telugu, Petrona } from "next/font/google";
+import { Anton, Noto_Sans, Noto_Sans_Telugu, Noto_Serif_Telugu, Petrona } from "next/font/google";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -9,6 +9,13 @@ import { routing } from "@/i18n/routing";
 import "../globals.css";
 import "../ledger.css";
 import "../site.css";
+
+const poster = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  variable: "--font-poster",
+});
 
 const sans = Noto_Sans({
   subsets: ["latin"],
@@ -69,7 +76,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${sans.variable} ${sansTelugu.variable} ${petrona.variable} ${telugu.variable}`}
+      className={`${poster.variable} ${sans.variable} ${sansTelugu.variable} ${petrona.variable} ${telugu.variable}`}
     >
       <body>
         <NextIntlClientProvider>

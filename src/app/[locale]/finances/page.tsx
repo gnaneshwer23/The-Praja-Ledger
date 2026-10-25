@@ -18,11 +18,12 @@ export default function FinancesPage() {
       <header className="intro">
         <h1>State finances</h1>
         <p>
-          Three numbers get mixed up in argument, so they are kept apart. The
-          budget estimate is a plan for 2026–27. The public-debt stock is what
-          the annexure said was owed on 31 March 2025. Outstanding liabilities
-          are a wider percentage of GSDP, and guarantees sit outside that
-          percentage.
+          These figures are kept apart. The budget estimate is a plan for
+          2026–27. The public-debt stock is what the annexure said was owed on
+          31 March 2025. Outstanding liabilities are a wider percentage of GSDP,
+          and guarantees sit outside that percentage. A December 2025 total,
+          reported from a government document, is in the records below. It is
+          not that March 2025 stock.
         </p>
       </header>
       <LedgerTable

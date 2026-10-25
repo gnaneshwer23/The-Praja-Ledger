@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { LeaderPortrait } from "@/components/leader-portrait";
 
 type LeaderHit = {
   slug: string;
@@ -10,6 +11,7 @@ type LeaderHit = {
   nameTe: string;
   party: string;
   office: string;
+  photo?: string;
 };
 
 export function LeaderSearch({ leaders }: { leaders: LeaderHit[] }) {
@@ -58,6 +60,8 @@ export function LeaderSearch({ leaders }: { leaders: LeaderHit[] }) {
             {matches.map((leader) => (
               <li key={leader.slug}>
                 <Link href={`/leaders/${leader.slug}`}>
+                  <LeaderPortrait name={leader.name} photo={leader.photo} />
+                  <span>
                   {leader.name}
                   <br />
                   <small lang="te">{leader.nameTe}</small>
@@ -65,6 +69,7 @@ export function LeaderSearch({ leaders }: { leaders: LeaderHit[] }) {
                   <small>
                     {leader.party}. {leader.office}
                   </small>
+                  </span>
                 </Link>
               </li>
             ))}

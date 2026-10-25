@@ -31,10 +31,10 @@
     "searchButton": "Search",
     "searchHint": "Or open the leader list. Location is not used.",
     "searchEmpty": "No leader in this edition matches that.",
-    "statsLeaders": "leader profiles in this edition",
-    "statsCases": "legal matters tracked by stage",
-    "statsPromises": "promises checked against delivery",
-    "statsOrders": "court orders linked in this edition",
+    "statsLeaders": "Leaders",
+    "statsCases": "Legal matters",
+    "statsPromises": "Promises",
+    "statsOrders": "Court orders linked",
     "closerTitle": "Get closer to the people you elect, on the record.",
     "closerLede": "Follow your leaders, ask them questions in public and share what’s on record. Everything stays tied to sources, so a conversation never turns into a rumour.",
     "followTitle": "Follow",
@@ -45,9 +45,9 @@
     "shareBody": "Send any entry to WhatsApp or Instagram as a card with its source and date printed on it, plus a link to the live record.",
     "rulesTitle": "Built so no side can game it.",
     "rulesLede": "Every party gets the same fields, the same source rules and the same moderation. No party funding, no ads, no rankings.",
-    "legendCourt": "Court record",
+    "legendCourt": "Official record",
     "legendMedia": "Media report",
-    "legendClaim": "Leader’s own claim",
+    "legendClaim": "Government or leader claim",
     "legendNote": "Solid for official records, outline for reports, dashed for claims.",
     "ruleSourceTitle": "Every entry has a source",
     "ruleSourceBody": "Court orders, audits and affidavits link to the document. Anything unconfirmed is marked Verify.",
@@ -67,7 +67,7 @@
     "step4Title": "Answered in public",
     "step4Body": "The answer appears on the leader’s page. No answer? The question stays up, showing how long it has waited.",
     "startTitle": "Start with your own constituency.",
-    "startBody": "119 assembly seats and 17 Lok Sabha seats. This edition has a record for 7 leaders. The rest are not compiled yet.",
+    "startBody": "119 assembly seats and 17 Lok Sabha seats. This edition has a record for {count} leaders. The rest are not compiled yet.",
     "startFind": "Find my constituency",
     "startClaim": "Leader’s office? Claim your page",
     "formulaTitle": "Formula E race payments",
@@ -87,7 +87,12 @@
     "houseWho": "Government of Telangana",
     "houseDetail": "The same outlook says 3,24,536 houses are sanctioned against a target of 4,50,000, and 2,62,449 are under construction. It does not say how many families have moved in.",
     "houseSource": "Government account",
-    "openRecord": "Open the record"
+    "openRecord": "Open the record",
+    "seeRecord": "See a record",
+    "hearingLabel": "Next hearing",
+    "hearingDay": "30 Oct",
+    "hearingYear": "2026",
+    "orbit": "Open the record · Open the record ·"
   },
   "Stages": {
     "allegation": "Allegation",
@@ -96,7 +101,9 @@
     "charges": "Charges framed",
     "trial": "Trial",
     "verdict": "Verdict",
-    "label": "Case stage"
+    "label": "Case stage",
+    "notConviction": "This is not a conviction.",
+    "formulaNow": "The mark is the Formula E case. The current stage is chargesheet."
   },
   "Share": {
     "open": "Share",
@@ -211,7 +218,8 @@
     "me": "Me"
   },
   "Profile": {
-    "assets": "Declared assets (2023)",
+    "assets": "Declared assets",
+    "portrait": "Official portrait",
     "missing": "Not compiled yet",
     "pending": "Declared pending cases",
     "disclaimer": "Self-declared pending cases. A pending case is not a conviction.",
@@ -222,6 +230,30 @@
     "office": "A verified office is not open on this page yet.",
     "work": "Work on record",
     "changed": "Record checked 25 Oct 2026",
-    "log": "See change log"
+    "log": "See change log",
+    "read": "Read the line",
+    "all": "All leaders"
+  },
+  "LeadersPage": {
+    "title": "Leaders",
+    "intro": "This edition follows {count} people. The council of ministers has more names than these. A person is left out until this book has a separate sourced line to attach to them. Party names are the short forms used in the filter. The assembly list spells Bharat Rashtra Samithi as BHRS.",
+    "find": "Find a leader",
+    "party": "Party",
+    "anyParty": "Any party",
+    "showing": "Showing {shown} of {total}",
+    "empty": "No leader matches that name or party.",
+    "noLines": "Not compiled yet"
+  },
+  "Records": {
+    "read": "Read the line",
+    "noDocument": "This line describes the edition itself. It has no external document."
+  },
+  "CasesPage": {
+    "title": "Legal cases",
+    "intro": "A case is listed when a named newsroom has published its status. Registration, a chargesheet, and a discharge petition are steps in a case. They are not a finding that the person committed the act. Where a court has decided, the line says what the report says the court did, and whether the order itself was opened."
+  },
+  "PromisesPage": {
+    "title": "Promises",
+    "intro": "These are the six guarantees of the government that took office after the 2023 election. The counts below are the government’s, from the Socio-Economic Outlook 2026, unless a line names a newspaper. A government count is not an independent audit. “Operating” means the outlook describes the scheme as paying or running. It does not mean every promise made in the campaign has been met in full."
   }
 }

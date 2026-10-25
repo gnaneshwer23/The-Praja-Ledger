@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { RegisterMark } from "@/components/civic-icons";
 import { RecordList } from "@/components/record-list";
+import { SourceKey } from "@/components/source-key";
 import { entriesBySection } from "@/data/ledger";
 
 export const metadata: Metadata = {
@@ -8,20 +11,19 @@ export const metadata: Metadata = {
     "The six Telangana guarantees, counted from the Socio-Economic Outlook 2026 and the 2026–27 budget analysis.",
 };
 
-export default function PromisesPage() {
+export default async function PromisesPage() {
+  const t = await getTranslations("PromisesPage");
+
   return (
     <>
-      <header className="intro">
-        <h1>Promises</h1>
-        <p>
-          These are the six guarantees of the government that took office after
-          the 2023 election. The counts below are the government’s, from the
-          Socio-Economic Outlook 2026, unless a line names a newspaper. A
-          government count is not an independent audit. “Operating” means the
-          outlook describes the scheme as paying or running. It does not mean
-          every promise made in the campaign has been met in full.
-        </p>
+      <header className="intro page-head">
+        <div>
+          <h1>{t("title")}</h1>
+          <p>{t("intro")}</p>
+        </div>
+        <RegisterMark kind="promises" />
       </header>
+      <SourceKey />
       <RecordList entries={entriesBySection("promises")} />
     </>
   );

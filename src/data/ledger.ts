@@ -19,6 +19,13 @@ export type Entry = {
   sources: Source[];
 };
 
+export type Affidavit = {
+  year: string;
+  assets: string;
+  cases: string;
+  source: Source;
+};
+
 export type Leader = {
   slug: string;
   name: string;
@@ -28,6 +35,9 @@ export type Leader = {
   summary: string;
   recordIds: string[];
   sources: Source[];
+  photo?: string;
+  photoSourceUrl?: string;
+  affidavit?: Affidavit;
 };
 
 export const sections = [
@@ -75,15 +85,21 @@ export const entries: Entry[] = [
     id: "PL-C-02",
     section: "cases",
     title: "Delhi excise-policy case against K. Kavitha",
-    status: "Exonerated, as reported. The court order is not linked in this edition.",
+    status: "Discharged by the trial court, as reported. The court order is not linked.",
     tone: "plain",
-    body: "The Indian Express reported on 27 February 2026 that a Delhi court had exonerated former BRS MLC K. Kavitha in the Delhi excise-policy case. The paper said she had been accused of taking part in a “South Group” that arranged payments of Rs 100 crore to the Aam Aadmi Party in exchange for liquor licences, and that she spent a little over five months in prison before she was granted bail. After the order she described the case as politically motivated. This line follows the news report. It does not quote the order.",
+    body: "Siasat reported on 28 February 2026 that a Delhi court on 27 February 2026 discharged all 23 accused in the Delhi liquor-policy case, including former BRS MLC K. Kavitha. The Indian Express reported the same order. The paper said she had been accused of taking part in a “South Group” that arranged payments of Rs 100 crore to the Aam Aadmi Party in exchange for liquor licences, and that she spent a little over five months in prison before she was granted bail. After the order she described the case as politically motivated. These lines follow the news reports. They do not quote the order. A discharge is not a conviction. The court order is not linked.",
     sources: [
       {
-        title: "Exoneration in Delhi excise case, new party, no truce with family: What next for K Kavitha?",
+        title: "Delhi excise-policy case against K. Kavitha",
         publisher: "The Indian Express",
         date: "27 February 2026",
         url: "https://indianexpress.com/article/political-pulse/clean-chit-in-delhi-excise-case-new-party-and-no-truce-what-next-for-k-kavitha-10555614/",
+      },
+      {
+        title: "Explained: Delhi liquor policy case, Kavitha's role and court verdict",
+        publisher: "Siasat",
+        date: "28 February 2026",
+        url: "https://www.siasat.com/explained-delhi-liquor-policy-case-kavithas-role-and-court-verdict-3386689/",
       },
     ],
   },
@@ -362,6 +378,97 @@ export const entries: Entry[] = [
     body: "Opened the nine sections in the outline: overview, leaders, legal cases, promises, state finances, elections, change log, corrections, and how we record. Entered seven leaders, two court matters, six guarantee lines, the 2026–27 budget, and the 2023 assembly and 2024 Lok Sabha results. No correction has been entered. Lines that could not be tied to a document were left out, including a beneficiary count for Yuva Vikasam.",
     sources: [],
   },
+  {
+    id: "PL-C-03",
+    section: "cases",
+    title: "Kaleshwaram report and the High Court order",
+    status: "Media report. The High Court ruled “no action” on the report, as reported. The order is not linked.",
+    tone: "pending",
+    body: "The Hans India reported that the High Court ruled “no action” on the Kaleshwaram report regarding K. Chandrashekar Rao and T. Harish Rao. This line follows that news report. It does not quote the order. The court order is not linked.",
+    sources: [
+      {
+        title: "Big relief for KCR, Harish Rao: HC rules 'no action' on Kaleshwaram report",
+        publisher: "The Hans India",
+        date: "April 2026",
+        url: "https://www.thehansindia.com/telangana/big-relief-for-kcr-harish-rao-hc-rules-no-action-on-kaleshwaram-report-1068423",
+      },
+    ],
+  },
+  {
+    id: "PL-C-04",
+    section: "cases",
+    title: "Phone-tapping investigation, questioning of K. Chandrashekar Rao",
+    status: "Questioning reported. Not described as a chargesheet against him.",
+    tone: "pending",
+    body: "Press Trust of India, via Business Standard on 2 February 2026, reported that the Special Investigation Team questioned K. Chandrashekar Rao for nearly five hours in a phone-tapping case from the previous BRS government. Hyderabad Police Commissioner V. C. Sajjanar said the questioning had concluded. The report does not say he was named in a chargesheet. Questioning is not a conviction.",
+    sources: [
+      {
+        title: "Telangana SIT questions former CM KCR for five hours in phone-tapping case",
+        publisher: "Press Trust of India, via Business Standard",
+        date: "2 February 2026",
+        url: "https://www.business-standard.com/india-news/telangana-sit-questions-former-cm-kcr-for-five-hours-in-phone-tapping-case-126020200020_1.html",
+      },
+    ],
+  },
+  {
+    id: "PL-C-05",
+    section: "cases",
+    title: "Disqualification reported against Danam Nagender",
+    status: "Media report of a disqualification. The assembly list still names him. The order is not linked.",
+    tone: "pending",
+    body: "The News Minute and The South First reported on 18 September 2026 that a Telangana High Court division bench of Chief Justice Aparesh Kumar Singh and Justice G. M. Mohiuddin set aside Assembly Speaker Gaddam Prasad Kumar’s order and held Danam Nagender disqualified as MLA for Khairatabad with effect from 23 April 2024, under paragraph 2(1)(a) of the Tenth Schedule. The papers say he won the seat on a BRS ticket in 2023 and later contested the Secunderabad Lok Sabha seat as a Congress candidate. This is a reported disqualification under the anti-defection law. It is not a criminal conviction. This edition does not link the order. The assembly member list read on 25 October 2026 still records him as the BRS MLA for Khairatabad.",
+    sources: [
+      {
+        title: "Telangana HC disqualifies MLA Danam Nagender for defecting from BRS to Congress",
+        publisher: "The News Minute",
+        date: "18 September 2026",
+        url: "https://www.thenewsminute.com/telangana/telangana-hc-disqualifies-mla-danam-nagender-for-defecting-from-brs-to-congress",
+      },
+      {
+        title: "Telangana HC disqualifies Khairatabad MLA Danam Nagender under anti-defection law",
+        publisher: "The South First",
+        date: "18 September 2026",
+        url: "https://thesouthfirst.com/telangana/telangana-hc-disqualifies-khairatabad-mla-danam-nagender-under-anti-defection-law/",
+      },
+      {
+        title: "Members of the Legislative Assembly",
+        publisher: "Government of Telangana",
+        date: "Read 25 October 2026",
+        url: "https://www.telangana.gov.in/legislature/members-of-legislative-assembly/",
+      },
+    ],
+  },
+  {
+    id: "PL-E-05",
+    section: "elections",
+    title: "Bandi Sanjay Kumar, Minister of State for Home",
+    status: "Office recorded by the Ministry of Home Affairs and the Lok Sabha list.",
+    tone: "plain",
+    body: "The Ministry of Home Affairs profile says Bandi Sanjay Kumar is Minister of State for Home Affairs, that he represents Karimnagar in the Lok Sabha, and that he was appointed on 9 June 2024. The Lok Sabha member list records him as the BJP member for Karimnagar. This edition does not reprint a vote total. His affidavit figures are not entered.",
+    sources: [
+      {
+        title: "Shri Bandi Sanjay Kumar, Minister of State",
+        publisher: "Ministry of Home Affairs",
+        date: "Read 25 October 2026",
+        url: "https://www.mha.gov.in/en/about-us/meet-the-minister/minister-of-state/ShriBandiSanjayKumar",
+      },
+      {
+        title: "Member biography, Bandi Sanjay Kumar",
+        publisher: "Lok Sabha",
+        date: "Read 25 October 2026",
+        url: "https://sansad.in/ls/members/biography/5076",
+      },
+    ],
+  },
+  {
+    id: "PL-H-02",
+    section: "changes",
+    title: "Records added from the October 2026 evidence file",
+    status: "Opened 25 October 2026.",
+    tone: "plain",
+    body: "Added a media report that the High Court ruled “no action” on the Kaleshwaram report regarding K. Chandrashekar Rao and T. Harish Rao, a report that he was questioned in a phone-tapping case, a media report of Danam Nagender’s disqualification, and Bandi Sanjay Kumar’s Union office. Official portraits were added only where the file itself came from a government, legislature, or Lok Sabha page. A reported acquittal without a judgment link, affidavit totals, a new party name, and a rounded December 2025 debt line were left out.",
+    sources: [],
+  },
 ];
 
 export const leaders: Leader[] = [
@@ -374,6 +481,8 @@ export const leaders: Leader[] = [
     summary:
       "The council of ministers lists Anumula Revanth Reddy as Chief Minister, with municipal administration and urban development, general administration, law and order, and every portfolio not allotted to another minister. The Hindu was still describing him as Chief Minister on 24 October 2026. He is the Congress MLA for Kodangal.",
     recordIds: ["PL-E-01", "PL-P-01", "PL-P-02", "PL-P-07", "PL-F-01"],
+    photo: "/leaders/revanth-reddy.png",
+    photoSourceUrl: "https://www.telangana.gov.in/wp-content/uploads/2025/11/cm-telangana.png",
     sources: [
       {
         title: "Council of Ministers",
@@ -404,6 +513,9 @@ export const leaders: Leader[] = [
     summary:
       "The council of ministers lists him as Deputy Chief Minister, with finance and planning, and energy. His constituency is Madhira, reserved for Scheduled Castes. PRS records that he presented the 2026–27 budget.",
     recordIds: ["PL-F-01", "PL-F-02", "PL-F-04", "PL-P-07"],
+    photo: "/leaders/bhatti-vikramarka-mallu.jpg",
+    photoSourceUrl:
+      "https://www.telangana.gov.in/wp-content/uploads/2023/12/Sri-Bhatti-Vikramarka-Mallu.jpg",
     sources: [
       {
         title: "Council of Ministers",
@@ -420,9 +532,18 @@ export const leaders: Leader[] = [
     party: "BRS",
     office: "MLA for Gajwel",
     summary:
-      "The assembly member list records Kalvakuntla Chandrashekar Rao as the BRS MLA for Gajwel. He resigned as Chief Minister on 3 December 2023, after Congress won a majority. No court proceeding against him is entered in this edition.",
-    recordIds: ["PL-E-01", "PL-E-03"],
-    sources: [],
+      "The assembly member list records Kalvakuntla Chandrashekar Rao as the BRS MLA for Gajwel. He resigned as Chief Minister on 3 December 2023, after Congress won a majority. The Hans India reported that the High Court ruled “no action” on the Kaleshwaram report regarding him and T. Harish Rao. Business Standard reported that an investigation team questioned him in a phone-tapping case. Questioning is not a chargesheet or a conviction.",
+    recordIds: ["PL-E-01", "PL-E-03", "PL-C-03", "PL-C-04"],
+    photo: "/leaders/k-chandrashekar-rao.png",
+    photoSourceUrl: "https://www.telangana.gov.in/wp-content/uploads/elementor/thumbs/KChandrashekar-Rao-q8vaz26nstlscgmwp86ywrdlo264c0yz0u0g8isq20.png",
+    sources: [
+      {
+        title: "Members of the Legislative Assembly",
+        publisher: "Government of Telangana",
+        date: "Read 25 October 2026",
+        url: "https://www.telangana.gov.in/legislature/members-of-legislative-assembly/",
+      },
+    ],
   },
   {
     slug: "k-t-rama-rao",
@@ -449,20 +570,37 @@ export const leaders: Leader[] = [
     party: "None recorded",
     office: "Former MLC, no current assembly seat",
     summary:
-      "The Indian Express describes her as a former BRS member of the legislative council and the daughter of K. Chandrashekar Rao. The paper reported that she resigned from the party after a show-cause notice and has said she intends to launch her own party. She does not appear in the current assembly member list used here. A Delhi court exonerated her in the excise-policy case, the paper reported.",
+      "These reports describe her as a former BRS member of the legislative council. She does not appear in the current assembly member list used here. Siasat reported that a Delhi court on 27 February 2026 discharged all 23 accused in the Delhi liquor-policy case, including her. A discharge is not a conviction. The court order is not linked.",
     recordIds: ["PL-C-02"],
-    sources: [],
+    sources: [
+      {
+        title: "Explained: Delhi liquor policy case, Kavitha's role and court verdict",
+        publisher: "Siasat",
+        date: "28 February 2026",
+        url: "https://www.siasat.com/explained-delhi-liquor-policy-case-kavithas-role-and-court-verdict-3386689/",
+      },
+    ],
   },
   {
     slug: "g-kishan-reddy",
     name: "G. Kishan Reddy",
     nameTe: "జి. కిషన్ రెడ్డి",
     party: "BJP",
-    office: "MP for Secunderabad",
+    office: "Union Minister of Coal and Mines, MP for Secunderabad",
     summary:
-      "The Election Commission records that G. Kishan Reddy won Secunderabad for the BJP in 2024, with 4,73,012 votes and a margin of 49,944. This edition does not record a ministerial portfolio for him.",
+      "The Election Commission records that G. Kishan Reddy won Secunderabad for the BJP in 2024, with 4,73,012 votes and a margin of 49,944. The Ministry of Coal lists him as Union Minister of Coal and Mines. Affidavit totals for 2024 are not entered.",
     recordIds: ["PL-E-02"],
-    sources: [],
+    photo: "/leaders/g-kishan-reddy.jpg",
+    photoSourceUrl:
+      "https://sansad.in/getFile/dms/fetch/70c82c8d-e92c-43f4-94c1-73992d202341?source=dsp2",
+    sources: [
+      {
+        title: "Shri G. Kishan Reddy",
+        publisher: "Ministry of Coal",
+        date: "Read 25 October 2026",
+        url: "https://coal.gov.in/minister/shri-g-kishan-reddy",
+      },
+    ],
   },
   {
     slug: "asaduddin-owaisi",
@@ -473,7 +611,84 @@ export const leaders: Leader[] = [
     summary:
       "The Election Commission records that Asaduddin Owaisi won Hyderabad for AIMIM in 2024. The constituency page shows the result as declared, by a margin of 3,38,087. AIMIM also won 7 assembly seats in 2023.",
     recordIds: ["PL-E-02", "PL-E-01"],
+    photo: "/leaders/asaduddin-owaisi.jpg",
+    photoSourceUrl:
+      "https://sansad.in/getFile/dms/fetch/f8229ce2-ef98-470b-a580-8248de87620a?source=dsp2",
     sources: [],
+  },
+  {
+    slug: "t-harish-rao",
+    name: "T. Harish Rao",
+    nameTe: "తానీరు హరీశ్ రావు",
+    party: "BRS",
+    office: "MLA for Siddipet",
+    summary:
+      "The assembly member list records Thanneeru Harish Rao as the BRS MLA for Siddipet. The Hans India reported that the High Court ruled “no action” on the Kaleshwaram report regarding him and K. Chandrashekar Rao.",
+    recordIds: ["PL-C-03"],
+    sources: [
+      {
+        title: "Members of the Legislative Assembly",
+        publisher: "Government of Telangana",
+        date: "Read 25 October 2026",
+        url: "https://www.telangana.gov.in/legislature/members-of-legislative-assembly/",
+      },
+    ],
+  },
+  {
+    slug: "danam-nagender",
+    name: "Danam Nagender",
+    nameTe: "దానం నాగేందర్",
+    party: "BRS",
+    office: "Listed as MLA for Khairatabad",
+    summary:
+      "The assembly member list read on 25 October 2026 still records Danam Nagender as the BRS MLA for Khairatabad. The News Minute and The South First reported that the High Court disqualified him on 18 September 2026. This edition does not link the order. The disqualification, as reported, is under the anti-defection law. It is not a criminal conviction.",
+    recordIds: ["PL-C-05"],
+    sources: [
+      {
+        title: "Members of the Legislative Assembly",
+        publisher: "Government of Telangana",
+        date: "Read 25 October 2026",
+        url: "https://www.telangana.gov.in/legislature/members-of-legislative-assembly/",
+      },
+    ],
+  },
+  {
+    slug: "akbaruddin-owaisi",
+    name: "Akbaruddin Owaisi",
+    nameTe: "అక్బరుద్దీన్ ఒవైసీ",
+    party: "AIMIM",
+    office: "MLA for Chandrayangutta",
+    summary:
+      "The assembly member list records Akbar Uddin Owaisi as the AIMIM MLA for Chandrayangutta.",
+    recordIds: [],
+    sources: [
+      {
+        title: "Members of the Legislative Assembly",
+        publisher: "Government of Telangana",
+        date: "Read 25 October 2026",
+        url: "https://www.telangana.gov.in/legislature/members-of-legislative-assembly/",
+      },
+    ],
+  },
+  {
+    slug: "bandi-sanjay-kumar",
+    name: "Bandi Sanjay Kumar",
+    nameTe: "బండి సంజయ్ కుమార్",
+    party: "BJP",
+    office: "Minister of State for Home, MP for Karimnagar",
+    summary:
+      "The Ministry of Home Affairs says he is Minister of State for Home Affairs and the MP for Karimnagar, appointed on 9 June 2024. The Lok Sabha member list records the same constituency and party. His affidavit figures are not entered.",
+    recordIds: ["PL-E-05"],
+    photo: "/leaders/bandi-sanjay-kumar.jpg",
+    photoSourceUrl: "https://www.mha.gov.in/files/key_person_images/bandi-sanjay-kumar.jpg",
+    sources: [
+      {
+        title: "Shri Bandi Sanjay Kumar, Minister of State",
+        publisher: "Ministry of Home Affairs",
+        date: "Read 25 October 2026",
+        url: "https://www.mha.gov.in/en/about-us/meet-the-minister/minister-of-state/ShriBandiSanjayKumar",
+      },
+    ],
   },
 ];
 

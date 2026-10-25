@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { RegisterMark } from "@/components/civic-icons";
 import { LeaderFinder } from "@/components/leader-finder";
-import { leaders } from "@/data/ledger";
+import { SourceKey } from "@/components/source-key";
+import { entriesByIds, leaders } from "@/data/ledger";
+import { sourceMark } from "@/data/source-mark";
 
 export const metadata: Metadata = {
   title: "Leaders",
@@ -8,26 +12,44 @@ export const metadata: Metadata = {
     "Leaders entered in Praja Ledger, with the office each one currently holds on the public record.",
 };
 
-export default function LeadersPage() {
+export default async function LeadersPage() {
+  const t = await getTranslations("LeadersPage");
+
   return (
     <>
-      <header className="intro">
-        <h1>Leaders</h1>
-        <p>
-          This edition follows seven people. The council of ministers has more
-          names than these. They are left out until this book has a separate
-          line to attach to them. Party names are the short forms used in the
-          filter. The assembly list spells Bharat Rashtra Samithi as BHRS.
-        </p>
+      <header className="intro page-head">
+        <div>
+          <h1>{t("title")}</h1>
+          <p>{t("intro", { count: leaders.length })}</p>
+        </div>
+        <RegisterMark kind="leaders" />
       </header>
+      <SourceKey />
       <LeaderFinder
-        leaders={leaders.map((leader) => ({
-          slug: leader.slug,
-          name: leader.name,
-          nameTe: leader.nameTe,
-          party: leader.party,
-          office: leader.office,
-        }))}
+        leaders={leaders.map((leader) => {
+          const records = entriesByIds(leader.recordIds);
+          const lines =
+            records.length > 0
+              ? records.map((entry) => ({
+                  title: entry.title,
+                  source: entry.sources[0]?.publisher ?? "",
+                  mark: sourceMark(entry.sources[0]),
+                }))
+              : leader.sources.slice(0, 1).map((source) => ({
+                  title: source.title,
+                  source: source.publisher,
+                  mark: sourceMark(source),
+                }));
+          return {
+            slug: leader.slug,
+            name: leader.name,
+            nameTe: leader.nameTe,
+            party: leader.party,
+            office: leader.office,
+            photo: leader.photo,
+            lines,
+          };
+        })}
       />
     </>
   );

@@ -251,11 +251,44 @@ main > h2 {
   padding: 0;
 }
 
+.profile-head {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+}
+
+.portrait {
+  width: 6.5rem;
+  height: 7.5rem;
+  object-fit: cover;
+  object-position: center top;
+  border: 1px solid var(--line);
+  background: var(--field);
+  flex: none;
+}
+
+.portrait-fallback {
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
 .leader-rows a {
-  display: block;
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  column-gap: 0.85rem;
+  align-items: center;
   padding: 0.85rem 0;
   border-bottom: 1px solid var(--line);
   text-decoration: none;
+}
+
+.leader-rows .portrait {
+  width: 3.2rem;
+  height: 3.6rem;
+  grid-row: 1 / span 3;
 }
 
 .leader-name,
@@ -275,6 +308,141 @@ main > h2 {
 
 .leader-office {
   color: var(--quiet);
+}
+
+.leader-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin: 0.8rem 0 0;
+  padding: 0;
+}
+
+.leader-card {
+  min-width: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 0.7rem;
+  padding: 0.85rem 0.9rem 0.7rem;
+}
+
+.leader-id {
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 1fr);
+  column-gap: 0.75rem;
+  row-gap: 0.05rem;
+  align-items: center;
+  text-decoration: none;
+}
+
+.leader-id .portrait {
+  width: 3.4rem;
+  height: 4rem;
+  grid-row: 1 / span 4;
+}
+
+.leader-id .chip {
+  justify-self: start;
+  width: fit-content;
+  margin-top: 0.25rem;
+}
+
+.leader-id .leader-name,
+.leader-id .leader-te,
+.leader-id .leader-office {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.leader-party {
+  margin: 0.45rem 0 0;
+}
+
+.leader-lines {
+  list-style: none;
+  margin: 0.7rem 0 0;
+  padding: 0.45rem 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.leader-lines li {
+  display: grid;
+  grid-template-columns: 1.35rem minmax(0, 1fr);
+  gap: 0.45rem;
+  align-items: start;
+  padding: 0.32rem 0;
+}
+
+.leader-lines .line-title,
+.profile-id h1,
+.profile-id .leader-office {
+  overflow-wrap: anywhere;
+}
+
+.leader-lines small {
+  display: block;
+  color: var(--quiet);
+  font-size: 0.82rem;
+  line-height: 1.3;
+}
+
+.swatch-spacer {
+  width: 1.35rem;
+  height: 0.72rem;
+}
+
+.line-empty {
+  margin: 0.6rem 0 0.2rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--line);
+}
+
+.record.mark-official,
+.record.mark-media,
+.record.mark-claim {
+  padding-left: 0.85rem;
+}
+
+.record.mark-official {
+  border-left: 4px solid var(--ink);
+}
+
+.record.mark-media {
+  border-left: 2px solid var(--ink);
+}
+
+.record.mark-claim {
+  border-left: 2px dashed var(--ink);
+}
+
+.record-scan h2 {
+  margin-bottom: 0.25rem;
+}
+
+.record .status {
+  margin-top: 0.2rem;
+  max-width: 62ch;
+}
+
+.record-cite {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.35rem 0 0;
+  color: var(--quiet);
+  font-size: 0.95rem;
+}
+
+.profile-id .leader-office {
+  margin: 0.35rem 0 0;
+  color: var(--quiet);
+}
+
+@media (max-width: 800px) {
+  .leader-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .finder form {
