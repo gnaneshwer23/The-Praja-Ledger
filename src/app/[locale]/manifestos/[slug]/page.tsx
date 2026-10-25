@@ -47,7 +47,8 @@ export default async function ManifestoPage({
   const t = await getTranslations("Manifestos");
   const visible = showsScorecard(manifesto);
   const tally = tallyOf(manifesto.promises);
-  const counts = promiseStatuses.map((status) => ({
+  const countedStatuses = promiseStatuses.filter((status) => tally.counts[status] > 0);
+  const counts = countedStatuses.map((status) => ({
     key: status,
     label: t(`statuses.${status}`),
     value: tally.counts[status],
@@ -60,7 +61,7 @@ export default async function ManifestoPage({
     cardKicker: en.Manifestos.cardKicker,
     cardTitle: manifesto.title,
     cardWho: en.Manifestos.cardWho.replace("{n}", String(monthNumber ?? "")),
-    cardBody: `${promiseStatuses.map((status) => `${en.Manifestos.statuses[status]} ${tally.counts[status]}`).join(". ")}. ${en.Manifestos.total} ${tally.total}.`,
+    cardBody: `${countedStatuses.map((status) => `${en.Manifestos.statuses[status]} ${tally.counts[status]}`).join(". ")}. ${en.Manifestos.total} ${tally.total}.`,
     cardHearing: en.Manifestos.asOf.replace("{date}", scorecardAsOfLabel),
     cardSource: en.Manifestos.cardSource,
     cardTeluguLine: en.Manifestos.cardTeluguLine,
@@ -69,7 +70,7 @@ export default async function ManifestoPage({
     cardKicker: te.Manifestos.cardKicker,
     cardTitle: manifesto.title,
     cardWho: te.Manifestos.cardWho.replace("{n}", String(monthNumber ?? "")),
-    cardBody: `${promiseStatuses.map((status) => `${te.Manifestos.statuses[status]} ${tally.counts[status]}`).join(". ")}. ${te.Manifestos.total} ${tally.total}.`,
+    cardBody: `${countedStatuses.map((status) => `${te.Manifestos.statuses[status]} ${tally.counts[status]}`).join(". ")}. ${te.Manifestos.total} ${tally.total}.`,
     cardHearing: te.Manifestos.asOf.replace("{date}", scorecardAsOfLabel),
     cardSource: te.Manifestos.cardSource,
     cardTeluguLine: te.Manifestos.cardTeluguLine,

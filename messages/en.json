@@ -36,7 +36,6 @@
     "statsCases": "Legal matters",
     "statsPromises": "Promises",
     "statsOrders": "Court orders linked",
-    "orderKaleshwaram": "Telangana High Court order on the Kaleshwaram commission report, 22 Apr 2026",
     "closerTitle": "Get closer to the people you elect, on the record.",
     "closerLede": "Follow your leaders, ask them questions in public and share what’s on record. Everything stays tied to sources, so a conversation never turns into a rumour.",
     "followTitle": "Follow",
@@ -292,6 +291,10 @@
   "CasesPage": {
     "title": "Legal cases",
     "intro": "A case is listed when a named newsroom has published its status. Registration, a chargesheet, and a discharge petition are steps in a case. They are not a finding that the person committed the act. Where a court has decided, the line says what the report says the court did, and whether the order itself was opened."
+  },
+  "ElectionsPage": {
+    "title": "Elections",
+    "intro": "Each election below is its own record. The figures are the Election Commission’s."
   },
   "Manifestos": {
     "title": "Manifestos",

@@ -20,12 +20,14 @@ export function Scorecard({
       <p>{monthLabel}</p>
       <p className="quiet">{asOfLabel}</p>
       <div className="scorecard-counts">
-        {counts.map((item) => (
-          <div key={item.key}>
-            <strong>{item.value}</strong>
-            <span>{item.label}</span>
-          </div>
-        ))}
+        {counts
+          .filter((item) => item.value > 0)
+          .map((item) => (
+            <div key={item.key}>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </div>
+          ))}
         <div>
           <strong>{total}</strong>
           <span>{totalLabel}</span>

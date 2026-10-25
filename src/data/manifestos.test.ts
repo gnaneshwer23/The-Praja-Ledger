@@ -93,6 +93,37 @@ test("Congress month 35 is counted from 7 Dec 2023 to 25 Oct 2026", () => {
   expect(termMonth({ year: 2023, month: 12, day: 7 }, { year: 2024, month: 1, day: 7 })).toBe(2);
 });
 
+test("the Congress scorecard hides a status whose count is zero", () => {
+  const congress = getManifesto("congress-2023");
+  expect(congress).toBeDefined();
+  if (!congress) return;
+  const tally = tallyOf(congress.promises);
+  const html = renderToStaticMarkup(
+    createElement(Scorecard, {
+      visible: true,
+      monthLabel: "Month 35 of 60",
+      asOfLabel: "As of 25 Oct 2026",
+      counts: promiseStatuses.map((status) => ({
+        key: status,
+        label: status,
+        value: tally.counts[status],
+      })),
+      totalLabel: "Total",
+      total: tally.total,
+    }),
+  );
+  expect(html).toContain("Month 35 of 60");
+  expect(html).toContain("Total");
+  expect(html).toContain(`>${tally.total}<`);
+  expect(html).toContain("partial");
+  expect(html).toContain("progress");
+  expect(html).toContain("unverified");
+  expect(html).not.toContain(">0<");
+  expect(html).not.toContain("delivered");
+  expect(html).not.toContain("notStarted");
+  expect(html).not.toContain("dropped");
+});
+
 test("Congress quotes are not compiled, and the leader page does not carry the tally", () => {
   const congress = getManifesto("congress-2023");
   expect(congress?.promises.every((promise) => promise.quote === null && promise.quotePage === null)).toBe(

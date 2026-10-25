@@ -24,12 +24,7 @@ export default async function HomePage({
   const promiseCount = compiledPromiseCount;
   const caseCount = entries.filter((entry) => entry.section === "cases").length;
   const week = thisWeekOnTheRecord(leaders, entries);
-  const courtOrders = [
-    {
-      href: "https://tshc.gov.in/documents/currentsection_2026_04_23T11_09_12.pdf",
-      label: t("orderKaleshwaram"),
-    },
-  ];
+  const courtOrders: { href: string; label: string }[] = [];
   const counters = [
     { key: "leaders", value: leaders.length, label: t("statsLeaders") },
     { key: "cases", value: caseCount, label: t("statsCases") },
