@@ -17,7 +17,7 @@
     "promises": "Promises",
     "ask": "Ask a leader",
     "method": "How we check",
-    "find": "Find my MLA",
+    "find": "Browse leaders",
     "language": "తెలుగు",
     "menu": "Sections"
   },
@@ -69,7 +69,7 @@
     "step4Body": "The answer appears on the leader’s page. No answer? The question stays up, showing how long it has waited.",
     "startTitle": "Start with your own constituency.",
     "startBody": "119 assembly seats and 17 Lok Sabha seats. This edition has a record for {count} leaders. The rest are not compiled yet.",
-    "startFind": "Find my constituency",
+    "startFind": "Browse leaders",
     "startClaim": "Leader’s office? Claim your page",
     "formulaTitle": "Formula E race payments",
     "formulaStatus": "Pending",
