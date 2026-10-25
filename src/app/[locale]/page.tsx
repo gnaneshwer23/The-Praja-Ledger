@@ -5,6 +5,7 @@ import { LeaderSearch } from "@/components/leader-search";
 import { QuestionPath } from "@/components/question-path";
 import { SourceKey } from "@/components/source-key";
 import { entries, leaders } from "@/data/ledger";
+import { formatRecordDate, thisWeekOnTheRecord } from "@/data/this-week";
 
 export default async function HomePage({
   params,
@@ -22,6 +23,7 @@ export default async function HomePage({
     (entry) => entry.section === "promises" && entry.id !== "PL-P-07",
   ).length;
   const caseCount = entries.filter((entry) => entry.section === "cases").length;
+  const week = thisWeekOnTheRecord(leaders, entries);
 
   return (
     <div className="landing">
@@ -68,6 +70,29 @@ export default async function HomePage({
         </div>
       </div>
       <div className="landing-rest" id="records">
+      <section className="section wrap week-on-record" aria-labelledby="week-title">
+        <h2 id="week-title">{t("weekTitle")}</h2>
+        <p className="week-rule">{t("weekRule")}</p>
+        <ul className="week-list">
+          {week.map((item) => {
+            const leader = leaders.find((person) => person.slug === item.leaderSlug);
+            const partyLabel = item.party === "others" ? t("weekOthers") : item.party;
+            return (
+              <li key={item.party}>
+                <span className="chip">{partyLabel}</span>
+                <Link href={`/leaders/${item.leaderSlug}`}>
+                  {locale === "te" ? leader?.nameTe : leader?.name}
+                  {". "}
+                  {item.entry.title}
+                </Link>
+                <time dateTime={item.changedOn.toISOString().slice(0, 10)}>
+                  {formatRecordDate(item.changedOn)}
+                </time>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
       <div className="wrap">
         <section className="stats" aria-label={t("kicker")}>
           <div>
