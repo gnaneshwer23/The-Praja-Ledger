@@ -5,6 +5,7 @@ export function rpcCode(message: string) {
   }
   if (text.includes("forbidden role")) return "forbidden";
   if (text.includes("reason required")) return "reason";
+  if (text.includes("page number")) return "page";
   if (text.includes("tier-1")) return "tier1_url";
   if (text.includes("https url")) return "url";
   if (text.includes("email refused")) return "email";

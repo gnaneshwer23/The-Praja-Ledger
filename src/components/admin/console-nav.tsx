@@ -20,6 +20,7 @@ export async function ConsoleNav({ role }: { role: StaffRole }) {
     );
   }
   links.push({ href: "/admin/retract", label: t("navRetract") });
+  links.push({ href: "/admin/affidavits", label: t("navAffidavits") });
   if (role === "admin") links.push({ href: "/admin/settings", label: t("navSettings") });
 
   return (

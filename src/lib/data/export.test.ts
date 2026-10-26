@@ -144,6 +144,35 @@ test("download names are limited to public files", () => {
   }
 });
 
+test("an affidavit row without a url or page stays out of the register", () => {
+  const body = snapshotBody({
+    affidavits: [
+      {
+        id: "1",
+        constituency_id: "ac-kodangal",
+        year: 2023,
+        page_number: 4,
+        source_url: "https://eci.gov.in/kept.pdf",
+        assets_inr: 10,
+      },
+      {
+        id: "2",
+        constituency_id: "ac-kodangal",
+        year: 2024,
+        page_number: null,
+        source_url: "https://eci.gov.in/missing-page.pdf",
+        assets_inr: 99,
+      },
+    ],
+    affidavit_changes: [
+      { id: "c1", label: "Imported change", formula: "1 - 0 = 1", constituency_id: "ac-kodangal" },
+    ],
+  });
+  expect(body).toContain("https://eci.gov.in/kept.pdf");
+  expect(body).not.toContain("missing-page.pdf");
+  expect(body).not.toContain("Imported change");
+});
+
 test("the snapshot job fails closed without a cron secret", () => {
   expect(cronAuthorized(undefined, "Bearer secret")).toBe(false);
   expect(cronAuthorized("  ", "Bearer secret")).toBe(false);

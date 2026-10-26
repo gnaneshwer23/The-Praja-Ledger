@@ -20,6 +20,8 @@ const TEXT_TIME: Record<string, string> = {
 };
 
 const ORDER_BY: Record<PublicView, string> = {
+  affidavit_changes: "x.earlier_year, x.later_year, x.id",
+  affidavits: "x.constituency_id, x.year, x.page_number, x.id",
   case_stages: "x.case_id, x.idx",
   cases: "x.slug, x.id",
   changelog: "x.id",
@@ -53,9 +55,21 @@ function jsonRows(value: unknown): unknown[] {
   throw new Error("public view did not return a list");
 }
 
+function missingAffidavitView(error: unknown, view: PublicView) {
+  if (view !== "affidavits" && view !== "affidavit_changes") return false;
+  if (!error || typeof error !== "object" || !("code" in error)) return false;
+  const code = String((error as { code: unknown }).code);
+  return code === "42P01" || code === "42703";
+}
+
 export async function queryView(client: Client, view: PublicView): Promise<unknown[]> {
-  const result = await client.query<{ rows: unknown }>(`select ${viewSql(view)} as rows`);
-  return jsonRows(result.rows[0]?.rows);
+  try {
+    const result = await client.query<{ rows: unknown }>(`select ${viewSql(view)} as rows`);
+    return jsonRows(result.rows[0]?.rows);
+  } catch (error) {
+    if (missingAffidavitView(error, view)) return [];
+    throw error;
+  }
 }
 
 export async function queryRegister(client: Client): Promise<unknown> {

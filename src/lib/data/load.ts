@@ -2,7 +2,14 @@ import { cacheLife, cacheTag } from "next/cache";
 import pg from "pg";
 import { entries, leaders } from "../../data/ledger";
 import { seats } from "../../data/constituencies";
-import { assembleEdition, type Edition, type PublishedReply, type PublicRows } from "./map";
+import {
+  assembleEdition,
+  type AffidavitChangeRow,
+  type AffidavitRow,
+  type Edition,
+  type PublishedReply,
+  type PublicRows,
+} from "./map";
 import { caseTag, constituencyTag, HOME_TAG, personTag } from "./tags";
 
 /**
@@ -39,6 +46,22 @@ const query = `
     coalesce((select json_agg(json_build_object('key', key, 'data', data)) from public.v_datasets), '[]'::json) as datasets
 `;
 
+function missingAffidavitSchema(error: unknown) {
+  if (!error || typeof error !== "object" || !("code" in error)) return false;
+  const code = String((error as { code: unknown }).code);
+  return code === "42P01" || code === "42703";
+}
+
+async function optionalRows<T>(client: pg.Client, sql: string): Promise<T[]> {
+  try {
+    const result = await client.query(sql);
+    return result.rows as T[];
+  } catch (error) {
+    if (missingAffidavitSchema(error)) return [];
+    throw error;
+  }
+}
+
 function withoutChannelBinding(url: string) {
   return url
     .replace(/([?&])channel_binding=[^&]*/g, "$1")
@@ -64,6 +87,30 @@ async function fetchRows(connectionString: string): Promise<{ rows: PublicRows; 
   await client.connect();
   try {
     const result = await client.query(query);
+    const rows = result.rows[0] as PublicRows;
+    rows.affidavits = await optionalRows<AffidavitRow>(client, `
+      select person_slug, constituency_id, election, year, assets_inr, liabilities_inr,
+        declared_cases, serious_cases, page_number, source_url, source_title, publisher,
+        to_char(published_on, 'YYYY-MM-DD') as published_on
+      from public.v_affidavits
+    `);
+    rows.affidavitChanges = await optionalRows<AffidavitChangeRow>(client, `
+      select person_slug, constituency_id, earlier_affidavit_id::text, later_affidavit_id::text,
+        earlier_year, later_year, assets_earlier_inr, assets_later_inr, assets_delta_inr,
+        liabilities_earlier_inr, liabilities_later_inr, liabilities_delta_inr,
+        declared_cases_earlier, declared_cases_later, declared_cases_delta,
+        serious_cases_earlier, serious_cases_later, serious_cases_delta, label
+      from public.v_affidavit_changes
+    `);
+    const reservations = await optionalRows<{ id: string; reservation_category: string | null }>(client, `
+      select id, reservation_category from public.v_constituencies
+    `);
+    if (reservations.length > 0) {
+      const byId = new Map(reservations.map((item) => [item.id, item.reservation_category]));
+      for (const seat of rows.constituencies) {
+        if (byId.has(seat.id)) seat.reservation_category = byId.get(seat.id) ?? null;
+      }
+    }
     let replies: PublishedReply[] = [];
     try {
       const replyRows = await client.query(
@@ -77,7 +124,7 @@ async function fetchRows(connectionString: string): Promise<{ rows: PublicRows; 
     } catch {
       replies = [];
     }
-    return { rows: result.rows[0] as PublicRows, replies };
+    return { rows, replies };
   } finally {
     await client.end();
   }

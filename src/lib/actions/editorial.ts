@@ -7,10 +7,11 @@ import { requireConsole, type StaffProfile } from "@/lib/auth/console";
 import { createServiceClient } from "@/lib/auth/service";
 import { CaptureError, readSourceDocument } from "./capture-url";
 import { revalidatePublished } from "./publish";
-import { tagsAfterEntrySave } from "./publish-tags";
+import { affidavitConfirmTarget, tagsAfterEntrySave } from "./publish-tags";
 import { rpcCode } from "./rpc-error";
 import {
   caseEventFormSchema,
+  confirmAffidavitSchema,
   constituencyFormSchema,
   entryFormSchema,
   issueCodes,
@@ -519,4 +520,23 @@ export async function saveSilenceWindow(formData: FormData) {
   });
   if (!saved.ok) return fail(locale, href, [saved.code]);
   redirect({ href: "/admin/settings?saved=1", locale });
+}
+
+export async function confirmAffidavit(formData: FormData) {
+  const locale = localeOf(formData);
+  const href = "/admin/affidavits";
+  const access = await requireConsole(locale);
+  const parsed = confirmAffidavitSchema.safeParse({
+    stageId: field(formData, "stageId"),
+    reason: field(formData, "reason"),
+  });
+  if (!parsed.success) return fail(locale, href, issueCodes(parsed.error));
+  const saved = await callRpc(access.supabase, "rpc_confirm_affidavit", {
+    p_stage_id: parsed.data.stageId.trim(),
+    p_reason: parsed.data.reason.trim(),
+  });
+  if (!saved.ok) return fail(locale, href, [saved.code]);
+  const target = affidavitConfirmTarget(saved.data);
+  if (target) revalidatePublished(target);
+  redirect({ href: "/admin/affidavits?saved=1", locale });
 }

@@ -278,6 +278,18 @@ export const silenceFormSchema = z
     reasonIssue(value.reason, "", ctx);
   });
 
+export const confirmAffidavitSchema = z
+  .object({
+    stageId: z.string(),
+    reason: z.string(),
+  })
+  .superRefine((value, ctx) => {
+    if (!uuidPattern.test(value.stageId.trim())) {
+      ctx.addIssue({ code: "custom", path: ["stageId"], message: "record" });
+    }
+    reasonIssue(value.reason, "", ctx);
+  });
+
 export function issueCodes(error: z.ZodError) {
   return [...new Set(error.issues.map((issue) => issue.message))];
 }

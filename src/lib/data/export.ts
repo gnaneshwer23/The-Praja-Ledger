@@ -2,6 +2,8 @@ import { createHash } from "node:crypto";
 
 /** Public views only. Contact emails, drafts, and audit payloads are not columns. */
 export const PUBLIC_VIEWS = [
+  "affidavit_changes",
+  "affidavits",
   "case_stages",
   "cases",
   "changelog",
@@ -19,6 +21,47 @@ export const PUBLIC_VIEWS = [
 export type PublicView = (typeof PUBLIC_VIEWS)[number];
 
 export const PUBLIC_COLUMNS = {
+  affidavit_changes: [
+    "id",
+    "person_id",
+    "person_slug",
+    "constituency_id",
+    "earlier_affidavit_id",
+    "later_affidavit_id",
+    "earlier_year",
+    "later_year",
+    "assets_earlier_inr",
+    "assets_later_inr",
+    "assets_delta_inr",
+    "liabilities_earlier_inr",
+    "liabilities_later_inr",
+    "liabilities_delta_inr",
+    "declared_cases_earlier",
+    "declared_cases_later",
+    "declared_cases_delta",
+    "serious_cases_earlier",
+    "serious_cases_later",
+    "serious_cases_delta",
+    "formula",
+    "label",
+  ],
+  affidavits: [
+    "id",
+    "person_id",
+    "person_slug",
+    "constituency_id",
+    "election",
+    "year",
+    "assets_inr",
+    "liabilities_inr",
+    "declared_cases",
+    "serious_cases",
+    "page_number",
+    "source_url",
+    "source_title",
+    "publisher",
+    "published_on",
+  ],
   case_stages: ["case_id", "idx", "label"],
   cases: ["id", "slug", "title", "summary", "party_id", "state", "events"],
   changelog: ["id", "at", "actor_name", "table_name", "row_id", "action", "reason"],
@@ -44,6 +87,24 @@ const PRIVATE_KEYS = new Set([
   "phone_number",
   "family",
   "family_details",
+  "aadhaar",
+  "aadhar",
+  "pan",
+  "bank",
+  "health",
+  "marriage",
+  "religion",
+  "caste",
+  "spouse",
+  "child",
+  "children",
+  "father",
+  "mother",
+  "wife",
+  "husband",
+  "son",
+  "daughter",
+  "relationship",
 ]);
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -150,6 +211,13 @@ function projectRow(view: PublicView, value: unknown): PublicRow | null {
   const raw = value as Record<string, unknown>;
   if (view === "entries" && raw.status !== "published") return null;
   if (view === "replies" && "status" in raw && raw.status !== "published") return null;
+  if (view === "affidavits") {
+    const page = raw.page_number;
+    const url = raw.source_url;
+    const pageOk = typeof page === "number" ? page >= 1 : typeof page === "string" && /^[1-9]\d*$/.test(page);
+    if (!pageOk || typeof url !== "string" || !url.startsWith("https://")) return null;
+  }
+  if (view === "affidavit_changes" && raw.label !== "Calculated by Praja Ledger") return null;
   if (view === "cases") {
     const events = projectEvents(raw.events);
     if (!events || events.length === 0) return null;

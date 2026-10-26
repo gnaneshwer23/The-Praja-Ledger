@@ -72,6 +72,9 @@ describe("public view assembly", () => {
     const kavitha = edition?.leaders.find((leader) => leader.slug === "k-kavitha");
     expect(kavitha?.party).toBe("Not compiled yet");
     expect(kavitha).not.toHaveProperty("affidavit");
+    expect(kavitha).not.toHaveProperty("reservationCategory");
+    expect(edition?.affidavits).toEqual([]);
+    expect(edition?.affidavitChanges).toEqual([]);
     const kaleshwaram = edition?.entries.find((entry) => entry.id === "PL-C-03");
     expect(kaleshwaram?.verify).toBe(true);
     expect(kaleshwaram?.sources.map((source) => source.url)).toEqual([
@@ -88,5 +91,78 @@ describe("public view assembly", () => {
     expect(gruha?.status).toBe("partial");
     expect(cheyutha?.status).toBe("unverified");
     expect(edition?.entries.some((entry) => entry.id === "PL-H-01")).toBe(true);
+  });
+
+  test("keeps a published affidavit with a url and page, and drops one without them", () => {
+    const edition = assembleEdition({
+      ...rows,
+      constituencies: [{ id: "ac-kodangal", kind: "AC", number: 72, name: "Kodangal", reservation_category: "SC" }],
+      affidavits: [
+        {
+          person_slug: "revanth-reddy",
+          constituency_id: "ac-kodangal",
+          election: "Assembly",
+          year: 2023,
+          assets_inr: 10,
+          liabilities_inr: null,
+          declared_cases: 1,
+          serious_cases: null,
+          page_number: 4,
+          source_url: "https://eci.gov.in/a.pdf",
+          source_title: "Affidavit",
+          publisher: "Election Commission of India",
+          published_on: "2023-11-30",
+        },
+        {
+          person_slug: "revanth-reddy",
+          constituency_id: "ac-kodangal",
+          election: "Assembly",
+          year: 2018,
+          assets_inr: 99,
+          liabilities_inr: 1,
+          declared_cases: 3,
+          serious_cases: 3,
+          page_number: null,
+          source_url: "https://eci.gov.in/missing-page.pdf",
+          source_title: null,
+          publisher: null,
+          published_on: null,
+        },
+      ],
+      affidavitChanges: [
+        {
+          person_slug: null,
+          constituency_id: "ac-kodangal",
+          earlier_affidavit_id: "early",
+          later_affidavit_id: "late",
+          earlier_year: 2018,
+          later_year: 2023,
+          assets_earlier_inr: 1,
+          assets_later_inr: 2,
+          assets_delta_inr: 1,
+          liabilities_earlier_inr: null,
+          liabilities_later_inr: null,
+          liabilities_delta_inr: null,
+          declared_cases_earlier: null,
+          declared_cases_later: null,
+          declared_cases_delta: null,
+          serious_cases_earlier: null,
+          serious_cases_later: null,
+          serious_cases_delta: null,
+          label: "Imported change",
+        },
+      ],
+    });
+    expect(edition?.seats.find((seat) => seat.id === "ac-kodangal")?.reservationCategory).toBe("SC");
+    expect(edition?.affidavits).toEqual([
+      expect.objectContaining({
+        sourceUrl: "https://eci.gov.in/a.pdf",
+        pageNumber: 4,
+        assetsInr: 10,
+      }),
+    ]);
+    expect(edition?.affidavitChanges).toEqual([]);
+    expect(edition?.leaders.find((leader) => leader.slug === "k-kavitha")?.party).toBe("Not compiled yet");
+    expect(edition?.entries.find((entry) => entry.id === "PL-C-03")?.verify).toBe(true);
   });
 });

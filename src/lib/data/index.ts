@@ -48,6 +48,16 @@ export async function getSeat(id: string) {
   return seats.find((seat) => seat.id === id);
 }
 
+export async function getAffidavits() {
+  const edition = await readPublicEdition();
+  return edition?.affidavits ?? [];
+}
+
+export async function getAffidavitChanges() {
+  const edition = await readPublicEdition();
+  return edition?.affidavitChanges ?? [];
+}
+
 export async function getManifestos() {
   const edition = await readPublicEdition();
   return edition?.manifestos ?? staticManifestos;

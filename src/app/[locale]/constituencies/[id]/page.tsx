@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { AffidavitSummary } from "@/components/affidavit-summary";
 import { Link } from "@/i18n/navigation";
 import { formatCount, seats, type ReservationCategory } from "@/data/constituencies";
-import { getLeader, getSeat } from "@/lib/data";
+import { getAffidavitChanges, getAffidavits, getEntriesByIds, getLeader, getSeat } from "@/lib/data";
 
 export function generateStaticParams() {
   return seats.map((seat) => ({ id: seat.id }));
@@ -49,6 +50,9 @@ async function SeatRecord({
   const t = await getTranslations("SeatPage");
   const profile = await getTranslations("Profile");
   const leader = seat.leaderSlug ? await getLeader(seat.leaderSlug) : undefined;
+  const records = leader ? await getEntriesByIds(leader.recordIds) : [];
+  const affidavits = (await getAffidavits()).filter((item) => item.constituencyId === seat.id);
+  const changes = (await getAffidavitChanges()).filter((item) => item.constituencyId === seat.id);
   const result = seat.sources[0];
 
   return (
@@ -106,6 +110,24 @@ async function SeatRecord({
           <p className="empty">{t("noDossier")}</p>
         )}
       </header>
+      <h2>{t("affidavit")}</h2>
+      {affidavits.length === 0 ? <p className="empty">{profile("missing")}</p> : (
+        <AffidavitSummary affidavits={affidavits} changes={[]} />
+      )}
+      <h2>{t("entries")}</h2>
+      {records.length === 0 ? <p className="empty">{profile("missing")}</p> : (
+        <ul className="sources">
+          {records.map((entry) => (
+            <li key={entry.id}>
+              <Link href={`/leaders/${leader?.slug}#${entry.id}`}>{entry.title}</Link>
+            </li>
+          ))}
+        </ul>
+      )}
+      <h2>{t("affidavitChange")}</h2>
+      {changes.length === 0 ? <p className="empty">{profile("missing")}</p> : (
+        <AffidavitSummary affidavits={[]} changes={changes} part="change" />
+      )}
       <h2>{t("sources")}</h2>
       <ul className="sources">
         {seat.sources.map((source) => (

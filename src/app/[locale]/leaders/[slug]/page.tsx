@@ -3,13 +3,14 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { AffidavitSummary } from "@/components/affidavit-summary";
 import { FollowButton } from "@/components/follow-button";
 import { RecordList } from "@/components/record-list";
 import { SourceKey } from "@/components/source-key";
 import { leaders } from "@/data/ledger";
 import { promisesForLeader } from "@/data/manifestos";
 import { profileBlockIds, recordsForBlock } from "@/data/profile";
-import { getEntriesByIds, getLeader, getManifesto } from "@/lib/data";
+import { getAffidavitChanges, getAffidavits, getEntriesByIds, getLeader, getManifesto } from "@/lib/data";
 
 export function generateStaticParams() {
   return leaders.map((leader) => ({ slug: leader.slug }));
@@ -52,6 +53,10 @@ async function LeaderRecord({
   const leader = await getLeader(slug);
   if (!leader) notFound();
   const records = await getEntriesByIds(leader.recordIds);
+  const affidavits = (await getAffidavits()).filter((item) => item.personSlug === leader.slug);
+  const changes = (await getAffidavitChanges()).filter((item) => item.personSlug === leader.slug);
+  const assetAffidavits = affidavits.filter((item) => item.assetsInr != null || item.liabilitiesInr != null);
+  const caseAffidavits = affidavits.filter((item) => item.declaredCases != null || item.seriousCases != null);
   const t = await getTranslations("Profile");
   const manifesto = await getTranslations("Manifestos");
   const congress = await getManifesto("congress-2023");
@@ -90,7 +95,11 @@ async function LeaderRecord({
       <SourceKey />
       {profileBlockIds.map((block) => {
         const blockRecords = recordsForBlock(records, block);
-        const filled = blockRecords.length > 0 || block === "office";
+        const filled = blockRecords.length > 0
+          || block === "office"
+          || (block === "assets" && assetAffidavits.length > 0)
+          || (block === "cases" && caseAffidavits.length > 0)
+          || (block === "affidavitChange" && changes.length > 0);
         return (
           <section key={block} className="profile-block" id={block}>
             <h2>{t(`blocks.${block}`)}</h2>
@@ -114,6 +123,15 @@ async function LeaderRecord({
             ) : null}
             {blockRecords.length > 0 ? (
               <RecordList entries={blockRecords} showFormulaStage={block === "cases"} />
+            ) : null}
+            {block === "assets" && assetAffidavits.length > 0 ? (
+              <AffidavitSummary affidavits={assetAffidavits} changes={[]} part="assets" />
+            ) : null}
+            {block === "cases" && caseAffidavits.length > 0 ? (
+              <AffidavitSummary affidavits={caseAffidavits} changes={[]} part="cases" />
+            ) : null}
+            {block === "affidavitChange" && changes.length > 0 ? (
+              <AffidavitSummary affidavits={[]} changes={changes} part="change" />
             ) : null}
             {block === "minister" && linkedPromises.length > 0 ? (
               <>

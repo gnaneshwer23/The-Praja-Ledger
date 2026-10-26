@@ -1,4 +1,4 @@
-import { seats as staticSeats, type Seat } from "../../data/constituencies";
+import { seats as staticSeats, type ReservationCategory, type Seat } from "../../data/constituencies";
 import {
   entries as staticEntries,
   leaders as staticLeaders,
@@ -88,8 +88,92 @@ export type PublicRows = {
   sources: SourceRow[];
   cases: { slug: string }[];
   promises: { external_id: string | null; current_status: string | null }[];
-  constituencies: { id: string; kind: string; number: number; name: string }[];
+  constituencies: {
+    id: string;
+    kind: string;
+    number: number;
+    name: string;
+    reservation_category?: string | null;
+  }[];
   datasets: { key: string; data: unknown }[];
+  affidavits?: AffidavitRow[];
+  affidavitChanges?: AffidavitChangeRow[];
+};
+
+export type AffidavitRow = {
+  person_slug: string | null;
+  constituency_id: string | null;
+  election: string | null;
+  year: number | string | null;
+  assets_inr: number | string | null;
+  liabilities_inr: number | string | null;
+  declared_cases: number | string | null;
+  serious_cases: number | string | null;
+  page_number: number | string | null;
+  source_url: string | null;
+  source_title: string | null;
+  publisher: string | null;
+  published_on: string | null;
+};
+
+export type AffidavitChangeRow = {
+  person_slug: string | null;
+  constituency_id: string | null;
+  earlier_affidavit_id: string | null;
+  later_affidavit_id: string | null;
+  earlier_year: number | string | null;
+  later_year: number | string | null;
+  assets_earlier_inr: number | string | null;
+  assets_later_inr: number | string | null;
+  assets_delta_inr: number | string | null;
+  liabilities_earlier_inr: number | string | null;
+  liabilities_later_inr: number | string | null;
+  liabilities_delta_inr: number | string | null;
+  declared_cases_earlier: number | string | null;
+  declared_cases_later: number | string | null;
+  declared_cases_delta: number | string | null;
+  serious_cases_earlier: number | string | null;
+  serious_cases_later: number | string | null;
+  serious_cases_delta: number | string | null;
+  label: string | null;
+};
+
+export type PublishedAffidavit = {
+  personSlug: string | null;
+  constituencyId: string;
+  election: string;
+  year: number;
+  assetsInr: number | null;
+  liabilitiesInr: number | null;
+  declaredCases: number | null;
+  seriousCases: number | null;
+  pageNumber: number;
+  sourceUrl: string;
+  sourceTitle: string;
+  publisher: string;
+  publishedOn: string;
+};
+
+export type PublishedAffidavitChange = {
+  personSlug: string | null;
+  constituencyId: string;
+  earlierAffidavitId: string;
+  laterAffidavitId: string;
+  earlierYear: number;
+  laterYear: number;
+  assetsEarlierInr: number | null;
+  assetsLaterInr: number | null;
+  assetsDeltaInr: number | null;
+  liabilitiesEarlierInr: number | null;
+  liabilitiesLaterInr: number | null;
+  liabilitiesDeltaInr: number | null;
+  declaredCasesEarlier: number | null;
+  declaredCasesLater: number | null;
+  declaredCasesDelta: number | null;
+  seriousCasesEarlier: number | null;
+  seriousCasesLater: number | null;
+  seriousCasesDelta: number | null;
+  label: "Calculated by Praja Ledger";
 };
 
 export type FinanceTables = {
@@ -112,6 +196,8 @@ export type Edition = {
   finance: FinanceTables;
   courtOrders: { href: string; label: string }[];
   replies: PublishedReply[];
+  affidavits: PublishedAffidavit[];
+  affidavitChanges: PublishedAffidavitChange[];
 };
 
 export const compiledFinance: FinanceTables = {
@@ -303,12 +389,14 @@ export function assembleEdition(rows: PublicRows): Edition | null {
     })
     .map((seat) => {
       const compiled = seatById.get(seat.id);
+      const reservationCategory = reservationOf(seat.reservation_category) ?? compiled?.reservationCategory;
       if (!compiled) {
         return {
           id: seat.id,
           kind: seat.kind as Seat["kind"],
           number: seat.number,
           name: seat.name,
+          reservationCategory,
           memberName: "Not compiled yet",
           party: "Not compiled yet",
           sources: [],
@@ -319,6 +407,7 @@ export function assembleEdition(rows: PublicRows): Edition | null {
         kind: seat.kind as Seat["kind"],
         number: seat.number,
         name: seat.name,
+        reservationCategory,
       };
     });
 
@@ -349,5 +438,88 @@ export function assembleEdition(rows: PublicRows): Edition | null {
     finance,
     courtOrders: linkedCourtOrders(rows.sources),
     replies: [],
+    affidavits: publishedAffidavits(rows.affidavits ?? []),
+    affidavitChanges: publishedChanges(rows.affidavitChanges ?? []),
   };
+}
+
+function reservationOf(value: string | null | undefined): ReservationCategory | undefined {
+  if (value === "General" || value === "SC" || value === "ST") return value;
+  return undefined;
+}
+
+function whole(value: number | string | null | undefined) {
+  if (typeof value === "number" && Number.isSafeInteger(value)) return value;
+  if (typeof value === "string" && /^-?\d+$/.test(value)) {
+    const parsed = Number(value);
+    if (Number.isSafeInteger(parsed)) return parsed;
+  }
+  return null;
+}
+
+function nonNegative(value: number | string | null | undefined) {
+  const parsed = whole(value);
+  if (parsed == null || parsed < 0) return null;
+  return parsed;
+}
+
+function publishedAffidavits(rows: AffidavitRow[]): PublishedAffidavit[] {
+  return rows.flatMap((row) => {
+    const sourceUrl = row.source_url?.trim() ?? "";
+    const pageNumber = nonNegative(row.page_number);
+    const year = nonNegative(row.year);
+    const constituencyId = row.constituency_id?.trim() ?? "";
+    const election = row.election?.trim() ?? "";
+    if (!sourceUrl.startsWith("https://") || pageNumber == null || pageNumber < 1) return [];
+    if (!constituencyId || !election || year == null) return [];
+    return [{
+      personSlug: row.person_slug?.trim() || null,
+      constituencyId,
+      election,
+      year,
+      assetsInr: nonNegative(row.assets_inr),
+      liabilitiesInr: nonNegative(row.liabilities_inr),
+      declaredCases: nonNegative(row.declared_cases),
+      seriousCases: nonNegative(row.serious_cases),
+      pageNumber,
+      sourceUrl,
+      sourceTitle: row.source_title?.trim() || "",
+      publisher: row.publisher?.trim() || "",
+      publishedOn: row.published_on?.trim() || "",
+    }];
+  });
+}
+
+function publishedChanges(rows: AffidavitChangeRow[]): PublishedAffidavitChange[] {
+  return rows.flatMap((row) => {
+    const earlierYear = nonNegative(row.earlier_year);
+    const laterYear = nonNegative(row.later_year);
+    const constituencyId = row.constituency_id?.trim() ?? "";
+    const earlierAffidavitId = row.earlier_affidavit_id?.trim() ?? "";
+    const laterAffidavitId = row.later_affidavit_id?.trim() ?? "";
+    if (row.label !== "Calculated by Praja Ledger") return [];
+    if (!constituencyId || !earlierAffidavitId || !laterAffidavitId) return [];
+    if (earlierYear == null || laterYear == null || earlierYear === laterYear) return [];
+    return [{
+      personSlug: row.person_slug?.trim() || null,
+      constituencyId,
+      earlierAffidavitId,
+      laterAffidavitId,
+      earlierYear,
+      laterYear,
+      assetsEarlierInr: nonNegative(row.assets_earlier_inr),
+      assetsLaterInr: nonNegative(row.assets_later_inr),
+      assetsDeltaInr: whole(row.assets_delta_inr),
+      liabilitiesEarlierInr: nonNegative(row.liabilities_earlier_inr),
+      liabilitiesLaterInr: nonNegative(row.liabilities_later_inr),
+      liabilitiesDeltaInr: whole(row.liabilities_delta_inr),
+      declaredCasesEarlier: nonNegative(row.declared_cases_earlier),
+      declaredCasesLater: nonNegative(row.declared_cases_later),
+      declaredCasesDelta: whole(row.declared_cases_delta),
+      seriousCasesEarlier: nonNegative(row.serious_cases_earlier),
+      seriousCasesLater: nonNegative(row.serious_cases_later),
+      seriousCasesDelta: whole(row.serious_cases_delta),
+      label: "Calculated by Praja Ledger",
+    }];
+  });
 }
