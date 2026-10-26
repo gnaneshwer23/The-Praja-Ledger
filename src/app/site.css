@@ -1435,7 +1435,76 @@ html[lang="te"] .site-main:not(:has(.landing)) h1 {
   min-width: 0;
 }
 
+.admin-sheet {
+  background: #f7faf7;
+  color: #141414;
+  padding: 1.25rem 1.4rem 2rem;
+  border-radius: 0.4rem;
+}
+
+.admin-sheet form,
+.admin-signin form {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 40rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.admin-sheet label,
+.admin-signin label {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.admin-sheet input,
+.admin-sheet select,
+.admin-sheet textarea,
+.admin-signin input {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+}
+
+.admin-sheet textarea {
+  min-height: 8rem;
+}
+
+.admin-sheet button,
+.admin-signin button {
+  justify-self: start;
+}
+
+.admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.1rem;
+  margin: 1rem 0 1.4rem;
+}
+
+.admin-nav a {
+  text-decoration: none;
+}
+
+.admin-sheet .diff {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.admin-sheet .queue {
+  margin: 0 0 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--pl-line);
+}
+
+.admin-sheet [role="alert"] {
+  color: #6b1d1d;
+}
+
 @media (max-width: 800px) {
+  .admin-sheet .diff {
+    grid-template-columns: 1fr;
+  }
+
   .stages {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
