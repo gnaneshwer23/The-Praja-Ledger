@@ -28,6 +28,7 @@ export function SiteHeader({ locale }: { locale: string }) {
           <Link
             key={item.href}
             href={item.href}
+            className={item.key === "chat" ? "nav-chat" : undefined}
             aria-current={path.startsWith(item.href) ? "page" : undefined}
           >
             {t(item.key)}

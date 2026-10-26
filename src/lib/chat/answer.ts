@@ -13,12 +13,17 @@ export type RegisterAnswer =
   | { status: "missing"; passages: [] }
   | { status: "cited"; passages: CitedPassage[] };
 
-export type ChatState = {
-  status: "idle" | "empty" | "missing" | "cited";
+export type ChatTurn = {
+  question: string;
+  status: "empty" | "missing" | "cited";
   passages: CitedPassage[];
 };
 
-export const idleChatState: ChatState = { status: "idle", passages: [] };
+export type ChatState = {
+  turns: ChatTurn[];
+};
+
+export const idleChatState: ChatState = { turns: [] };
 
 const STOP = new Set([
   "a",
@@ -87,6 +92,11 @@ const STOP = new Set([
   "say",
   "says",
   "said",
+  "record",
+  "records",
+  "register",
+  "compiled",
+  "ledger",
 ]);
 
 const ADVICE =

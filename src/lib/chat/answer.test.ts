@@ -22,6 +22,12 @@ test("Formula E and Kodangal cite compiled lines only", () => {
   const formula = answerQuestion("Formula E", passages);
   expect(formula.status).toBe("cited");
   expect(formula.passages.some((passage) => passage.id === "PL-C-01")).toBe(true);
+  expect(formula.passages.some((passage) => passage.href === "/cases/formula-e")).toBe(true);
+
+  const asked = answerQuestion("What is on record about Formula E?", passages);
+  expect(asked.status).toBe("cited");
+  expect(asked.passages.some((passage) => passage.id === "PL-C-01")).toBe(true);
+  expect(asked.passages.some((passage) => passage.id === "PL-H-02")).toBe(false);
 
   const kodangal = answerQuestion("Kodangal", passages);
   expect(kodangal.status).toBe("cited");

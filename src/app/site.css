@@ -1257,6 +1257,123 @@ html[lang="te"] .campaign-aside h3 {
   padding: 0;
 }
 
+.register-chat {
+  display: grid;
+  gap: 1rem;
+  background: #fff;
+  color: #141414;
+  border: 1px solid #c5d2cb;
+  border-top: 4px solid #0b3a86;
+  border-radius: 0.8rem;
+  padding: 1.15rem 1.2rem 1.25rem;
+}
+
+.register-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.register-bubble {
+  max-width: min(36rem, 100%);
+  padding: 0.8rem 0.95rem;
+  border-radius: 0.9rem;
+  background: #f4f7ea;
+  color: #141414;
+  border: 1px solid #c5d2cb;
+}
+
+.register-bubble p {
+  margin: 0.35rem 0 0;
+  color: #141414;
+}
+
+.register-bubble p:first-child,
+.register-bubble .register-who {
+  margin-top: 0;
+}
+
+.register-bubble.is-you {
+  align-self: end;
+  background: #e7efc2;
+  border-color: #c9d48a;
+}
+
+.register-who {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #3d4c52;
+}
+
+.register-meta {
+  color: #3d4c52;
+  font-size: 0.92rem;
+}
+
+.register-chat a {
+  color: #0b3a86;
+  font-weight: 600;
+}
+
+.register-composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.55rem 0.7rem;
+  align-items: end;
+}
+
+.register-composer label {
+  grid-column: 1 / -1;
+  color: #141414;
+}
+
+.register-composer textarea {
+  width: 100%;
+  min-height: 3.4rem;
+  border: 1px solid #c5d2cb;
+  background: #fff;
+  color: #141414;
+  border-radius: 0.45rem;
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+}
+
+.register-composer .ink-button:disabled {
+  opacity: 0.7;
+}
+
+.campaign-nav a.nav-chat {
+  border: 1px solid #0c2744;
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font-weight: 600;
+  color: #0c2744;
+}
+
+.chat-home {
+  margin: 0.85rem 0 0;
+}
+
+.chat-home .ghost,
+.campaign-aside .chat-home .ghost {
+  display: inline-block;
+  background: #fff;
+  color: #141414;
+  border-color: #141414;
+}
+
+@media (max-width: 640px) {
+  .register-composer {
+    grid-template-columns: 1fr;
+  }
+
+  .register-composer .ink-button {
+    justify-self: start;
+  }
+}
+
 .landing-rest {
   background: #eef3df;
   color: #141414;

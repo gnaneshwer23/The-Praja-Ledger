@@ -52,7 +52,9 @@ export default async function HomePage({
             <Link href="/manifestos">{nav("promises")}</Link>
             <Link href="/ask">{nav("ask")}</Link>
             <Link href="/method">{nav("method")}</Link>
-            <Link href="/chat">{nav("chat")}</Link>
+            <Link href="/chat" className="nav-chat">
+              {nav("chat")}
+            </Link>
             <Link href="/" locale={locale === "te" ? "en" : "te"} className="campaign-lang">
               {nav("language")}
             </Link>
@@ -79,6 +81,11 @@ export default async function HomePage({
                   office: leader.office,
                 }))}
               />
+              <p className="chat-home">
+                <Link href="/chat" className="ghost">
+                  {nav("chat")}
+                </Link>
+              </p>
             </div>
             <aside className="campaign-aside" aria-labelledby="check-title">
               <h2 id="check-title">{t("checkTitle")}</h2>
@@ -103,8 +110,10 @@ export default async function HomePage({
                   </time>
                 </div>
               ) : null}
-              <p>
-                <Link href="/chat">{nav("chat")}</Link>
+              <p className="chat-home">
+                <Link href="/chat" className="ghost">
+                  {nav("chat")}
+                </Link>
               </p>
             </aside>
           </div>
