@@ -21,9 +21,18 @@ export default async function PrivacyPage({
   const t = await getTranslations("Privacy");
 
   return (
-    <article className="intro">
-      <h1>{t("title")}</h1>
-      <p>{t("body")}</p>
+    <article>
+      <header className="intro">
+        <h1>{t("title")}</h1>
+        <p>{t("holdNote")}</p>
+      </header>
+      <ul className="hold-board">
+        <li><strong>{t("holdAddress")}</strong></li>
+        <li><strong>{t("holdPhone")}</strong></li>
+        <li><strong>{t("holdIdentity")}</strong></li>
+        <li><strong>{t("holdFamily")}</strong></li>
+      </ul>
+      <p className="panel">{t("accounts")}</p>
     </article>
   );
 }

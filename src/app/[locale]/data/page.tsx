@@ -50,7 +50,12 @@ export default async function DataPage({
       </ul>
 
       <h2>{t("verifyTitle")}</h2>
-      <p>{t("verifyBody")}</p>
+      <ol className="step-board">
+        <li><p>{t("verifySave")}</p></li>
+        <li><p>{t("verifySnapshots")}</p></li>
+        <li><p>{t("verifyRun")}</p></li>
+        <li><p>{t("verifyMatch")}</p></li>
+      </ol>
       <pre><code>{t("verifyCommand")}</code></pre>
 
       <h2>{t("snapshotsTitle")}</h2>

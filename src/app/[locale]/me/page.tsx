@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppNav } from "@/components/app-nav";
+import { RegisterMark } from "@/components/civic-icons";
 
 export default async function MePage({
   params,
@@ -12,7 +13,8 @@ export default async function MePage({
 
   return (
     <>
-      <article>
+      <article className="panel me-panel">
+        <RegisterMark kind="leaders" />
         <h1>{t("title")}</h1>
         <p className="lede">{t("body")}</p>
       </article>

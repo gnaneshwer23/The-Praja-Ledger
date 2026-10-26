@@ -15,10 +15,10 @@ export function SavedList() {
   }, []);
 
   return (
-    <section>
+    <section className="panel">
       <h1>{t("title")}</h1>
-      {paths.length === 0 ? <p>{t("empty")}</p> : null}
-      <ul>
+      {paths.length === 0 ? <p className="empty">{t("empty")}</p> : null}
+      <ul className="index">
         {paths.map((path) => (
           <li key={path}>
             <Link href={path}>

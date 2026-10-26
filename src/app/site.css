@@ -264,6 +264,7 @@ a:hover {
 
 .record-card {
   background: var(--pl-card);
+  border: 1px solid #b7c4bc;
   border-radius: 0.7rem;
   padding: 0.95rem 1rem 1rem;
 }
@@ -419,8 +420,11 @@ a:hover {
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--pl-line);
-  border-bottom: 1px solid var(--pl-line);
+  margin-top: 1.25rem;
+  background: #fff;
+  border: 1px solid #c5d2cb;
+  border-radius: 0.8rem;
+  overflow: hidden;
 }
 
 .stats div {
@@ -444,7 +448,7 @@ a:hover {
 }
 
 .section {
-  padding: 4rem 0;
+  padding: 2.6rem 0;
 }
 
 .section h2 {
@@ -462,8 +466,17 @@ a:hover {
 
 .plain-card {
   background: white;
+  border: 1px solid #c5d2cb;
+  border-top: 3px solid #0b3a86;
   border-radius: 0.7rem;
   padding: 1.1rem 1.15rem 1.2rem;
+}
+
+.rules article {
+  background: #fff;
+  border-radius: 0.7rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border-top: 3px solid #0b3a86;
 }
 
 .plain-card h3,
@@ -490,9 +503,15 @@ a:hover {
   flex-wrap: wrap;
   gap: 0.7rem 1.1rem;
   margin: 0.8rem 0 0;
-  padding: 0;
+  padding: 0.65rem 0.85rem;
   list-style: none;
   font-size: 0.92rem;
+  background: #fff;
+  color: #141414;
+  border: 1px solid var(--pl-line);
+  border-radius: 0.65rem;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .legend li {
@@ -818,6 +837,7 @@ a:hover {
   font-size: clamp(2.8rem, 6vw, 4.5rem);
   line-height: 0.98;
   font-weight: 600;
+  color: #f4f7e8;
 }
 
 .share-page .back {
@@ -925,6 +945,8 @@ a:hover {
 
 .facts div {
   background: white;
+  border: 1px solid var(--pl-line);
+  border-top: 3px solid #0b3a86;
   border-radius: 0.6rem;
   padding: 0.8rem;
 }
@@ -945,6 +967,12 @@ a:hover {
   display: grid;
   gap: 0.8rem;
   max-width: 40rem;
+  background: #fff;
+  color: #141414;
+  border: 1px solid #c5d2cb;
+  border-top: 4px solid #0b3a86;
+  border-radius: 0.8rem;
+  padding: 1.15rem 1.2rem 1.25rem;
 }
 
 .comment-row {
@@ -1056,8 +1084,7 @@ a:hover {
 
 .campaign-card {
   position: relative;
-  min-height: calc(100vh - 2.2rem);
-  padding: 1.3rem 1.6rem 2.4rem;
+  padding: 1.3rem 1.6rem 2.2rem;
   background: linear-gradient(105deg, #e7efc2 0%, #d4df96 46%, #e3e59a 100%);
   color: #141414;
   overflow: hidden;
@@ -1150,7 +1177,8 @@ a:hover {
 .landing-rest {
   background: #eef3df;
   color: #141414;
-  padding: 2.5rem 0 0;
+  padding: 1.6rem 0 0;
+  border-top: 0.55rem solid #040e21;
 }
 
 .coming-next {
@@ -1161,6 +1189,14 @@ a:hover {
 .week-rule {
   margin: 0.2rem 0 0.9rem;
   font-size: 0.82rem;
+}
+
+.week-on-record {
+  background: #fff;
+  border: 1px solid #c5d2cb;
+  border-top: 4px solid #0b3a86;
+  border-radius: 0.8rem;
+  padding: 1.35rem 1.3rem 1.2rem;
 }
 
 .week-list {
@@ -1199,8 +1235,8 @@ a:hover {
 }
 
 @media (max-width: 980px) {
-  .campaign-nav a:not(.campaign-brand):not(.campaign-cta):not(.campaign-lang) {
-    display: none;
+  .campaign-nav {
+    align-items: center;
   }
 
   .campaign-hero,
@@ -1311,7 +1347,7 @@ a:hover {
   margin-inline: auto;
 }
 
-html[lang="en"] .site-main:not(:has(.landing)) h1 {
+html[lang="en"] .site-main:not(:has(.landing)):not(:has(.share-page)) h1 {
   margin: 0;
   font-family: var(--font-poster), sans-serif;
   font-weight: 400;
@@ -1322,7 +1358,7 @@ html[lang="en"] .site-main:not(:has(.landing)) h1 {
   overflow-wrap: anywhere;
 }
 
-html[lang="te"] .site-main:not(:has(.landing)) h1 {
+html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) h1 {
   margin: 0;
   font-family: var(--font-telugu), serif;
   font-weight: 600;
@@ -1333,8 +1369,8 @@ html[lang="te"] .site-main:not(:has(.landing)) h1 {
   overflow-wrap: anywhere;
 }
 
-html[lang="en"] .site-main .admin-sheet h1,
-html[lang="te"] .site-main .admin-sheet h1 {
+html[lang="en"] .site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro, .panel, .ask-form, .question-page, .admin-sheet, .app-screen) h1,
+html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro, .panel, .ask-form, .question-page, .admin-sheet, .app-screen) h1 {
   color: #0b3a86;
 }
 
@@ -1348,15 +1384,19 @@ html[lang="te"] .site-main .admin-sheet h1 {
   .table-note,
   .lede,
   .stages small,
-  .ghost,
-  .text-button,
-  .empty
+  .text-button
 ) {
-  color: #e7eed4;
+  color: #d5e0c4;
 }
 
 .site-main:not(:has(.landing)):not(:has(.share-page)) .ghost {
-  border-color: rgba(231, 238, 212, 0.75);
+  color: #e7eed4;
+  border-color: #e7eed4;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro, .panel, .profile-block, .ask-form, .admin-sheet) .ghost {
+  color: #141414;
+  border-color: #141414;
 }
 
 .site-main:not(:has(.landing)):not(:has(.share-page)) .chip {
@@ -1364,20 +1404,11 @@ html[lang="te"] .site-main .admin-sheet h1 {
 }
 
 .site-main:not(:has(.landing)):not(:has(.share-page)) .read-line summary {
-  color: #e7eed4;
+  color: var(--pl-teal);
 }
 
 .site-main:not(:has(.landing)):not(:has(.share-page)) .read-line summary:hover {
-  color: #f4f7e8;
-}
-
-.site-main:not(:has(.landing)):not(:has(.share-page)) .stages .done span {
-  background: #e7eed4;
-  border-color: #e7eed4;
-}
-
-.site-main:not(:has(.landing)):not(:has(.share-page)) .stages .now small {
-  color: #f4f7e8;
+  color: #102028;
 }
 
 .site-main:not(:has(.landing)):not(:has(.share-page)) :is(
@@ -1389,7 +1420,19 @@ html[lang="te"] .site-main .admin-sheet h1 {
   .plain-card,
   .scorecard-counts div,
   .sheet-panel,
-  .search-results
+  .search-results,
+  .intro,
+  .panel,
+  .profile-block,
+  .ask-form,
+  .question-page,
+  .public-form,
+  .scorecard,
+  .index,
+  .legend,
+  .table-block,
+  .app-screen,
+  pre
 ) {
   color: #141414;
 }
@@ -1404,7 +1447,18 @@ html[lang="te"] .site-main .admin-sheet h1 {
   .scorecard-counts div,
   .sheet-panel,
   .admin-sheet,
-  .search-results
+  .search-results,
+  .intro,
+  .panel,
+  .profile-block,
+  .ask-form,
+  .question-page,
+  .public-form,
+  .scorecard,
+  .index,
+  .legend,
+  .table-block,
+  .app-screen
 ) :is(.quiet, .kicker, .leader-office, .sources, .record-cite, .table-note, .lede, .text-button) {
   color: var(--pl-quiet);
 }
@@ -1439,7 +1493,7 @@ html[lang="te"] .site-main .admin-sheet h1 {
 }
 
 .site-main:not(:has(.landing)):not(:has(.share-page)) [role="alert"] {
-  color: #f3d0d0;
+  color: #6b1d1d;
 }
 
 .site-main:not(:has(.landing)):not(:has(.share-page)) :is(.admin-sheet, .record, .sheet-panel, .leader-card) [role="alert"] {
@@ -1484,9 +1538,9 @@ html[lang="te"] .site-main .admin-sheet h1 {
 }
 
 .site-main .feed-card.claim {
-  background: transparent;
-  border: 1px dashed rgba(231, 238, 212, 0.65);
-  color: #e7eed4;
+  background: #fff;
+  border: 1px dashed #141414;
+  color: #141414;
 }
 
 .site-main .manifesto-list {
@@ -1515,17 +1569,18 @@ html[lang="te"] .site-main .admin-sheet h1 {
 .site-main .app-screen {
   width: min(42rem, 100%);
   margin-bottom: 5.5rem;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  overflow: visible;
+  background: #f7faf7;
+  color: #141414;
+  border: 1px solid #c5d2cb;
+  border-radius: 1.1rem;
+  overflow: hidden;
 }
 
 .site-main .app-top,
 .site-main .app-tabs {
-  background: transparent;
-  padding-left: 0;
-  padding-right: 0;
+  background: #fff;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .site-main .app-top h1 {
@@ -1533,7 +1588,7 @@ html[lang="te"] .site-main .admin-sheet h1 {
 }
 
 .app-nav {
-  background: #eef3df;
+  background: #fff;
   border-top: 1px solid rgba(4, 14, 33, 0.16);
 }
 
@@ -1560,6 +1615,12 @@ html[lang="te"] .site-main .admin-sheet h1 {
   gap: 0.75rem;
   max-width: 40rem;
   margin: 0.8rem 0 1.2rem;
+  background: #fff;
+  color: #141414;
+  border: 1px solid #c5d2cb;
+  border-top: 4px solid #0b3a86;
+  border-radius: 0.8rem;
+  padding: 1.1rem 1.15rem 1.2rem;
 }
 
 .public-form label {
@@ -1667,6 +1728,239 @@ html[lang="te"] .site-main .admin-sheet h1 {
   color: #6b1d1d;
 }
 
+.site-main:not(:has(.landing)):not(:has(.share-page)) h2 {
+  margin: 1.7rem 0 0.55rem;
+  padding-top: 0.8rem;
+  border-top: 3px solid #d4df96;
+  font-family: var(--font-petrona), serif;
+  font-weight: 600;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  line-height: 1.25;
+  color: #e7efc2;
+}
+
+html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) h2 {
+  font-family: var(--font-telugu), serif;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) :is(
+  .record,
+  .feed-card,
+  .manifesto-list,
+  .plain-card,
+  .leader-card,
+  .sheet-panel,
+  .admin-sheet,
+  .scorecard,
+  .promise-fields,
+  .status-board,
+  .rule-board,
+  .freeze-board,
+  .intro,
+  .panel,
+  .profile-block,
+  .ask-form,
+  .question-page,
+  .public-form,
+  .app-screen,
+  .index
+) h2 {
+  margin: 0 0 0.35rem;
+  padding-top: 0;
+  border-top: 0;
+  font-size: 1.15rem;
+  color: #10283f;
+  letter-spacing: 0;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .stages .now small {
+  color: #f4f7e8;
+  font-weight: 600;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro, .record, .feed-card, .app-screen) .stages small {
+  color: #3d4c52;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro, .record, .feed-card, .app-screen) .stages .now small {
+  color: #141414;
+}
+
+.site-main .index {
+  background: #fff;
+  color: #141414;
+  border: 1px solid var(--pl-line);
+  border-radius: 0.7rem;
+  padding: 0.2rem 1rem;
+}
+
+.site-main .table-block,
+.site-main pre {
+  background: #fff;
+  border: 1px solid var(--pl-line);
+  border-radius: 0.7rem;
+  padding: 0.9rem 1rem 1rem;
+}
+
+.site-main pre {
+  overflow-x: auto;
+  color: #141414;
+}
+
+.site-main .profile-block > .sources {
+  background: #fff;
+  border: 1px solid var(--pl-line);
+  border-radius: 0.65rem;
+  padding: 0.7rem 0.9rem;
+}
+
+.site-main:not(:has(.admin-sheet)) > .empty,
+.profile-block > .empty {
+  display: block;
+  background: #fff;
+  border: 1px dashed #8ea099;
+  border-radius: 0.65rem;
+  padding: 0.75rem 0.9rem;
+  color: #141414;
+}
+
+.promise-fields {
+  grid-template-columns: 1fr 1fr;
+}
+
+.promise-fields > section {
+  background: #fff;
+  border: 1px solid var(--pl-line);
+  border-radius: 0.7rem;
+  padding: 0.85rem 0.95rem 1rem;
+}
+
+.promise-fields > section:first-child,
+.promise-fields > section:has(.records),
+.promise-fields > section:last-child {
+  grid-column: 1 / -1;
+}
+
+.site-main .promise-fields h2 {
+  margin: 0 0 0.35rem;
+  padding-top: 0;
+  border-top: 0;
+  font-family: var(--font-noto), var(--font-telugu-ui), sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #0e6f7a;
+  letter-spacing: 0;
+}
+
+html[lang="te"] .promise-fields h2 {
+  font-family: var(--font-telugu-ui), var(--font-telugu), sans-serif;
+}
+
+.doc-key,
+.word-key,
+.seat-key {
+  list-style: none;
+  display: grid;
+  gap: 0.7rem;
+  margin: 0.8rem 0 0.9rem;
+  padding: 0;
+}
+
+.doc-key,
+.word-key {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.word-key {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.seat-key {
+  grid-template-columns: repeat(2, minmax(0, 9rem));
+}
+
+.doc-key li,
+.word-key li,
+.seat-key li,
+.status-board li,
+.rule-board li,
+.freeze-board li {
+  background: #fff;
+  color: #141414;
+  border: 1px solid var(--pl-line);
+  border-radius: 0.7rem;
+  min-width: 0;
+}
+
+.doc-key li,
+.word-key li {
+  padding: 0.75rem 0.7rem 0.85rem;
+  text-align: center;
+}
+
+.seat-key li {
+  padding: 0.75rem 0.85rem;
+}
+
+.seat-key strong {
+  display: block;
+  font-family: var(--font-petrona), serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #10283f;
+}
+
+.seat-key span,
+.doc-key span,
+.word-key strong {
+  display: block;
+  margin-top: 0.3rem;
+}
+
+.word-key p {
+  margin: 0.45rem 0 0;
+  color: #3d4c52;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.glyph {
+  width: 2.6rem;
+  height: 2.6rem;
+  display: block;
+  margin: 0 auto 0.45rem;
+}
+
+.status-board,
+.rule-board,
+.freeze-board {
+  list-style: none;
+  display: grid;
+  gap: 0.7rem;
+  margin: 0.85rem 0 0;
+  padding: 0;
+}
+
+.status-board,
+.freeze-board {
+  grid-template-columns: 1fr 1fr;
+}
+
+.status-board li,
+.rule-board li,
+.freeze-board li {
+  padding: 0.8rem 0.95rem;
+  border-top: 3px solid #0b3a86;
+}
+
+.status-board p,
+.rule-board p,
+.freeze-board p {
+  margin: 0;
+}
+
 @media (max-width: 800px) {
   .admin-sheet .diff {
     grid-template-columns: 1fr;
@@ -1683,4 +1977,117 @@ html[lang="te"] .site-main .admin-sheet h1 {
   .site-header {
     padding: 0.7rem;
   }
+
+  .doc-key,
+  .word-key,
+  .status-board,
+  .freeze-board,
+  .promise-fields,
+  .seat-key,
+  .hold-board,
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .intro,
+.site-main:not(:has(.landing)):not(:has(.share-page)) .profile-block,
+.site-main:not(:has(.landing)):not(:has(.share-page)) .scorecard,
+.panel {
+  background: #fff;
+  color: #141414;
+  border: 1px solid #c5d2cb;
+  border-radius: 0.85rem;
+  padding: 1.15rem 1.25rem 1.25rem;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .intro {
+  border-top: 4px solid #d4df96;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .profile-block,
+.site-main:not(:has(.landing)):not(:has(.share-page)) .scorecard,
+.panel {
+  border-top: 4px solid #0b3a86;
+  margin-top: 1rem;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .profile-block h2 {
+  margin: 0 0 0.45rem;
+  font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+}
+
+.profile-block > .empty,
+.panel .empty {
+  background: #f4f7ea;
+}
+
+.site-main .leader-card {
+  border-top: 3px solid #0b3a86;
+}
+
+.me-panel .register-mark {
+  width: 7.2rem;
+  margin-bottom: 0.7rem;
+}
+
+.hold-board {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 0.9rem 0;
+  padding: 0;
+}
+
+.hold-board li {
+  background: #fff;
+  color: #141414;
+  border: 1px solid #c5d2cb;
+  border-top: 3px solid #0e6f7a;
+  border-radius: 0.7rem;
+  padding: 0.9rem 0.75rem;
+  text-align: center;
+}
+
+.hold-board strong {
+  display: block;
+  font-family: var(--font-petrona), serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.step-board {
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  gap: 0.7rem;
+  margin: 0.85rem 0 0;
+  padding: 0;
+}
+
+.step-board li {
+  position: relative;
+  background: #fff;
+  color: #141414;
+  border: 1px solid #c5d2cb;
+  border-top: 3px solid #0b3a86;
+  border-radius: 0.7rem;
+  padding: 0.85rem 0.95rem 0.9rem 3.1rem;
+  counter-increment: step;
+}
+
+.step-board li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0.9rem;
+  top: 0.72rem;
+  font-family: var(--font-petrona), serif;
+  font-size: 1.35rem;
+  line-height: 1;
+  color: #0b3a86;
+}
+
+.step-board p {
+  margin: 0;
 }

@@ -90,8 +90,8 @@ async function LeaderRecord({
         </div>
         <p className="quiet">{t("followNote")}</p>
         <p className="quiet">{t("office")}</p>
+        <p>{t("intro")}</p>
       </header>
-      <p>{t("intro")}</p>
       <SourceKey />
       {profileBlockIds.map((block) => {
         const blockRecords = recordsForBlock(records, block);

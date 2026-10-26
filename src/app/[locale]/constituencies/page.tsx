@@ -27,6 +27,16 @@ export default async function ConstituenciesPage() {
       <header className="intro">
         <h1>{t("title")}</h1>
         <p>{t("intro")}</p>
+        <ul className="seat-key">
+          <li>
+            <strong>{assembly.length}</strong>
+            <span>{t("assembly")}</span>
+          </li>
+          <li>
+            <strong>{parliament.length}</strong>
+            <span>{t("lokSabha")}</span>
+          </li>
+        </ul>
       </header>
       <SeatGroup
         title={t("assembly")}

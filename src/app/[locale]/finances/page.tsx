@@ -25,8 +25,14 @@ export default async function FinancesPage() {
     <>
       <header className="intro">
         <h1>{t("title")}</h1>
-        <p>{t("intro")}</p>
+        <p>{t("keptApart")}</p>
       </header>
+      <ul className="rule-board">
+        <li><p>{t("figurePlan")}</p></li>
+        <li><p>{t("figureStock")}</p></li>
+        <li><p>{t("figureWider")}</p></li>
+        <li><p>{t("figureLater")}</p></li>
+      </ul>
       <LedgerTable
         caption={t("budgetCaption", { unit: finance.budget.unit })}
         headers={finance.budget.headers}
