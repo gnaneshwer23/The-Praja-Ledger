@@ -2,7 +2,7 @@ import { cacheLife, cacheTag } from "next/cache";
 import pg from "pg";
 import { entries, leaders } from "../../data/ledger";
 import { seats } from "../../data/constituencies";
-import { assembleEdition, type Edition, type PublicRows } from "./map";
+import { assembleEdition, type Edition, type PublishedReply, type PublicRows } from "./map";
 import { caseTag, constituencyTag, HOME_TAG, personTag } from "./tags";
 
 /**
@@ -56,7 +56,7 @@ function tagKnownIds() {
   for (const seat of seats) cacheTag(constituencyTag(seat.id));
 }
 
-async function fetchRows(connectionString: string): Promise<PublicRows> {
+async function fetchRows(connectionString: string): Promise<{ rows: PublicRows; replies: PublishedReply[] }> {
   const client = new pg.Client({
     connectionString,
     ssl: { rejectUnauthorized: true },
@@ -64,13 +64,26 @@ async function fetchRows(connectionString: string): Promise<PublicRows> {
   await client.connect();
   try {
     const result = await client.query(query);
-    return result.rows[0] as PublicRows;
+    let replies: PublishedReply[] = [];
+    try {
+      const replyRows = await client.query(
+        "select id, external_id, office_name, body from public.v_replies",
+      );
+      replies = replyRows.rows.flatMap((row) => {
+        if (typeof row.id !== "string" || typeof row.external_id !== "string") return [];
+        if (typeof row.office_name !== "string" || typeof row.body !== "string") return [];
+        return [{ id: row.id, externalId: row.external_id, officeName: row.office_name, body: row.body }];
+      });
+    } catch {
+      replies = [];
+    }
+    return { rows: result.rows[0] as PublicRows, replies };
   } finally {
     await client.end();
   }
 }
 
-async function readRows(): Promise<PublicRows | null> {
+async function readRows(): Promise<{ rows: PublicRows; replies: PublishedReply[] } | null> {
   const url = process.env.DATABASE_URL;
   if (!url) return null;
   try {
@@ -92,10 +105,11 @@ export async function readPublicEdition(): Promise<Edition | null> {
   "use cache";
   cacheLife("hours");
   tagKnownIds();
-  const rows = await readRows();
-  if (!rows) return null;
-  const edition = assembleEdition(rows);
+  const loaded = await readRows();
+  if (!loaded) return null;
+  const edition = assembleEdition(loaded.rows);
   if (!edition) return null;
+  edition.replies = loaded.replies;
   for (const leader of edition.leaders) cacheTag(personTag(leader.slug));
   for (const entry of edition.entries) {
     if (entry.section === "cases") cacheTag(caseTag(entry.id));

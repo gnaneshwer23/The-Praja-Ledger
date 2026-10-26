@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { requireConsole } from "@/lib/auth/console";
 import { formatLedgerDate, snippet } from "@/lib/admin/format";
 import { loadRows } from "@/lib/data/editor";
@@ -86,7 +87,15 @@ export default async function AdminHomePage({
         </>
       )}
       <h2>{t("correctionsTitle")}</h2>
-      <p>{openCount === null ? t("readFailed") : t("correctionsCount", { count: openCount })}</p>
+      <p>
+        {openCount === null ? (
+          t("readFailed")
+        ) : staff.role === "editor" ? (
+          t("correctionsCount", { count: openCount })
+        ) : (
+          <Link href="/admin/corrections">{t("correctionsCount", { count: openCount })}</Link>
+        )}
+      </p>
       <h2>{t("staleTitle")}</h2>
       {stale.ok && stale.rows.length === 0 ? <p className="empty">{t("emptyStale")}</p> : null}
       <ul>

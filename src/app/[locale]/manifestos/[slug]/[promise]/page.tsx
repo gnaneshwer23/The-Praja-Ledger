@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { manifestos, type Citation, type SourceKind } from "@/data/manifestos";
+import { CorrectionForm } from "@/components/public-forms";
 import { getPromise } from "@/lib/data";
 
 export function generateStaticParams() {
@@ -136,6 +137,12 @@ export default async function PromisePage({
           </ol>
         </section>
       </div>
+      <CorrectionForm
+        locale={locale}
+        entityType="promise"
+        publicId={`${manifesto.slug}:${promise.slug}`}
+        idPrefix={`promise-${promise.slug}`}
+      />
       <p className="table-note">
         <Link href={`/manifestos/${manifesto.slug}`}>{manifesto.title}</Link>
         {" · "}

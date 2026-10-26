@@ -12,7 +12,13 @@ export async function ConsoleNav({ role }: { role: StaffRole }) {
       { href: "/admin/promises", label: t("navPromises") },
     );
   }
-  if (role !== "editor") links.push({ href: "/admin/review", label: t("navReview") });
+  if (role !== "editor") {
+    links.push(
+      { href: "/admin/review", label: t("navReview") },
+      { href: "/admin/corrections", label: t("navCorrections") },
+      { href: "/admin/replies", label: t("navReplies") },
+    );
+  }
   links.push({ href: "/admin/retract", label: t("navRetract") });
   if (role === "admin") links.push({ href: "/admin/settings", label: t("navSettings") });
 

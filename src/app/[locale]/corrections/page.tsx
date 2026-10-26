@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { Suspense } from "react";
+import { CorrectionForm, CorrectionNotice } from "@/components/public-forms";
 
 export async function generateMetadata({
   params,
@@ -11,8 +13,22 @@ export async function generateMetadata({
   return { title: t("title"), description: t("description") };
 }
 
-export default async function CorrectionsPage() {
+async function CorrectionResult({
+  searchParams,
+}: {
+  searchParams: Promise<{ notice?: string }>;
+}) {
+  const query = await searchParams;
+  return <CorrectionNotice notice={query.notice} />;
+}
+
+export default async function CorrectionsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ notice?: string }>;
+}) {
   const t = await getTranslations("CorrectionsPage");
+  const locale = await getLocale();
 
   return (
     <>
@@ -20,6 +36,11 @@ export default async function CorrectionsPage() {
         <h1>{t("title")}</h1>
         <p>{t("intro")}</p>
       </header>
+      <Suspense fallback={null}>
+        <CorrectionResult searchParams={searchParams} />
+      </Suspense>
+      <h2>{t("formTitle")}</h2>
+      <CorrectionForm locale={locale} idPrefix="correction" />
       <h2>{t("needsTitle")}</h2>
       <ul className="index">
         <li>

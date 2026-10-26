@@ -97,6 +97,13 @@ export type FinanceTables = {
   publicDebt: { asOn: string; unit: string; rows: string[][] };
 };
 
+export type PublishedReply = {
+  id: string;
+  externalId: string;
+  officeName: string;
+  body: string;
+};
+
 export type Edition = {
   leaders: Leader[];
   entries: Entry[];
@@ -104,6 +111,7 @@ export type Edition = {
   manifestos: Manifesto[];
   finance: FinanceTables;
   courtOrders: { href: string; label: string }[];
+  replies: PublishedReply[];
 };
 
 export const compiledFinance: FinanceTables = {
@@ -340,5 +348,6 @@ export function assembleEdition(rows: PublicRows): Edition | null {
     manifestos,
     finance,
     courtOrders: linkedCourtOrders(rows.sources),
+    replies: [],
   };
 }

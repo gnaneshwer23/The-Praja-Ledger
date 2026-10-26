@@ -65,6 +65,11 @@ export async function getPromise(manifestoSlug: string, promiseSlug: string) {
   return { manifesto, promise };
 }
 
+export async function getPublishedReplies() {
+  const edition = await readPublicEdition();
+  return edition?.replies ?? [];
+}
+
 export async function getCompiledPromiseCount() {
   const manifestos = await getManifestos();
   return manifestos.find((manifesto) => manifesto.slug === "congress-2023")?.promises.length ?? staticPromiseCount;

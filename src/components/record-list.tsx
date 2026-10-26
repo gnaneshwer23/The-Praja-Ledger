@@ -1,7 +1,9 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { CorrectionForm, ReplyForm } from "@/components/public-forms";
 import { StageRail } from "@/components/stage-rail";
 import type { Entry } from "@/data/ledger";
 import { sourceMark, swatchClass } from "@/data/source-mark";
+import { getPublishedReplies } from "@/lib/data";
 
 export async function RecordList({
   entries,
@@ -11,6 +13,9 @@ export async function RecordList({
   showFormulaStage?: boolean;
 }) {
   const t = await getTranslations("Records");
+  const corrections = await getTranslations("CorrectionsPage");
+  const locale = await getLocale();
+  const replies = await getPublishedReplies();
 
   return (
     <ol className="records">
@@ -59,6 +64,22 @@ export async function RecordList({
                 <p className="sources">{t("noDocument")}</p>
               )}
             </details>
+            {replies
+              .filter((reply) => reply.externalId === entry.id)
+              .map((reply) => (
+                <aside key={reply.id} className="office-reply">
+                  <h3>{corrections("replyBeside", { office: reply.officeName })}</h3>
+                  <p>{reply.body}</p>
+                </aside>
+              ))}
+            <CorrectionForm
+              locale={locale}
+              entityType={entry.section === "cases" ? "case" : "entry"}
+              publicId={entry.id}
+              idPrefix={`corr-${entry.id}`}
+              compact
+            />
+            <ReplyForm locale={locale} publicId={entry.id} idPrefix={`reply-${entry.id}`} />
           </li>
         );
       })}

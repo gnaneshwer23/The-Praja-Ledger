@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
+import Script from "next/script";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Anton, Noto_Sans, Noto_Sans_Telugu, Noto_Serif_Telugu, Petrona } from "next/font/google";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { turnstileSiteKey } from "@/lib/public/guards";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 import "../ledger.css";
@@ -79,6 +81,7 @@ export default async function LocaleLayout({
   }
 
   setRequestLocale(locale);
+  const siteKey = turnstileSiteKey();
 
   return (
     <html
@@ -86,6 +89,9 @@ export default async function LocaleLayout({
       className={`${poster.variable} ${sans.variable} ${sansTelugu.variable} ${petrona.variable} ${telugu.variable}`}
     >
       <body>
+        {siteKey ? (
+          <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive" />
+        ) : null}
         <NextIntlClientProvider>
           <div className="site">
             <SiteHeader locale={locale} />

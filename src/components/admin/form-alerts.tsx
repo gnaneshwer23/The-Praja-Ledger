@@ -34,6 +34,14 @@ const errorKeys = new Set([
   "role",
   "party",
   "seat",
+  "rate",
+  "queue",
+  "record",
+  "change",
+  "domain",
+  "letter",
+  "unedited",
+  "not_configured",
 ]);
 
 export async function FormAlerts({ codes, saved }: { codes: string[]; saved: boolean }) {
