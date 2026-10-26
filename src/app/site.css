@@ -1299,8 +1299,8 @@ a:hover {
   max-width: none;
   margin: 0;
   padding: 2.25rem 1.25rem 4.5rem;
-  background: #eef3df;
-  color: #141414;
+  background: #040e21;
+  color: #e7eed4;
   box-sizing: border-box;
 }
 
@@ -1318,7 +1318,7 @@ html[lang="en"] .site-main:not(:has(.landing)) h1 {
   font-size: clamp(2.2rem, 4.5vw, 3.2rem);
   line-height: 0.95;
   letter-spacing: 0.01em;
-  color: #0b3a86;
+  color: #f4f7e8;
   overflow-wrap: anywhere;
 }
 
@@ -1329,8 +1329,121 @@ html[lang="te"] .site-main:not(:has(.landing)) h1 {
   font-size: clamp(1.85rem, 4vw, 2.7rem);
   line-height: 1.28;
   letter-spacing: 0;
-  color: #0b3a86;
+  color: #f4f7e8;
   overflow-wrap: anywhere;
+}
+
+html[lang="en"] .site-main .admin-sheet h1,
+html[lang="te"] .site-main .admin-sheet h1 {
+  color: #0b3a86;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) :is(
+  .quiet,
+  .kicker,
+  .finder-count,
+  .leader-office,
+  .sources,
+  .record-cite,
+  .table-note,
+  .lede,
+  .stages small,
+  .ghost,
+  .text-button,
+  .empty
+) {
+  color: #e7eed4;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .ghost {
+  border-color: rgba(231, 238, 212, 0.75);
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .chip {
+  border-color: currentColor;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .read-line summary {
+  color: #e7eed4;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .read-line summary:hover {
+  color: #f4f7e8;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .stages .done span {
+  background: #e7eed4;
+  border-color: #e7eed4;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .stages .now small {
+  color: #f4f7e8;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) :is(
+  .leader-card,
+  .record,
+  .feed-card:not(.claim),
+  .facts div,
+  .manifesto-list > li,
+  .plain-card,
+  .scorecard-counts div,
+  .sheet-panel,
+  .search-results
+) {
+  color: #141414;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) :is(
+  .leader-card,
+  .record,
+  .feed-card:not(.claim),
+  .facts div,
+  .manifesto-list > li,
+  .plain-card,
+  .scorecard-counts div,
+  .sheet-panel,
+  .admin-sheet,
+  .search-results
+) :is(.quiet, .kicker, .leader-office, .sources, .record-cite, .table-note, .lede, .text-button) {
+  color: var(--pl-quiet);
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) :is(.admin-sheet, .record, .leader-card, .sheet-panel, .plain-card) .empty {
+  color: #141414;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .record .read-line summary {
+  color: var(--pl-teal);
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .record .read-line summary:hover {
+  color: var(--pl-ink);
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .record .stages small {
+  color: var(--pl-quiet);
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .record .stages .now small {
+  color: var(--pl-ink);
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .record .stages .done span {
+  background: var(--pl-ink);
+  border-color: var(--pl-ink);
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) .share-card .kicker {
+  color: var(--pl-teal-bar);
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) [role="alert"] {
+  color: #f3d0d0;
+}
+
+.site-main:not(:has(.landing)):not(:has(.share-page)) :is(.admin-sheet, .record, .sheet-panel, .leader-card) [role="alert"] {
+  color: #6b1d1d;
 }
 
 .site-main .title-te,
@@ -1372,7 +1485,8 @@ html[lang="te"] .site-main:not(:has(.landing)) h1 {
 
 .site-main .feed-card.claim {
   background: transparent;
-  border: 1px dashed var(--pl-ink);
+  border: 1px dashed rgba(231, 238, 212, 0.65);
+  color: #e7eed4;
 }
 
 .site-main .manifesto-list {
