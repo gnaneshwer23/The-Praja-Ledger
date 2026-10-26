@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { Link } from "@/i18n/navigation";
 import { manifestos, type Citation, type SourceKind } from "@/data/manifestos";
 import { CorrectionForm } from "@/components/public-forms";
@@ -50,6 +51,19 @@ function SourceList({
 }
 
 export default async function PromisePage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string; promise: string }>;
+}) {
+  const profile = await getTranslations("Profile");
+  return (
+    <Suspense fallback={<p className="empty">{profile("opening")}</p>}>
+      <PromiseRecord params={params} />
+    </Suspense>
+  );
+}
+
+async function PromiseRecord({
   params,
 }: {
   params: Promise<{ locale: string; slug: string; promise: string }>;

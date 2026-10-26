@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { Link } from "@/i18n/navigation";
 import { ShareSheet } from "@/components/share-sheet";
 import { Scorecard } from "@/components/scorecard";
@@ -37,6 +38,19 @@ export async function generateMetadata({
 }
 
 export default async function ManifestoPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const profile = await getTranslations("Profile");
+  return (
+    <Suspense fallback={<p className="empty">{profile("opening")}</p>}>
+      <ManifestoRecord params={params} />
+    </Suspense>
+  );
+}
+
+async function ManifestoRecord({
   params,
 }: {
   params: Promise<{ locale: string; slug: string }>;
