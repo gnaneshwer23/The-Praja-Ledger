@@ -17,4 +17,4 @@ Phase 9 acceptance that is still open:
 - [ ] All SQL, unit and Playwright tests pass in CI
 - [ ] Legal review signed off
 
-The silence refusal is implemented in `rpc_*` and covered by `supabase/tests/rpc_phase9.sql` plus the earlier phase tests. Those SQL tests were not run against the compiled edition. Playwright was not executed in this pass. CI has no recorded pass.
+The silence refusal is implemented in `rpc_*` and covered by `supabase/tests/rpc_phase9.sql` plus the earlier phase tests. Those SQL tests were not run against the compiled edition because the database owner login was rejected. Playwright was not executed in this pass. `.github/workflows/ci.yml` runs the TypeScript check and the unit tests on push and pull request. It does not install Playwright browsers, and it does not run the SQL tests. The CI lines stay open until a recorded run passes those tests.
