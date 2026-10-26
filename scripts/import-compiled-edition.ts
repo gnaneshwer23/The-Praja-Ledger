@@ -8,7 +8,7 @@
  */
 import { readFileSync } from "node:fs";
 import pg from "pg";
-import { buildPlan, EDITOR_ID, IMPORT_REASON, REVIEWER_ID } from "../src/lib/import/plan.ts";
+import { buildPlan, EDITOR_ID, IMPORT_REASON, REVIEWER_ID } from "../src/lib/import/plan";
 
 function loadEnvLocal() {
   if (process.env.DATABASE_URL) return;
