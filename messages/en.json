@@ -710,5 +710,39 @@
       "reviewer": "Reviewer",
       "admin": "Admin"
     }
+  },
+  "DataPage": {
+    "title": "Open data",
+    "description": "Download the public register as JSON or CSV, and check a nightly snapshot with sha256sum.",
+    "intro": "These files are the public register. They leave out contact emails, drafts, and unpublished rows.",
+    "downloadsTitle": "Current files",
+    "jsonLabel": "Current register, JSON",
+    "hashesLabel": "Snapshot hashes",
+    "csvTitle": "CSV for each public table",
+    "verifyTitle": "Check a snapshot",
+    "verifyBody": "Save hashes.txt in a folder. Save each snapshot in a snapshots folder beside it, using the file name from the table. In that folder, run sha256sum. A matching line means the file is the published snapshot.",
+    "verifyCommand": "sha256sum -c hashes.txt",
+    "snapshotsTitle": "Nightly snapshots",
+    "notCompiled": "Not compiled yet",
+    "notConfigured": "Snapshot hashes are not available from this server yet.",
+    "date": "Date",
+    "hash": "SHA-256",
+    "previous": "Previous hash",
+    "file": "File",
+    "none": "None",
+    "views": {
+      "case_stages": "Case stages",
+      "cases": "Cases",
+      "changelog": "Change log",
+      "constituencies": "Constituencies",
+      "datasets": "Datasets",
+      "entries": "Entries",
+      "parties": "Parties",
+      "people": "People",
+      "promises": "Promises",
+      "replies": "Replies",
+      "snapshots": "Snapshots",
+      "sources": "Sources"
+    }
   }
 }

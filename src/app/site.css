@@ -1472,6 +1472,10 @@ html[lang="te"] .site-main:not(:has(.landing)) h1 {
   min-width: 0;
 }
 
+.site-main .data-hash {
+  overflow-wrap: anywhere;
+}
+
 .admin-sheet {
   background: #f7faf7;
   color: #141414;

@@ -14,7 +14,7 @@ export async function SiteFooter() {
         <Link href="/method">{t("method")}</Link>
         <Link href="/#rules">{t("rules")}</Link>
         <Link href="/corrections">{t("corrections")}</Link>
-        <Link href="/method">{t("data")}</Link>
+        <Link href="/data">{t("data")}</Link>
         <Link href="/changes">{t("changes")}</Link>
         <Link href="/admin/sign-in">{t("console")}</Link>
         <Link href="/privacy">{t("privacy")}</Link>
