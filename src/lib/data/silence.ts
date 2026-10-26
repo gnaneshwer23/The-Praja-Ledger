@@ -1,3 +1,4 @@
+import { io } from "next/cache";
 import { connectOwner } from "../db/owner";
 
 export type LiveSilence = {
@@ -11,6 +12,9 @@ export function silenceSeatLabels(ids: readonly string[], names: ReadonlyMap<str
 }
 
 export async function readLiveSilence(): Promise<LiveSilence[]> {
+  // pg's SCRAM handshake calls crypto.getRandomValues for a one-time client nonce.
+  // Leave that until after prerender; do not cache the nonce.
+  await io();
   const client = await connectOwner();
   if (!client) return [];
   try {

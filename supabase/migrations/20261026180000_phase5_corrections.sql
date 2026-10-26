@@ -428,7 +428,7 @@ begin
     end if;
     v_path := null;
     v_sha := null;
-  els  if p_method = 'signed_letter' then
+  elsif p_method = 'signed_letter' then
     if v_sha !~ '^[0-9a-f]{64}$'
       or v_path is null
       or v_path not in (
