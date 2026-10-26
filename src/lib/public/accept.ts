@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { rpcCode } from "@/lib/actions/rpc-error";
+import { reportFailure } from "@/lib/observability/report";
 import { connectOwner } from "@/lib/db/owner";
 import { hashIp, publicFormConfigured, readClientIp } from "./guards";
 import { verifyTurnstile } from "./turnstile";
@@ -63,7 +64,9 @@ export async function ownerCall(sql: string, params: unknown[]) {
     return "";
   } catch (error) {
     const message = error instanceof Error ? error.message : "";
-    return publicNotice(rpcCode(message));
+    const code = publicNotice(rpcCode(message));
+    if (code === "save_failed") await reportFailure("server_action", message);
+    return code;
   } finally {
     await client.end();
   }

@@ -46,6 +46,18 @@ a:hover {
   border: 0;
 }
 
+.silence-banner {
+  margin: 1.1rem 1.1rem 0;
+  padding: 0.9rem 1.1rem;
+  background: #f7faf7;
+  color: #102028;
+  border: 1px solid #c5d2cb;
+}
+
+.silence-banner p {
+  margin: 0.35rem 0;
+}
+
 .site-header .campaign-nav {
   background: linear-gradient(105deg, #e7efc2 0%, #d4df96 46%, #e3e59a 100%);
   padding: 0.95rem 1.3rem;

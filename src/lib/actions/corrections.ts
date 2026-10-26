@@ -7,6 +7,7 @@ import { redirect } from "@/i18n/navigation";
 import { requireConsole } from "@/lib/auth/console";
 import { createServiceClient } from "@/lib/auth/service";
 import { revalidatePublished } from "./publish";
+import { reportFailure } from "@/lib/observability/report";
 import { rpcCode } from "./rpc-error";
 
 function localeOf(formData: FormData) {
@@ -31,9 +32,18 @@ async function fail(locale: string, href: string, codes: string[]): Promise<neve
 }
 
 async function callRpc(supabase: SupabaseClient, fn: string, args: Record<string, unknown>) {
-  const { data, error } = await supabase.rpc(fn, args);
-  if (error) return { ok: false as const, code: rpcCode(error.message), data: null };
-  return { ok: true as const, code: "", data };
+  try {
+    const { data, error } = await supabase.rpc(fn, args);
+    if (error) {
+      const code = rpcCode(error.message);
+      if (code === "save_failed") await reportFailure("server_action", error.message);
+      return { ok: false as const, code, data: null };
+    }
+    return { ok: true as const, code: "", data };
+  } catch (error) {
+    await reportFailure("server_action", error);
+    return { ok: false as const, code: "save_failed", data: null };
+  }
 }
 
 function publishPayload(data: unknown) {

@@ -4,6 +4,8 @@ import Script from "next/script";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Anton, Noto_Sans, Noto_Sans_Telugu, Noto_Serif_Telugu, Petrona } from "next/font/google";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { SilenceBanner } from "@/components/silence-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { turnstileSiteKey } from "@/lib/public/guards";
@@ -64,6 +66,12 @@ export async function generateMetadata({
       template: `%s · ${t("title")}`,
     },
     description: t("lede"),
+    openGraph: {
+      title: t("title"),
+      description: t("lede"),
+      locale: locale === "te" ? "te_IN" : "en_IN",
+      type: "website",
+    },
   };
 }
 
@@ -94,6 +102,9 @@ export default async function LocaleLayout({
         ) : null}
         <NextIntlClientProvider>
           <div className="site">
+            <Suspense fallback={null}>
+              <SilenceBanner locale={locale} />
+            </Suspense>
             <SiteHeader locale={locale} />
             <main className="site-main">{children}</main>
             <SiteFooter />

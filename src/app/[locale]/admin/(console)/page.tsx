@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { LaunchChecklist } from "@/components/admin/launch-checklist";
 import { Link } from "@/i18n/navigation";
 import { requireConsole } from "@/lib/auth/console";
 import { formatLedgerDate, snippet } from "@/lib/admin/format";
@@ -107,6 +108,7 @@ export default async function AdminHomePage({
             ))
           : null}
       </ul>
+      {staff.role === "admin" ? <LaunchChecklist /> : null}
       <h2>{t("silenceTitle")}</h2>
       {liveWindows.length === 0 ? <p className="empty">{t("emptySilence")}</p> : null}
       <ul>

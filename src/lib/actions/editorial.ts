@@ -8,6 +8,7 @@ import { createServiceClient } from "@/lib/auth/service";
 import { CaptureError, readSourceDocument } from "./capture-url";
 import { revalidatePublished, revalidateTranslation } from "./publish";
 import { affidavitConfirmTarget, tagsAfterEntrySave } from "./publish-tags";
+import { reportFailure } from "@/lib/observability/report";
 import { rpcCode } from "./rpc-error";
 import {
   caseEventFormSchema,
@@ -59,9 +60,18 @@ async function callRpc(
   fn: string,
   args: Record<string, unknown>,
 ) {
-  const { data, error } = await supabase.rpc(fn, args);
-  if (error) return { ok: false as const, code: rpcCode(error.message), data: null };
-  return { ok: true as const, code: "", data };
+  try {
+    const { data, error } = await supabase.rpc(fn, args);
+    if (error) {
+      const code = rpcCode(error.message);
+      if (code === "save_failed") await reportFailure("server_action", error.message);
+      return { ok: false as const, code, data: null };
+    }
+    return { ok: true as const, code: "", data };
+  } catch (error) {
+    await reportFailure("server_action", error);
+    return { ok: false as const, code: "save_failed", data: null };
+  }
 }
 
 type SourceRow = {

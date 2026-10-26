@@ -4,6 +4,9 @@
     "title": "Praja Ledger",
     "lede": "A public register of Telangana leaders. Each line names the document it comes from."
   },
+  "Silence": {
+    "banner": "Publishing is paused for {seats} until {until}. Section 126 of the Representation of the People Act blocks publication in the 48 hours before polls close."
+  },
   "LocaleSwitch": {
     "label": "Language",
     "en": "English",
@@ -555,7 +558,7 @@
       "archive": "The source copy could not be stored.",
       "archive_not_configured": "Source copies need the server storage key. Nothing was saved.",
       "forbidden": "Your role cannot make that change.",
-      "silence": "A silence window blocks this change.",
+      "silence": "Publishing is refused while a silence window is open for this constituency.",
       "self": "You cannot approve your own item.",
       "save_failed": "The change was not saved.",
       "date": "Enter a valid date.",
@@ -727,6 +730,24 @@
     "windowNote": "Note",
     "saveWindow": "Save silence window",
     "silenceLive": "Open",
+    "launchTitle": "Launch checklist",
+    "launchIntro": "Each line stays open until it is recorded outside this screen.",
+    "launchOpen": "Open",
+    "launchUnconfirmed": "Not confirmed",
+    "launchMet": "Confirmed",
+    "databaseSignal": "Database connection",
+    "cronSignal": "Nightly snapshot job",
+    "signalSet": "Configured",
+    "signalMissing": "Not configured",
+    "launchItems": {
+      "backups": "Point-in-time recovery and a two-year snapshot store",
+      "mfa": "MFA for every staff account",
+      "rls": "RLS tests recorded as passed",
+      "legal": "Legal review signed off",
+      "publisher": "Publisher of record",
+      "domain": "Public domain",
+      "telugu": "Telugu review"
+    },
     "sourceTypes": {
       "COURT": "Court record",
       "CAG": "CAG audit",

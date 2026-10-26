@@ -4,6 +4,7 @@ import { cronAuthorized } from "@/lib/data/export";
 import { queryRegister } from "@/lib/data/register";
 import { runSnapshotJob, SNAPSHOT_REASON } from "@/lib/data/snapshot-job";
 import { removeSnapshot, uploadSnapshot } from "@/lib/data/snapshot-store";
+import { notifySnapshotFailure } from "@/lib/observability/alert";
 
 function refused() {
   return Response.json({ ok: false }, { status: 503 });
@@ -12,12 +13,26 @@ function refused() {
 async function handle(request: Request) {
   if (!cronAuthorized(process.env.CRON_SECRET, request.headers.get("authorization"))) return refused();
   const client = await connectOwner();
-  if (!client) return refused();
+  if (!client) {
+    await notifySnapshotFailure({
+      authorized: true,
+      detail: "Nightly snapshot failed",
+      alertUrl: process.env.SNAPSHOT_ALERT_URL,
+    });
+    return refused();
+  }
   try {
     const ready = await client.query<{ fn: string | null }>(
       "select to_regprocedure('public.rpc_record_snapshot(text,text,text)')::text as fn",
     );
-    if (!ready.rows[0]?.fn) return refused();
+    if (!ready.rows[0]?.fn) {
+      await notifySnapshotFailure({
+        authorized: true,
+        detail: "Nightly snapshot failed",
+        alertUrl: process.env.SNAPSHOT_ALERT_URL,
+      });
+      return refused();
+    }
     const ok = await runSnapshotJob({
       authorized: true,
       load: async () => {
@@ -37,10 +52,22 @@ async function handle(request: Request) {
       },
       remove: removeSnapshot,
     });
-    if (!ok) return refused();
+    if (!ok) {
+      await notifySnapshotFailure({
+        authorized: true,
+        detail: "Nightly snapshot failed",
+        alertUrl: process.env.SNAPSHOT_ALERT_URL,
+      });
+      return refused();
+    }
     revalidateTag("data", { expire: 0 });
     return Response.json({ ok: true });
-  } catch {
+  } catch (error) {
+    await notifySnapshotFailure({
+      authorized: true,
+      detail: error instanceof Error ? error.message : "Nightly snapshot failed",
+      alertUrl: process.env.SNAPSHOT_ALERT_URL,
+    });
     return refused();
   } finally {
     await client.end();
