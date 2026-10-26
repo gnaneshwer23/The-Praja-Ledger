@@ -21,6 +21,7 @@ export async function ConsoleNav({ role }: { role: StaffRole }) {
   }
   links.push({ href: "/admin/retract", label: t("navRetract") });
   links.push({ href: "/admin/affidavits", label: t("navAffidavits") });
+  links.push({ href: "/admin/translations", label: t("navTranslations") });
   if (role === "admin") links.push({ href: "/admin/settings", label: t("navSettings") });
 
   return (

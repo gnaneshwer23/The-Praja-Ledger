@@ -111,6 +111,24 @@ async function fetchRows(connectionString: string): Promise<{ rows: PublicRows; 
         if (byId.has(seat.id)) seat.reservation_category = byId.get(seat.id) ?? null;
       }
     }
+    const translatedCases = await optionalRows<{
+      slug: string;
+      title_te: string | null;
+      summary_te: string | null;
+    }>(client, `
+      select slug, title_te, summary_te
+      from public.v_cases
+      where title_te is not null or summary_te is not null
+    `);
+    if (translatedCases.length > 0) {
+      const bySlug = new Map(translatedCases.map((item) => [item.slug, item]));
+      for (const item of rows.cases) {
+        const translated = bySlug.get(item.slug);
+        if (!translated) continue;
+        item.title_te = translated.title_te;
+        item.summary_te = translated.summary_te;
+      }
+    }
     let replies: PublishedReply[] = [];
     try {
       const replyRows = await client.query(

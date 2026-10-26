@@ -5,6 +5,9 @@ test("database errors map to form codes", () => {
   expect(rpcCode("forbidden role")).toBe("forbidden");
   expect(rpcCode("tier-1 source requires a url")).toBe("tier1_url");
   expect(rpcCode("page number required")).toBe("page");
+  expect(rpcCode("telugu required")).toBe("telugu");
+  expect(rpcCode("blocked wording")).toBe("wording");
+  expect(rpcCode("already staged")).toBe("staged");
   expect(rpcCode("self-approval")).toBe("self");
   expect(rpcCode("silence window")).toBe("silence");
   expect(rpcCode("rate limit")).toBe("rate");

@@ -11,7 +11,8 @@
     "test:e2e": "playwright test",
     "db:types": "supabase gen types typescript --local > src/lib/database.types.ts",
     "import:edition": "tsx scripts/import-compiled-edition.ts",
-    "import:affidavits": "tsx scripts/import-affidavits.ts"
+    "import:affidavits": "tsx scripts/import-affidavits.ts",
+    "export:translations": "tsx scripts/export-translation-worklist.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

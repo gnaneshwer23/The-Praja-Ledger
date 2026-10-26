@@ -290,6 +290,45 @@ export const confirmAffidavitSchema = z
     reasonIssue(value.reason, "", ctx);
   });
 
+const translationPairs: Record<string, readonly string[]> = {
+  person: ["name_te"],
+  case: ["title_te", "summary_te"],
+  promise: ["body_te"],
+  message: ["text"],
+};
+const translationKey = /^[A-Za-z][A-Za-z0-9]*(\.[A-Za-z0-9_]+)+$/;
+
+export const stageTranslationSchema = z
+  .object({
+    kind: z.string(),
+    key: z.string(),
+    field: z.string(),
+    telugu: z.string(),
+    reason: z.string(),
+  })
+  .superRefine((value, ctx) => {
+    const fields = translationPairs[value.kind.trim()];
+    if (!fields || !fields.includes(value.field.trim())) {
+      ctx.addIssue({ code: "custom", path: ["field"], message: "record" });
+    }
+    if (!value.key.trim() || value.key.trim().length > 200) {
+      ctx.addIssue({ code: "custom", path: ["key"], message: "record" });
+    }
+    if (value.kind.trim() === "message" && !translationKey.test(value.key.trim())) {
+      ctx.addIssue({ code: "custom", path: ["key"], message: "record" });
+    }
+    if (!value.telugu.trim()) {
+      ctx.addIssue({ code: "custom", path: ["telugu"], message: "telugu" });
+    }
+    if (value.telugu.trim().length > 8000) {
+      ctx.addIssue({ code: "custom", path: ["telugu"], message: "record" });
+    }
+    wordingIssue(value.telugu, value.kind.trim() === "case" ? "COURT" : "", "telugu", ctx);
+    reasonIssue(value.reason, "", ctx);
+  });
+
+export const approveTranslationSchema = confirmAffidavitSchema;
+
 export function issueCodes(error: z.ZodError) {
   return [...new Set(error.issues.map((issue) => issue.message))];
 }

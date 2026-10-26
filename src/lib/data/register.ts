@@ -41,9 +41,19 @@ function columnSql(column: string) {
   return TEXT_TIME[column] ?? column;
 }
 
-function viewSql(view: PublicView) {
-  const columns = PUBLIC_COLUMNS[view].map((column) => columnSql(column)).join(", ");
-  return `coalesce((select json_agg(row_to_json(x) order by ${ORDER_BY[view]}) from (select ${columns} from public.v_${view}) x), '[]'::json)`;
+function viewSql(view: PublicView, columns: readonly string[]) {
+  const selected = columns.map((column) => columnSql(column)).join(", ");
+  return `coalesce((select json_agg(row_to_json(x) order by ${ORDER_BY[view]}) from (select ${selected} from public.v_${view}) x), '[]'::json)`;
+}
+
+async function selectView(client: Client, view: PublicView, columns: readonly string[]) {
+  const result = await client.query<{ rows: unknown }>(`select ${viewSql(view, columns)} as rows`);
+  return jsonRows(result.rows[0]?.rows);
+}
+
+function missingColumn(error: unknown) {
+  if (!error || typeof error !== "object" || !("code" in error)) return false;
+  return String((error as { code: unknown }).code) === "42703";
 }
 
 function jsonRows(value: unknown): unknown[] {
@@ -64,10 +74,13 @@ function missingAffidavitView(error: unknown, view: PublicView) {
 
 export async function queryView(client: Client, view: PublicView): Promise<unknown[]> {
   try {
-    const result = await client.query<{ rows: unknown }>(`select ${viewSql(view)} as rows`);
-    return jsonRows(result.rows[0]?.rows);
+    return await selectView(client, view, PUBLIC_COLUMNS[view]);
   } catch (error) {
     if (missingAffidavitView(error, view)) return [];
+    if (view === "cases" && missingColumn(error)) {
+      const columns = PUBLIC_COLUMNS.cases.filter((column) => column !== "title_te" && column !== "summary_te");
+      return selectView(client, view, columns);
+    }
     throw error;
   }
 }

@@ -4,6 +4,7 @@ import { StageRail } from "@/components/stage-rail";
 import type { Entry } from "@/data/ledger";
 import { sourceMark, swatchClass } from "@/data/source-mark";
 import { getPublishedReplies } from "@/lib/data";
+import { localizedText } from "@/lib/public/text";
 
 export async function RecordList({
   entries,
@@ -29,7 +30,7 @@ export async function RecordList({
           >
             <div className="record-scan">
               <p className="record-id">{entry.id}</p>
-              <h2>{entry.title}</h2>
+              <h2>{localizedText(locale, entry.title, entry.titleTe)}</h2>
               <p className={`status tone-${entry.tone}`}>
                 {entry.status}
                 {entry.verify ? <span className="verify"> {t("verify")}</span> : null}
@@ -48,7 +49,7 @@ export async function RecordList({
             ) : null}
             <details className="read-line">
               <summary>{t("read")}</summary>
-              <p>{entry.body}</p>
+              <p>{localizedText(locale, entry.body, entry.bodyTe)}</p>
               {entry.sources.length > 0 ? (
                 <ul className="sources">
                   {entry.sources.map((source) => (

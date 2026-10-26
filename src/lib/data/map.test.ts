@@ -93,6 +93,17 @@ describe("public view assembly", () => {
     expect(edition?.entries.some((entry) => entry.id === "PL-H-01")).toBe(true);
   });
 
+  test("an approved case translation sits beside the English text", () => {
+    const edition = assembleEdition({
+      ...rows,
+      cases: [{ slug: "PL-C-03", title_te: "కేసు శీర్షిక", summary_te: "  " }],
+    });
+    const entry = edition?.entries.find((item) => item.id === "PL-C-03");
+    expect(entry?.title).toBe("Kaleshwaram report and the High Court order");
+    expect(entry?.titleTe).toBe("కేసు శీర్షిక");
+    expect(entry?.bodyTe).toBeUndefined();
+  });
+
   test("keeps a published affidavit with a url and page, and drops one without them", () => {
     const edition = assembleEdition({
       ...rows,

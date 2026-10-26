@@ -42,6 +42,8 @@ const errorKeys = new Set([
   "letter",
   "unedited",
   "not_configured",
+  "telugu",
+  "staged",
 ]);
 
 export async function FormAlerts({ codes, saved }: { codes: string[]; saved: boolean }) {

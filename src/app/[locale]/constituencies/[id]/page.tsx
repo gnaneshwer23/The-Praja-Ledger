@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { AffidavitSummary } from "@/components/affidavit-summary";
 import { Link } from "@/i18n/navigation";
 import { formatCount, seats, type ReservationCategory } from "@/data/constituencies";
 import { getAffidavitChanges, getAffidavits, getEntriesByIds, getLeader, getSeat } from "@/lib/data";
+import { localizedText } from "@/lib/public/text";
 
 export function generateStaticParams() {
   return seats.map((seat) => ({ id: seat.id }));
@@ -45,6 +46,7 @@ async function SeatRecord({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const locale = await getLocale();
   const seat = await getSeat(id);
   if (!seat) notFound();
   const t = await getTranslations("SeatPage");
@@ -119,7 +121,9 @@ async function SeatRecord({
         <ul className="sources">
           {records.map((entry) => (
             <li key={entry.id}>
-              <Link href={`/leaders/${leader?.slug}#${entry.id}`}>{entry.title}</Link>
+              <Link href={`/leaders/${leader?.slug}#${entry.id}`}>
+                {localizedText(locale, entry.title, entry.titleTe)}
+              </Link>
             </li>
           ))}
         </ul>

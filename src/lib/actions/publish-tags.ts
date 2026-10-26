@@ -24,6 +24,34 @@ export function affidavitConfirmTarget(value: unknown) {
   };
 }
 
+export function translationApproveTarget(value: unknown) {
+  if (!value || typeof value !== "object") return null;
+  const row = value as Record<string, unknown>;
+  if (row.public_changed !== true) return null;
+  const personSlugs = stringList(row.person_slugs);
+  const constituencyIds = stringList(row.constituency_ids);
+  const caseSlugs = stringList(row.case_slugs);
+  return { personSlugs, constituencyIds, caseSlugs };
+}
+
+function stringList(value: unknown) {
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === "string" && item.trim() !== "");
+}
+
+export function translationTags(target: {
+  personSlugs: string[];
+  constituencyIds: string[];
+  caseSlugs: string[];
+} | null) {
+  if (!target) return [];
+  const tags = [HOME_TAG];
+  for (const slug of target.personSlugs) tags.push(personTag(slug));
+  for (const id of target.constituencyIds) tags.push(constituencyTag(id));
+  for (const slug of target.caseSlugs) tags.push(caseTag(slug));
+  return tags;
+}
+
 export function tagsAfterEntrySave(input: {
   kind: "work" | "issue";
   personSlug?: string | null;

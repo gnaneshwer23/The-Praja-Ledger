@@ -16,3 +16,13 @@ test("editor sign-in screen renders in English and Telugu", async ({ page }) => 
   await expect(page.getByRole("heading", { name: "ఎడిటర్ కన్సోల్" })).toBeVisible();
   await expect(page.getByRole("button", { name: "సైన్-ఇన్ లింక్ పంపండి" })).toBeVisible();
 });
+
+test("Telugu review stays behind sign-in in English and Telugu", async ({ page }) => {
+  await page.goto("/en/admin/translations");
+  await expect(page).toHaveURL(/\/en\/admin\/sign-in/);
+  await expect(page.getByRole("heading", { name: "Editor console" })).toBeVisible();
+
+  await page.goto("/te/admin/translations");
+  await expect(page).toHaveURL(/\/te\/admin\/sign-in/);
+  await expect(page.getByRole("heading", { name: "ఎడిటర్ కన్సోల్" })).toBeVisible();
+});

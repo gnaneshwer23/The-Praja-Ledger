@@ -63,7 +63,7 @@ export const PUBLIC_COLUMNS = {
     "published_on",
   ],
   case_stages: ["case_id", "idx", "label"],
-  cases: ["id", "slug", "title", "summary", "party_id", "state", "events"],
+  cases: ["id", "slug", "title", "summary", "party_id", "state", "events", "title_te", "summary_te"],
   changelog: ["id", "at", "actor_name", "table_name", "row_id", "action", "reason"],
   constituencies: ["id", "kind", "number", "name", "name_te", "district"],
   datasets: ["key", "data", "source_ids", "updated_at"],

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { RegisterMark } from "@/components/civic-icons";
 import { LeaderFinder } from "@/components/leader-finder";
 import { SourceKey } from "@/components/source-key";
 import { getEntries, getLeaders } from "@/lib/data";
+import { localizedText } from "@/lib/public/text";
 import { sourceMark } from "@/data/source-mark";
 
 export async function generateMetadata({
@@ -19,6 +20,7 @@ export async function generateMetadata({
 
 export default async function LeadersPage() {
   const t = await getTranslations("LeadersPage");
+  const locale = await getLocale();
   const leaders = await getLeaders();
   const entries = await getEntries();
 
@@ -43,7 +45,7 @@ export default async function LeadersPage() {
           const lines =
             records.length > 0
               ? records.map((entry) => ({
-                  title: entry.title,
+                  title: localizedText(locale, entry.title, entry.titleTe),
                   source: entry.sources[0]?.publisher ?? "",
                   mark: sourceMark(entry.sources[0]),
                 }))

@@ -6,7 +6,7 @@ import { redirect } from "@/i18n/navigation";
 import { requireConsole, type StaffProfile } from "@/lib/auth/console";
 import { createServiceClient } from "@/lib/auth/service";
 import { CaptureError, readSourceDocument } from "./capture-url";
-import { revalidatePublished } from "./publish";
+import { revalidatePublished, revalidateTranslation } from "./publish";
 import { affidavitConfirmTarget, tagsAfterEntrySave } from "./publish-tags";
 import { rpcCode } from "./rpc-error";
 import {
@@ -21,7 +21,10 @@ import {
   reviewFormSchema,
   silenceFormSchema,
   staffFormSchema,
+  stageTranslationSchema,
+  approveTranslationSchema,
 } from "@/lib/schemas/editorial";
+import { parseTranslatorCsv } from "@/lib/import/translation";
 
 function localeOf(formData: FormData) {
   return String(formData.get("locale") ?? "en") === "te" ? "te" : "en";
@@ -539,4 +542,82 @@ export async function confirmAffidavit(formData: FormData) {
   const target = affidavitConfirmTarget(saved.data);
   if (target) revalidatePublished(target);
   redirect({ href: "/admin/affidavits?saved=1", locale });
+}
+
+function canStageTranslation(role: StaffProfile["role"]) {
+  return role === "editor" || role === "admin";
+}
+
+export async function stageTranslation(formData: FormData) {
+  const locale = localeOf(formData);
+  const href = "/admin/translations";
+  const access = await requireConsole(locale);
+  if (!canStageTranslation(access.staff.role)) return fail(locale, href, ["forbidden"]);
+  const parsed = stageTranslationSchema.safeParse({
+    kind: field(formData, "kind"),
+    key: field(formData, "key"),
+    field: field(formData, "field"),
+    telugu: field(formData, "telugu"),
+    reason: field(formData, "reason"),
+  });
+  if (!parsed.success) return fail(locale, href, issueCodes(parsed.error));
+  const saved = await callRpc(access.supabase, "rpc_stage_translation", {
+    p_kind: parsed.data.kind.trim(),
+    p_key: parsed.data.key.trim(),
+    p_field: parsed.data.field.trim(),
+    p_telugu: parsed.data.telugu.trim(),
+    p_reason: parsed.data.reason.trim(),
+  });
+  if (!saved.ok) return fail(locale, href, [saved.code]);
+  redirect({ href: "/admin/translations?saved=1", locale });
+}
+
+export async function stageTranslationFile(formData: FormData) {
+  const locale = localeOf(formData);
+  const href = "/admin/translations";
+  const access = await requireConsole(locale);
+  if (!canStageTranslation(access.staff.role)) return fail(locale, href, ["forbidden"]);
+  const reason = field(formData, "reason");
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0 || file.size > 1_000_000) {
+    return fail(locale, href, ["record"]);
+  }
+  const name = file.name.toLowerCase();
+  if (!name.endsWith(".csv") && file.type !== "text/csv" && file.type !== "") {
+    return fail(locale, href, ["record"]);
+  }
+  const parsed = parseTranslatorCsv(await file.text(), reason);
+  if (parsed.rejections.length > 0) {
+    return fail(locale, href, parsed.rejections.map((item) => item.code));
+  }
+  if (parsed.rows.length === 0) return fail(locale, href, ["telugu"]);
+  for (const row of parsed.rows) {
+    const saved = await callRpc(access.supabase, "rpc_stage_translation", {
+      p_kind: row.kind,
+      p_key: row.key,
+      p_field: row.field,
+      p_telugu: row.telugu,
+      p_reason: row.reason,
+    });
+    if (!saved.ok) return fail(locale, href, [saved.code]);
+  }
+  redirect({ href: "/admin/translations?saved=1", locale });
+}
+
+export async function approveTranslation(formData: FormData) {
+  const locale = localeOf(formData);
+  const href = "/admin/translations";
+  const access = await requireConsole(locale);
+  const parsed = approveTranslationSchema.safeParse({
+    stageId: field(formData, "stageId"),
+    reason: field(formData, "reason"),
+  });
+  if (!parsed.success) return fail(locale, href, issueCodes(parsed.error));
+  const saved = await callRpc(access.supabase, "rpc_approve_translation", {
+    p_stage_id: parsed.data.stageId.trim(),
+    p_reason: parsed.data.reason.trim(),
+  });
+  if (!saved.ok) return fail(locale, href, [saved.code]);
+  revalidateTranslation(saved.data);
+  redirect({ href: "/admin/translations?saved=1", locale });
 }

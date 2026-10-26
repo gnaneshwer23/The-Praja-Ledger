@@ -17,6 +17,10 @@ export function rpcCode(message: string) {
   if (text.includes("reply is published unedited")) return "unedited";
   if (text.includes("ip hash required")) return "not_configured";
   if (text.includes("silence window")) return "silence";
+  if (text.includes("telugu required")) return "telugu";
+  if (text.includes("blocked wording")) return "wording";
+  if (text.includes("already staged")) return "staged";
+  if (text.includes("invalid translation")) return "record";
   if (text.includes("self-approval")) return "self";
   if (text.includes("cannot change own role")) return "own_role";
   if (text.includes("cannot remove self")) return "own_remove";

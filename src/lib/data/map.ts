@@ -86,7 +86,7 @@ export type PublicRows = {
   parties: { id: string; name: string }[];
   entries: EntryRow[];
   sources: SourceRow[];
-  cases: { slug: string }[];
+  cases: { slug: string; title_te?: string | null; summary_te?: string | null }[];
   promises: { external_id: string | null; current_status: string | null }[];
   constituencies: {
     id: string;
@@ -350,6 +350,15 @@ export function assembleEdition(rows: PublicRows): Edition | null {
   const entryIds = new Set(entries.map((entry) => entry.id));
   const order = new Map(staticEntries.map((entry, index) => [entry.id, index]));
   entries.sort((a, b) => (order.get(a.id) ?? 1000) - (order.get(b.id) ?? 1000));
+
+  const caseText = new Map(rows.cases.map((item) => [item.slug, item]));
+  for (const entry of entries) {
+    const translated = caseText.get(entry.id);
+    const titleTe = translated?.title_te?.trim();
+    const bodyTe = translated?.summary_te?.trim();
+    if (titleTe) entry.titleTe = titleTe;
+    if (bodyTe) entry.bodyTe = bodyTe;
+  }
 
   const leaders: Leader[] = rows.people.map((person) => {
     const compiled = staticLeaderBySlug.get(person.slug);

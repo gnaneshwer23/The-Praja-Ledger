@@ -14,6 +14,8 @@ export type Entry = {
   section: "cases" | "promises" | "finances" | "elections" | "changes";
   title: string;
   body: string;
+  titleTe?: string;
+  bodyTe?: string;
   status: string;
   tone: Tone;
   verify?: boolean;

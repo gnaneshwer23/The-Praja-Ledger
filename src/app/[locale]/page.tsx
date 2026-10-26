@@ -5,6 +5,7 @@ import { LeaderSearch } from "@/components/leader-search";
 import { QuestionPath } from "@/components/question-path";
 import { SourceKey } from "@/components/source-key";
 import { getCompiledPromiseCount, getEntries, getLeaders, getLinkedCourtOrders } from "@/lib/data";
+import { localizedText } from "@/lib/public/text";
 import { formatRecordDate, thisWeekOnTheRecord } from "@/data/this-week";
 
 export default async function HomePage({
@@ -91,7 +92,7 @@ export default async function HomePage({
                 <Link href={`/leaders/${item.leaderSlug}`}>
                   {locale === "te" ? leader?.nameTe : leader?.name}
                   {". "}
-                  {item.entry.title}
+                  {localizedText(locale, item.entry.title, item.entry.titleTe)}
                 </Link>
                 <time dateTime={item.changedOn.toISOString().slice(0, 10)}>
                   {formatRecordDate(item.changedOn)}
