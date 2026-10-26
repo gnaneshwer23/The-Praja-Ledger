@@ -12,6 +12,7 @@ export async function SiteFooter() {
       </div>
       <nav className="foot-links" aria-label={t("navLabel")}>
         <Link href="/method">{t("method")}</Link>
+        <Link href="/chat">{t("chat")}</Link>
         <Link href="/#rules">{t("rules")}</Link>
         <Link href="/corrections">{t("corrections")}</Link>
         <Link href="/data">{t("data")}</Link>

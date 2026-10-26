@@ -20,6 +20,7 @@
     "promises": "Manifestos",
     "ask": "Ask a leader",
     "method": "How we check",
+    "chat": "Ask the register",
     "find": "Browse leaders",
     "constituencies": "Constituencies",
     "language": "తెలుగు",
@@ -101,7 +102,10 @@
     "hearingLabel": "Next hearing",
     "hearingDay": "30 Oct",
     "hearingYear": "2026",
-    "orbit": "Open the record · Open the record ·"
+    "orbit": "Open the record · Open the record ·",
+    "checkTitle": "How a line is checked",
+    "checkBody": "A line stays in this book only when a document is attached. The mark shows whether that document is an official record, a media report, or a claim.",
+    "checkLatest": "Newest line this week"
   },
   "Stages": {
     "allegation": "Allegation",
@@ -143,6 +147,7 @@
     "brand": "Praja Ledger",
     "navLabel": "Praja Ledger",
     "method": "How we check",
+    "chat": "Ask the register",
     "rules": "Community rules",
     "corrections": "Suggest a correction",
     "data": "Open data",
@@ -199,6 +204,23 @@
     "submit": "Show preview",
     "result": "This preview is not sent and has no backers.",
     "empty": "Write the question first."
+  },
+  "Chat": {
+    "title": "Ask the register",
+    "description": "Questions answered only from lines already in Praja Ledger, each with a record you can open.",
+    "lede": "Ask about a leader, a case, a promise, a finance line, an election, or how a line is checked. The reply quotes the register. It is not sent to a leader’s office, and it is not written by a model.",
+    "label": "Your question",
+    "placeholder": "For example: Formula E, or Kodangal",
+    "submit": "Look up",
+    "pending": "Looking through the register.",
+    "missing": "Not compiled yet.",
+    "cited": "These lines are already in the register. Open each one.",
+    "drawn": "This answer is drawn from the register.",
+    "empty": "Type a question first.",
+    "open": "Open this record",
+    "source": "Source",
+    "quoteNote": "The line is quoted as it was compiled.",
+    "note": "A pending case is not a conviction. A claim stays in the speaker’s words. This page does not recommend a candidate or a party."
   },
   "Question": {
     "title": "Question",

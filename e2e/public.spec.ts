@@ -26,6 +26,12 @@ test("public pages render in English and Telugu", async ({ page }) => {
   await page.goto("/te/manifestos");
   await expect(page.getByRole("heading", { name: "మ్యానిఫెస్టోలు", exact: true })).toBeVisible();
 
+  await page.goto("/en/chat");
+  await expect(page.getByRole("heading", { name: "Ask the register", exact: true })).toBeVisible();
+
+  await page.goto("/te/chat");
+  await expect(page.getByRole("heading", { name: "రిజిస్టర్‌ను అడగండి", exact: true })).toBeVisible();
+
   await page.goto("/en/constituencies");
   await expect(page.getByRole("heading", { name: "Constituencies", exact: true })).toBeVisible();
 

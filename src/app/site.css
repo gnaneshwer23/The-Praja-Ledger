@@ -1133,9 +1133,12 @@ a:hover {
 }
 
 .campaign-hero {
-  display: block;
-  max-width: 42rem;
-  margin-top: 3.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr);
+  gap: 1.5rem 2.25rem;
+  align-items: start;
+  max-width: none;
+  margin-top: 2.75rem;
 }
 
 .campaign-hero > * {
@@ -1172,6 +1175,86 @@ a:hover {
 .campaign-sub {
   margin: 0.8rem 0 0;
   font-family: var(--font-telugu), serif;
+}
+
+.campaign-aside {
+  min-width: 0;
+  background: #fff;
+  color: #141414;
+  border: 1px solid #c5d2cb;
+  border-top: 4px solid #0b3a86;
+  border-radius: 0.85rem;
+  padding: 1.05rem 1.1rem 1.15rem;
+}
+
+.campaign-aside h2,
+.campaign-aside h3 {
+  margin: 0;
+  color: #10283f;
+  font-family: var(--font-petrona), serif;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.campaign-aside h2 {
+  font-size: 1.45rem;
+  line-height: 1.2;
+}
+
+html[lang="te"] .campaign-aside h2,
+html[lang="te"] .campaign-aside h3 {
+  font-family: var(--font-telugu), serif;
+  line-height: 1.35;
+}
+
+.campaign-aside p,
+.campaign-aside h3 {
+  margin-top: 0.7rem;
+}
+
+.campaign-aside .legend {
+  margin-top: 0.75rem;
+}
+
+.campaign-aside a {
+  color: #0b3a86;
+  font-weight: 600;
+}
+
+.campaign-latest {
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid #c5d2cb;
+}
+
+.campaign-latest p {
+  margin: 0.35rem 0 0;
+}
+
+.campaign-latest time {
+  display: block;
+  margin-top: 0.3rem;
+  color: #3d4c52;
+  font-size: 0.88rem;
+  font-weight: 400;
+}
+
+.register-cite {
+  margin: 0.85rem 0 0;
+  padding: 0.75rem 0.85rem 0.85rem;
+  background: #f7faf7;
+  border: 1px solid #c5d2cb;
+  border-radius: 0.65rem;
+  list-style: none;
+}
+
+.register-cite blockquote {
+  margin: 0.4rem 0;
+}
+
+.register-cites {
+  margin: 0.4rem 0 0;
+  padding: 0;
 }
 
 .landing-rest {
@@ -1330,7 +1413,7 @@ a:hover {
   border-top-color: rgba(231, 238, 212, 0.2);
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) {
   width: 100%;
   max-width: none;
   margin: 0;
@@ -1340,14 +1423,14 @@ a:hover {
   box-sizing: border-box;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) > :not(.app-nav):not(.share-sheet) {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) > :not(.app-nav):not(.share-sheet) {
   width: min(72rem, 100%);
   max-width: 100%;
   min-width: 0;
   margin-inline: auto;
 }
 
-html[lang="en"] .site-main:not(:has(.landing)):not(:has(.share-page)) h1 {
+html[lang="en"] .site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) h1 {
   margin: 0;
   font-family: var(--font-poster), sans-serif;
   font-weight: 400;
@@ -1358,7 +1441,7 @@ html[lang="en"] .site-main:not(:has(.landing)):not(:has(.share-page)) h1 {
   overflow-wrap: anywhere;
 }
 
-html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) h1 {
+html[lang="te"] .site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) h1 {
   margin: 0;
   font-family: var(--font-telugu), serif;
   font-weight: 600;
@@ -1369,12 +1452,12 @@ html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) h1 {
   overflow-wrap: anywhere;
 }
 
-html[lang="en"] .site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro, .panel, .ask-form, .question-page, .admin-sheet, .app-screen) h1,
-html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro, .panel, .ask-form, .question-page, .admin-sheet, .app-screen) h1 {
+html[lang="en"] .site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) :is(.intro, .panel, .ask-form, .question-page, .admin-sheet, .app-screen) h1,
+html[lang="te"] .site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) :is(.intro, .panel, .ask-form, .question-page, .admin-sheet, .app-screen) h1 {
   color: #0b3a86;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) :is(
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) :is(
   .quiet,
   .kicker,
   .finder-count,
@@ -1389,29 +1472,29 @@ html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro
   color: #d5e0c4;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .ghost {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .ghost {
   color: #e7eed4;
   border-color: #e7eed4;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro, .panel, .profile-block, .ask-form, .admin-sheet) .ghost {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) :is(.intro, .panel, .profile-block, .ask-form, .admin-sheet) .ghost {
   color: #141414;
   border-color: #141414;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .chip {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .chip {
   border-color: currentColor;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .read-line summary {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .read-line summary {
   color: var(--pl-teal);
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .read-line summary:hover {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .read-line summary:hover {
   color: #102028;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) :is(
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) :is(
   .leader-card,
   .record,
   .feed-card:not(.claim),
@@ -1437,7 +1520,7 @@ html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro
   color: #141414;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) :is(
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) :is(
   .leader-card,
   .record,
   .feed-card:not(.claim),
@@ -1463,40 +1546,40 @@ html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro
   color: var(--pl-quiet);
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) :is(.admin-sheet, .record, .leader-card, .sheet-panel, .plain-card) .empty {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) :is(.admin-sheet, .record, .leader-card, .sheet-panel, .plain-card) .empty {
   color: #141414;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .record .read-line summary {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .record .read-line summary {
   color: var(--pl-teal);
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .record .read-line summary:hover {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .record .read-line summary:hover {
   color: var(--pl-ink);
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .record .stages small {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .record .stages small {
   color: var(--pl-quiet);
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .record .stages .now small {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .record .stages .now small {
   color: var(--pl-ink);
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .record .stages .done span {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .record .stages .done span {
   background: var(--pl-ink);
   border-color: var(--pl-ink);
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .share-card .kicker {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .share-card .kicker {
   color: var(--pl-teal-bar);
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) [role="alert"] {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) [role="alert"] {
   color: #6b1d1d;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) :is(.admin-sheet, .record, .sheet-panel, .leader-card) [role="alert"] {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) :is(.admin-sheet, .record, .sheet-panel, .leader-card) [role="alert"] {
   color: #6b1d1d;
 }
 
@@ -1728,7 +1811,7 @@ html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro
   color: #6b1d1d;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) h2 {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) h2 {
   margin: 1.7rem 0 0.55rem;
   padding-top: 0.8rem;
   border-top: 3px solid #d4df96;
@@ -1739,11 +1822,11 @@ html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro
   color: #e7efc2;
 }
 
-html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) h2 {
+html[lang="te"] .site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) h2 {
   font-family: var(--font-telugu), serif;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) :is(
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) :is(
   .record,
   .feed-card,
   .manifesto-list,
@@ -1773,16 +1856,16 @@ html[lang="te"] .site-main:not(:has(.landing)):not(:has(.share-page)) h2 {
   letter-spacing: 0;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .stages .now small {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .stages .now small {
   color: #f4f7e8;
   font-weight: 600;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro, .record, .feed-card, .app-screen) .stages small {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) :is(.intro, .record, .feed-card, .app-screen) .stages small {
   color: #3d4c52;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) :is(.intro, .record, .feed-card, .app-screen) .stages .now small {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) :is(.intro, .record, .feed-card, .app-screen) .stages .now small {
   color: #141414;
 }
 
@@ -1990,9 +2073,9 @@ html[lang="te"] .promise-fields h2 {
   }
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .intro,
-.site-main:not(:has(.landing)):not(:has(.share-page)) .profile-block,
-.site-main:not(:has(.landing)):not(:has(.share-page)) .scorecard,
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .intro,
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .profile-block,
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .scorecard,
 .panel {
   background: #fff;
   color: #141414;
@@ -2001,18 +2084,18 @@ html[lang="te"] .promise-fields h2 {
   padding: 1.15rem 1.25rem 1.25rem;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .intro {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .intro {
   border-top: 4px solid #d4df96;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .profile-block,
-.site-main:not(:has(.landing)):not(:has(.share-page)) .scorecard,
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .profile-block,
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .scorecard,
 .panel {
   border-top: 4px solid #0b3a86;
   margin-top: 1rem;
 }
 
-.site-main:not(:has(.landing)):not(:has(.share-page)) .profile-block h2 {
+.site-main:not(:has(:where(.landing):not([style*="display: none"]))):not(:has(:where(.share-page):not([style*="display: none"]))) .profile-block h2 {
   margin: 0 0 0.45rem;
   font-size: clamp(1.35rem, 2.2vw, 1.65rem);
 }
@@ -2085,6 +2168,25 @@ html[lang="te"] .promise-fields h2 {
   font-family: var(--font-petrona), serif;
   font-size: 1.35rem;
   line-height: 1;
+  color: #0b3a86;
+}
+
+.intro {
+  background: #fff;
+  color: #141414;
+  border: 1px solid #c5d2cb;
+  border-radius: 0.85rem;
+  border-top: 4px solid #d4df96;
+  padding: 1.15rem 1.25rem 1.25rem;
+}
+
+.intro h1,
+.intro p,
+.intro a {
+  color: #141414;
+}
+
+.intro h1 {
   color: #0b3a86;
 }
 

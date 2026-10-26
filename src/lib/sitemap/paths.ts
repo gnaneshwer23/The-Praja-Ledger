@@ -12,6 +12,7 @@ const pages = [
   "/ask",
   "/ask/example",
   "/method",
+  "/chat",
   "/data",
   "/changes",
   "/elections",

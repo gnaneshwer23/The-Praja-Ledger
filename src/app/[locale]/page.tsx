@@ -26,6 +26,10 @@ export default async function HomePage({
   const promiseCount = await getCompiledPromiseCount();
   const caseCount = entries.filter((entry) => entry.section === "cases").length;
   const week = thisWeekOnTheRecord(leaders, entries);
+  const latest = week[0];
+  const latestLeader = latest
+    ? leaders.find((person) => person.slug === latest.leaderSlug)
+    : undefined;
   const courtOrders = await getLinkedCourtOrders();
   const counters = [
     { key: "leaders", value: leaders.length, label: t("statsLeaders") },
@@ -48,6 +52,7 @@ export default async function HomePage({
             <Link href="/manifestos">{nav("promises")}</Link>
             <Link href="/ask">{nav("ask")}</Link>
             <Link href="/method">{nav("method")}</Link>
+            <Link href="/chat">{nav("chat")}</Link>
             <Link href="/" locale={locale === "te" ? "en" : "te"} className="campaign-lang">
               {nav("language")}
             </Link>
@@ -75,6 +80,33 @@ export default async function HomePage({
                 }))}
               />
             </div>
+            <aside className="campaign-aside" aria-labelledby="check-title">
+              <h2 id="check-title">{t("checkTitle")}</h2>
+              <p>{t("checkBody")}</p>
+              <SourceKey />
+              <p>{t("legendNote")}</p>
+              <p>
+                <Link href="/method">{nav("method")}</Link>
+              </p>
+              {latest ? (
+                <div className="campaign-latest">
+                  <h3>{t("checkLatest")}</h3>
+                  <p>
+                    <Link href={`/leaders/${latest.leaderSlug}`}>
+                      {locale === "te" ? latestLeader?.nameTe : latestLeader?.name}
+                      {". "}
+                      {localizedText(locale, latest.entry.title, latest.entry.titleTe)}
+                    </Link>
+                  </p>
+                  <time dateTime={latest.changedOn.toISOString().slice(0, 10)}>
+                    {formatRecordDate(latest.changedOn)}
+                  </time>
+                </div>
+              ) : null}
+              <p>
+                <Link href="/chat">{nav("chat")}</Link>
+              </p>
+            </aside>
           </div>
         </div>
       </div>

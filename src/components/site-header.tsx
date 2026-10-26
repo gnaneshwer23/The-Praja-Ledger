@@ -9,6 +9,7 @@ const links = [
   { href: "/manifestos", key: "promises" },
   { href: "/ask", key: "ask" },
   { href: "/method", key: "method" },
+  { href: "/chat", key: "chat" },
 ] as const;
 
 export function SiteHeader({ locale }: { locale: string }) {
