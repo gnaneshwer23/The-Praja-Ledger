@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { manifestos } from "@/data/manifestos";
+import { getManifestos } from "@/lib/data";
 
-export const metadata: Metadata = {
-  title: "Manifestos",
-  description:
-    "Telangana manifesto promises, each on its own page, with a status count only where the list is frozen and the party is in government.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Manifestos" });
+  return { title: t("title"), description: t("description") };
+}
 
 export default async function ManifestosPage() {
   const t = await getTranslations("Manifestos");
+  const manifestos = await getManifestos();
 
   return (
     <>

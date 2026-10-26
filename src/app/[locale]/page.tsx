@@ -4,8 +4,7 @@ import { CivicIcon } from "@/components/civic-icons";
 import { LeaderSearch } from "@/components/leader-search";
 import { QuestionPath } from "@/components/question-path";
 import { SourceKey } from "@/components/source-key";
-import { compiledPromiseCount } from "@/data/manifestos";
-import { entries, leaders } from "@/data/ledger";
+import { getCompiledPromiseCount, getEntries, getLeaders, getLinkedCourtOrders } from "@/lib/data";
 import { formatRecordDate, thisWeekOnTheRecord } from "@/data/this-week";
 
 export default async function HomePage({
@@ -19,12 +18,14 @@ export default async function HomePage({
   const profile = await getTranslations("Profile");
   const nav = await getTranslations("Nav");
   const records = await getTranslations("Records");
+  const leaders = await getLeaders();
+  const entries = await getEntries();
   const rythu = entries.find((entry) => entry.id === "PL-P-02");
   const houses = entries.find((entry) => entry.id === "PL-P-04");
-  const promiseCount = compiledPromiseCount;
+  const promiseCount = await getCompiledPromiseCount();
   const caseCount = entries.filter((entry) => entry.section === "cases").length;
   const week = thisWeekOnTheRecord(leaders, entries);
-  const courtOrders: { href: string; label: string }[] = [];
+  const courtOrders = await getLinkedCourtOrders();
   const counters = [
     { key: "leaders", value: leaders.length, label: t("statsLeaders") },
     { key: "cases", value: caseCount, label: t("statsCases") },

@@ -1,14 +1,15 @@
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
-export default function NotFound() {
+export default async function NotFound() {
+  const t = await getTranslations("NotFound");
+
   return (
     <header className="intro">
-      <h1>That page is not in the book</h1>
+      <h1>{t("title")}</h1>
+      <p>{t("body")}</p>
       <p>
-        The address does not match a section or a leader in this edition.
-      </p>
-      <p>
-        <Link href="/">Back to the overview</Link>
+        <Link href="/">{t("back")}</Link>
       </p>
     </header>
   );

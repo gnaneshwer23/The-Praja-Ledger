@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
-import { getPromise, manifestos, type Citation, type SourceKind } from "@/data/manifestos";
+import { manifestos, type Citation, type SourceKind } from "@/data/manifestos";
+import { getPromise } from "@/lib/data";
 
 export function generateStaticParams() {
   return manifestos.flatMap((manifesto) =>
@@ -16,11 +17,12 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string; promise: string }>;
+  params: Promise<{ locale: string; slug: string; promise: string }>;
 }): Promise<Metadata> {
-  const { slug, promise: promiseSlug } = await params;
-  const match = getPromise(slug, promiseSlug);
-  if (!match) return { title: "Not compiled yet" };
+  const { locale, slug, promise: promiseSlug } = await params;
+  const match = await getPromise(slug, promiseSlug);
+  const t = await getTranslations({ locale, namespace: "Manifestos" });
+  if (!match) return { title: t("missing") };
   return { title: match.promise.title, description: match.promise.target };
 }
 
@@ -53,7 +55,7 @@ export default async function PromisePage({
 }) {
   const { locale, slug, promise: promiseSlug } = await params;
   setRequestLocale(locale);
-  const match = getPromise(slug, promiseSlug);
+  const match = await getPromise(slug, promiseSlug);
   if (!match) notFound();
   const { manifesto, promise } = match;
   const t = await getTranslations("Manifestos");

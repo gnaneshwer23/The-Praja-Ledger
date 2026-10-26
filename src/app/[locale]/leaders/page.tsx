@@ -4,17 +4,23 @@ import { Link } from "@/i18n/navigation";
 import { RegisterMark } from "@/components/civic-icons";
 import { LeaderFinder } from "@/components/leader-finder";
 import { SourceKey } from "@/components/source-key";
-import { entriesByIds, leaders } from "@/data/ledger";
+import { getEntries, getLeaders } from "@/lib/data";
 import { sourceMark } from "@/data/source-mark";
 
-export const metadata: Metadata = {
-  title: "Leaders",
-  description:
-    "Leaders entered in Praja Ledger, with the office each one currently holds on the public record.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "LeadersPage" });
+  return { title: t("title"), description: t("description") };
+}
 
 export default async function LeadersPage() {
   const t = await getTranslations("LeadersPage");
+  const leaders = await getLeaders();
+  const entries = await getEntries();
 
   return (
     <>
@@ -31,7 +37,9 @@ export default async function LeadersPage() {
       <SourceKey />
       <LeaderFinder
         leaders={leaders.map((leader) => {
-          const records = entriesByIds(leader.recordIds);
+          const records = leader.recordIds
+            .map((id) => entries.find((entry) => entry.id === id))
+            .filter((entry) => entry !== undefined);
           const lines =
             records.length > 0
               ? records.map((entry) => ({

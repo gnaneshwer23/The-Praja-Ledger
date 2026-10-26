@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { seats, type ReservationCategory, type Seat } from "@/data/constituencies";
+import { getSeats } from "@/lib/data";
+import type { ReservationCategory, Seat } from "@/data/constituencies";
 
-export const metadata: Metadata = {
-  title: "Constituencies",
-  description:
-    "Telangana’s 119 Assembly seats and 17 Lok Sabha seats, with the sitting member named from an opened source.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ConstituenciesPage" });
+  return { title: t("title"), description: t("description") };
+}
 
 export default async function ConstituenciesPage() {
   const t = await getTranslations("ConstituenciesPage");
   const seat = await getTranslations("SeatPage");
   const profile = await getTranslations("Profile");
+  const seats = await getSeats();
   const assembly = seats.filter((item) => item.kind === "AC");
   const parliament = seats.filter((item) => item.kind === "PC");
 

@@ -6,9 +6,10 @@ import { Suspense } from "react";
 import { FollowButton } from "@/components/follow-button";
 import { RecordList } from "@/components/record-list";
 import { SourceKey } from "@/components/source-key";
-import { entriesByIds, getLeader, leaders } from "@/data/ledger";
+import { leaders } from "@/data/ledger";
 import { promisesForLeader } from "@/data/manifestos";
 import { profileBlockIds, recordsForBlock } from "@/data/profile";
+import { getEntriesByIds, getLeader, getManifesto } from "@/lib/data";
 
 export function generateStaticParams() {
   return leaders.map((leader) => ({ slug: leader.slug }));
@@ -17,24 +18,26 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const leader = getLeader(slug);
-  if (!leader) return { title: "Not in the book" };
+  const { locale, slug } = await params;
+  const leader = await getLeader(slug);
+  const t = await getTranslations({ locale, namespace: "Chrome" });
+  if (!leader) return { title: t("notInBook") };
   return {
     title: leader.name,
     description: `${leader.name}, ${leader.office}. ${leader.party}.`,
   };
 }
 
-export default function LeaderPage({
+export default async function LeaderPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  const t = await getTranslations("Profile");
   return (
-    <Suspense fallback={<p className="empty">Opening the record.</p>}>
+    <Suspense fallback={<p className="empty">{t("opening")}</p>}>
       <LeaderRecord params={params} />
     </Suspense>
   );
@@ -46,12 +49,15 @@ async function LeaderRecord({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const leader = getLeader(slug);
+  const leader = await getLeader(slug);
   if (!leader) notFound();
-  const records = entriesByIds(leader.recordIds);
+  const records = await getEntriesByIds(leader.recordIds);
   const t = await getTranslations("Profile");
   const manifesto = await getTranslations("Manifestos");
-  const linkedPromises = promisesForLeader(leader.slug);
+  const congress = await getManifesto("congress-2023");
+  const linkedPromises = promisesForLeader(leader.slug).map(
+    (promise) => congress?.promises.find((item) => item.slug === promise.slug) ?? promise,
+  );
 
   return (
     <>

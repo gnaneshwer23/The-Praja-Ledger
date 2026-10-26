@@ -5,7 +5,7 @@ import { RecordList } from "@/components/record-list";
 import { ShareSheet } from "@/components/share-sheet";
 import { SourceKey } from "@/components/source-key";
 import { StageRail } from "@/components/stage-rail";
-import { entries } from "@/data/ledger";
+import { getEntries } from "@/lib/data";
 import en from "../../../../../messages/en.json";
 import te from "../../../../../messages/te.json";
 
@@ -28,6 +28,7 @@ export default async function FormulaEPage({
   setRequestLocale(locale);
   const t = await getTranslations("Landing");
   const records = await getTranslations("Records");
+  const entries = await getEntries();
   const entry = entries.find((item) => item.id === "PL-C-01");
   if (!entry) notFound();
 

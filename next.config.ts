@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  serverExternalPackages: ["pg"],
   turbopack: {
     root: path.dirname(fileURLToPath(import.meta.url)),
   },

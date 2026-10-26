@@ -1,7 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { AppNav } from "@/components/app-nav";
 import { AskForm } from "@/components/ask-form";
-import { leaders } from "@/data/ledger";
+import { getLeaders } from "@/lib/data";
 
 export default async function AskPage({
   params,
@@ -10,6 +10,8 @@ export default async function AskPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  const leaders = await getLeaders();
 
   return (
     <>

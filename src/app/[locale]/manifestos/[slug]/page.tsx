@@ -6,7 +6,6 @@ import { ShareSheet } from "@/components/share-sheet";
 import { Scorecard } from "@/components/scorecard";
 import {
   congressTermMonth,
-  getManifesto,
   manifestos,
   promiseStatuses,
   scorecardAsOfLabel,
@@ -14,6 +13,7 @@ import {
   tallyOf,
   termLength,
 } from "@/data/manifestos";
+import { getManifesto } from "@/lib/data";
 import en from "../../../../../messages/en.json";
 import te from "../../../../../messages/te.json";
 
@@ -24,11 +24,12 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const manifesto = getManifesto(slug);
-  if (!manifesto) return { title: "Not compiled yet" };
+  const { locale, slug } = await params;
+  const manifesto = await getManifesto(slug);
+  const t = await getTranslations({ locale, namespace: "Manifestos" });
+  if (!manifesto) return { title: t("missing") };
   return {
     title: manifesto.title,
     description: manifesto.title,
@@ -42,7 +43,7 @@ export default async function ManifestoPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const manifesto = getManifesto(slug);
+  const manifesto = await getManifesto(slug);
   if (!manifesto) notFound();
   const t = await getTranslations("Manifestos");
   const visible = showsScorecard(manifesto);

@@ -1,42 +1,38 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Corrections",
-  description: "How a line in Praja Ledger is corrected, and which corrections have been entered.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "CorrectionsPage" });
+  return { title: t("title"), description: t("description") };
+}
 
-export default function CorrectionsPage() {
+export default async function CorrectionsPage() {
+  const t = await getTranslations("CorrectionsPage");
+
   return (
     <>
       <header className="intro">
-        <h1>Corrections</h1>
-        <p>
-          None have been entered in this edition. A correction names the record
-          id, quotes the line that is wrong, and points to the document that
-          contradicts it. The corrected line replaces the old one. The change
-          log keeps both dates.
-        </p>
+        <h1>{t("title")}</h1>
+        <p>{t("intro")}</p>
       </header>
-      <h2>What a correction needs</h2>
+      <h2>{t("needsTitle")}</h2>
       <ul className="index">
         <li>
-          <p>The record id, such as PL-C-01.</p>
+          <p>{t("needId")}</p>
         </li>
         <li>
-          <p>The sentence that is wrong, copied as it stands.</p>
+          <p>{t("needSentence")}</p>
         </li>
         <li>
-          <p>
-            A public document that says otherwise: a judgment, an Election
-            Commission table, a budget paper, or a named news report of one of
-            those.
-          </p>
+          <p>{t("needDocument")}</p>
         </li>
       </ul>
-      <p className="empty">
-        A rumour, a slogan, or a post without a document does not correct a
-        line.
-      </p>
+      <p className="empty">{t("rumour")}</p>
     </>
   );
 }

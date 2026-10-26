@@ -7,10 +7,10 @@ export async function SiteFooter() {
   return (
     <footer className="site-footer">
       <div>
-        <strong>Praja Ledger</strong>
+        <strong>{t("brand")}</strong>
         <p>{t("blurb")}</p>
       </div>
-      <nav className="foot-links" aria-label="Praja Ledger">
+      <nav className="foot-links" aria-label={t("navLabel")}>
         <Link href="/method">{t("method")}</Link>
         <Link href="/#rules">{t("rules")}</Link>
         <Link href="/corrections">{t("corrections")}</Link>

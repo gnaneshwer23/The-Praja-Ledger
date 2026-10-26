@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { Link } from "@/i18n/navigation";
-import { formatCount, getSeat, seats, type ReservationCategory } from "@/data/constituencies";
-import { getLeader } from "@/data/ledger";
+import { formatCount, seats, type ReservationCategory } from "@/data/constituencies";
+import { getLeader, getSeat } from "@/lib/data";
 
 export function generateStaticParams() {
   return seats.map((seat) => ({ id: seat.id }));
@@ -12,11 +13,12 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }): Promise<Metadata> {
-  const { id } = await params;
-  const seat = getSeat(id);
-  if (!seat) return { title: "Not in the book" };
+  const { locale, id } = await params;
+  const seat = await getSeat(id);
+  const missing = await getTranslations({ locale, namespace: "Chrome" });
+  if (!seat) return { title: missing("notInBook") };
   return {
     title: seat.name,
     description: `${seat.name}. ${seat.memberName}, ${seat.party}.`,
@@ -28,12 +30,25 @@ export default async function SeatPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const profile = await getTranslations("Profile");
+  return (
+    <Suspense fallback={<p className="empty">{profile("opening")}</p>}>
+      <SeatRecord params={params} />
+    </Suspense>
+  );
+}
+
+async function SeatRecord({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
-  const seat = getSeat(id);
+  const seat = await getSeat(id);
   if (!seat) notFound();
   const t = await getTranslations("SeatPage");
   const profile = await getTranslations("Profile");
-  const leader = seat.leaderSlug ? getLeader(seat.leaderSlug) : undefined;
+  const leader = seat.leaderSlug ? await getLeader(seat.leaderSlug) : undefined;
   const result = seat.sources[0];
 
   return (

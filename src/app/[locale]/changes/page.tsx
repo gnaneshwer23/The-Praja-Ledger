@@ -1,23 +1,29 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { RecordList } from "@/components/record-list";
-import { entriesBySection } from "@/data/ledger";
+import { getEntriesBySection } from "@/lib/data";
 
-export const metadata: Metadata = {
-  title: "Change log",
-  description: "What changed in Praja Ledger, edition by edition.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ChangesPage" });
+  return { title: t("title"), description: t("description") };
+}
 
-export default function ChangesPage() {
+export default async function ChangesPage() {
+  const t = await getTranslations("ChangesPage");
+  const records = await getEntriesBySection("changes");
+
   return (
     <>
       <header className="intro">
-        <h1>Change log</h1>
-        <p>
-          A change is a new line, a rewritten line, or a line withdrawn. The
-          old wording stays listed here when a later edition replaces it.
-        </p>
+        <h1>{t("title")}</h1>
+        <p>{t("intro")}</p>
       </header>
-      <RecordList entries={entriesBySection("changes")} />
+      <RecordList entries={records} />
     </>
   );
 }

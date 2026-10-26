@@ -137,6 +137,8 @@
   },
   "Footer": {
     "blurb": "A non-partisan public register of Telangana’s elected leaders. Publisher of record is not named yet. No party funding or advertising.",
+    "brand": "Praja Ledger",
+    "navLabel": "Praja Ledger",
     "method": "How we check",
     "rules": "Community rules",
     "corrections": "Suggest a correction",
@@ -235,6 +237,7 @@
     "following": "Following on this screen",
     "ask": "Ask a question",
     "followNote": "Alerts are not sent yet.",
+    "opening": "Opening the record.",
     "office": "A verified office is not open on this page yet.",
     "work": "Work on record",
     "changed": "Record checked 25 Oct 2026",
@@ -274,6 +277,7 @@
   },
   "LeadersPage": {
     "title": "Leaders",
+    "description": "Leaders entered in Praja Ledger, with the office each one currently holds on the public record.",
     "intro": "This edition follows {count} people. The council of ministers has more names than these. A person is left out until this book has a separate sourced line to attach to them. Party names are the short forms used in the filter. The assembly list spells Bharat Rashtra Samithi as BHRS.",
     "find": "Find a leader",
     "party": "Party",
@@ -290,14 +294,17 @@
   },
   "CasesPage": {
     "title": "Legal cases",
+    "description": "Court proceedings entered in Praja Ledger, with the news report each status comes from.",
     "intro": "A case is listed when a named newsroom has published its status. Registration, a chargesheet, and a discharge petition are steps in a case. They are not a finding that the person committed the act. Where a court has decided, the line says what the report says the court did, and whether the order itself was opened."
   },
   "ElectionsPage": {
     "title": "Elections",
+    "description": "Telangana assembly results from 2023 and Lok Sabha results from 2024, from the Election Commission.",
     "intro": "Each election below is its own record. The figures are the Election Commission’s."
   },
   "Manifestos": {
     "title": "Manifestos",
+    "description": "Telangana manifesto promises, each on its own page, with a status count only where the list is frozen and the party is in government.",
     "intro": "Each manifesto is listed on its own. A tally is the count of promises in each status, plus the total.",
     "missing": "Not compiled yet",
     "inGovernment": "In government",
@@ -373,6 +380,7 @@
   },
   "ConstituenciesPage": {
     "title": "Constituencies",
+    "description": "Telangana’s 119 Assembly seats and 17 Lok Sabha seats, with the sitting member named from an opened source.",
     "intro": "119 Assembly seats and 17 Lok Sabha seats. The member is named only where this edition has opened a source. A dossier exists only for leaders already in the book.",
     "assembly": "Assembly",
     "lokSabha": "Lok Sabha"
@@ -395,5 +403,71 @@
     "all": "All constituencies",
     "acNote": "The sitting member is the name on the Telangana Legislative Assembly member list, read 25 Oct 2026. The constituency number and the reservation category come from the Election Commission’s 2023 detailed results. (SC) and (ST) are marked on the constituency name in that report. The Commission’s highlight counts 88 General, 19 Scheduled Caste and 12 Scheduled Tribe seats, so an unmarked seat is General.",
     "pcNote": "The member is the winning candidate named by the Election Commission for this seat in the June 2024 Lok Sabha result. The same name is on the Telangana government’s Lok Sabha list. The reservation category for these 17 seats is not compiled yet."
+  },
+  "Chrome": {
+    "notInBook": "Not in the book"
+  },
+  "NotFound": {
+    "title": "That page is not in the book",
+    "body": "The address does not match a section or a leader in this edition.",
+    "back": "Back to the overview"
+  },
+  "Book": {
+    "skip": "Skip to the record",
+    "brand": "Praja Ledger",
+    "wordmark": "ప్రజా లెడ్జర్",
+    "sections": "Sections",
+    "checked": "Checked {date}.",
+    "colophon": "Praja Ledger is an independent reading of public documents. It is not the Government of Telangana, and it is not a court. A charge written here is not a finding that the person did it.",
+    "overview": "Overview",
+    "leaders": "Leaders",
+    "cases": "Legal cases",
+    "manifestos": "Manifestos",
+    "finances": "State finances",
+    "elections": "Elections",
+    "changes": "Change log",
+    "corrections": "Corrections",
+    "method": "How we record"
+  },
+  "FinancesPage": {
+    "title": "State finances",
+    "description": "Telangana budget estimates for 2026–27, public debt at 31 March 2025, and outstanding guarantees.",
+    "intro": "These figures are kept apart. The budget estimate is a plan for 2026–27. The public-debt stock is what the annexure said was owed on 31 March 2025. Outstanding liabilities are a wider percentage of GSDP, and guarantees sit outside that percentage. A December 2025 total, reported from a government document, is in the records below. It is not that March 2025 stock.",
+    "budgetCaption": "Budget, in {unit}",
+    "debtCaption": "Public debt as on {date}, in {unit}",
+    "debtHead": "Head",
+    "debtAmount": "Amount",
+    "budgetNote": "A minus sign is a revenue deficit. PRS says the large borrowing and repayment in 2024–25 include Rs 1,29,376 crore of short-term advances from the RBI, and the repayment of those advances. The 2026–27 fiscal deficit is 3% of GSDP. The revenue surplus that year is estimated at 0.3% of GSDP.",
+    "debtNote": "Do not add this stock to the 28.7% liability estimate. They are different measures, taken at different dates."
+  },
+  "ChangesPage": {
+    "title": "Change log",
+    "description": "What changed in Praja Ledger, edition by edition.",
+    "intro": "A change is a new line, a rewritten line, or a line withdrawn. The old wording stays listed here when a later edition replaces it."
+  },
+  "CorrectionsPage": {
+    "title": "Corrections",
+    "description": "How a line in Praja Ledger is corrected, and which corrections have been entered.",
+    "intro": "None have been entered in this edition. A correction names the record id, quotes the line that is wrong, and points to the document that contradicts it. The corrected line replaces the old one. The change log keeps both dates.",
+    "needsTitle": "What a correction needs",
+    "needId": "The record id, such as PL-C-01.",
+    "needSentence": "The sentence that is wrong, copied as it stands.",
+    "needDocument": "A public document that says otherwise: a judgment, an Election Commission table, a budget paper, or a named news report of one of those.",
+    "rumour": "A rumour, a slogan, or a post without a document does not correct a line."
+  },
+  "MethodPage": {
+    "title": "How we record",
+    "description": "The rules Praja Ledger uses before a line about a Telangana leader is written down.",
+    "intro": "Praja Ledger writes down what a public document already says about a Telangana leader, an election, a scheme, or the state’s accounts. The checked date on every page is the day those documents were read for this edition.",
+    "earnsTitle": "What earns a line",
+    "earnsBody": "A line has to be checkable. The usual documents are an Election Commission report, a paper of the state government, a budget analysis that cites those papers, or a news report that names the court date, the order, or the person who said the thing.",
+    "statusTitle": "What a status word means",
+    "statusBody": "Pending means a court date or an unfinished payment is still open. A discharge is written only as the news report described it, until the order is opened. A discharge is not a conviction. An estimate is a budget number, not money already spent.",
+    "outTitle": "What stays out",
+    "outBody": "Speeches that are not tied to a count. Social-media claims. Anything attributed only to “sources.” A chargesheet rewritten as if the trial had ended. A percentage turned into a rupee figure the source did not print. Leaders who hold office but have no separate line yet. This edition leaves out most ministers and most MLAs for that reason.",
+    "numbersTitle": "Whose numbers",
+    "numbersBody": "Scheme counts are the government’s unless a line names another publisher. Debt figures say which measure they are, because public debt, outstanding liabilities, and guarantees are not the same pile of money. Party names follow the document being quoted. The Commission’s assembly report writes BHRS for Bharat Rashtra Samithi.",
+    "notTitle": "What this site is not",
+    "notBody": "It is not the Government of Telangana. It is not a court, and it is not legal advice. Reading a line here is not a finding of guilt or of innocence."
   }
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Anton, Noto_Sans, Noto_Sans_Telugu, Noto_Serif_Telugu, Petrona } from "next/font/google";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/site-footer";
@@ -49,14 +49,21 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: {
-    default: "Praja Ledger",
-    template: "%s · Praja Ledger",
-  },
-  description:
-    "A public register of Telangana leaders. Offices, elections, promises, finances, and court proceedings, each line tied to a document.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "HomePage" });
+  return {
+    title: {
+      default: t("title"),
+      template: `%s · ${t("title")}`,
+    },
+    description: t("lede"),
+  };
+}
 
 export default async function LocaleLayout({
   children,

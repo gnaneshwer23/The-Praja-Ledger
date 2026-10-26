@@ -4,17 +4,22 @@ import { RegisterMark } from "@/components/civic-icons";
 import { RecordList } from "@/components/record-list";
 import { SourceKey } from "@/components/source-key";
 import { StageRail } from "@/components/stage-rail";
-import { entriesBySection } from "@/data/ledger";
+import { getEntriesBySection } from "@/lib/data";
 
-export const metadata: Metadata = {
-  title: "Legal cases",
-  description:
-    "Court proceedings entered in Praja Ledger, with the news report each status comes from.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "CasesPage" });
+  return { title: t("title"), description: t("description") };
+}
 
 export default async function CasesPage() {
   const t = await getTranslations("CasesPage");
   const stages = await getTranslations("Stages");
+  const cases = await getEntriesBySection("cases");
 
   return (
     <>
@@ -28,7 +33,7 @@ export default async function CasesPage() {
       <StageRail current="chargesheet" note />
       <p className="quiet stage-caption">{stages("formulaNow")}</p>
       <SourceKey />
-      <RecordList entries={entriesBySection("cases")} />
+      <RecordList entries={cases} />
     </>
   );
 }

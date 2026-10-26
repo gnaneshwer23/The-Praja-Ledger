@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { RecordList } from "@/components/record-list";
-import { entriesBySection } from "@/data/ledger";
+import { getEntriesBySection } from "@/lib/data";
 
-export const metadata: Metadata = {
-  title: "Elections",
-  description:
-    "Telangana assembly results from 2023 and Lok Sabha results from 2024, from the Election Commission.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ElectionsPage" });
+  return { title: t("title"), description: t("description") };
+}
 
 export default async function ElectionsPage() {
   const t = await getTranslations("ElectionsPage");
+  const records = await getEntriesBySection("elections");
 
   return (
     <>
@@ -18,7 +23,7 @@ export default async function ElectionsPage() {
         <h1>{t("title")}</h1>
         <p>{t("intro")}</p>
       </header>
-      <RecordList entries={entriesBySection("elections")} />
+      <RecordList entries={records} />
     </>
   );
 }
