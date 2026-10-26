@@ -1,13 +1,22 @@
 import { expect, test } from "vitest";
 import { contentSecurityPolicy } from "./csp";
 
-test("the content security policy is enforceable and omits unsafe-eval", () => {
+test("the content security policy is enforceable and limits unsafe-eval to development", () => {
   for (const nodeEnv of ["development", "production", "test"]) {
     const policy = contentSecurityPolicy({
       nodeEnv,
       supabaseUrl: "https://example.supabase.co",
     });
-    expect(policy).not.toMatch(/unsafe-eval/i);
+    if (nodeEnv === "development") {
+      expect(policy).toContain(
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com",
+      );
+    } else {
+      expect(policy).not.toMatch(/unsafe-eval/i);
+      expect(policy).toContain(
+        "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
+      );
+    }
     expect(policy).not.toMatch(/report-only/i);
     expect(policy).not.toContain("service_role");
     expect(policy).not.toContain("postgres");
@@ -30,6 +39,7 @@ test("a database url is not added as a browser connect host", () => {
 
 test("development keeps the policy enforceable without upgrading localhost", () => {
   const policy = contentSecurityPolicy({ nodeEnv: "development" });
+  expect(policy).toContain("'unsafe-eval'");
   expect(policy).not.toContain("upgrade-insecure-requests");
   expect(policy).not.toContain("supabase.co");
 });

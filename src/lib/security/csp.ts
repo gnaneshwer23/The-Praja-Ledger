@@ -1,4 +1,4 @@
-/** Enforceable Content-Security-Policy. Production and development both omit unsafe-eval. */
+/** Enforceable Content-Security-Policy. Development adds script-src 'unsafe-eval' for React; production omits it. */
 
 function httpsOrigin(value: string | undefined): string | null {
   const trimmed = value?.trim() ?? "";
@@ -20,9 +20,12 @@ export function contentSecurityPolicy(env: {
   const supabase = httpsOrigin(env.supabaseUrl);
   const connect = ["'self'", "https://challenges.cloudflare.com"];
   if (supabase) connect.push(supabase);
+  const script = ["'self'", "'unsafe-inline'"];
+  if (env.nodeEnv === "development") script.push("'unsafe-eval'");
+  script.push("https://challenges.cloudflare.com");
   const directives = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
+    `script-src ${script.join(" ")}`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' blob: data:",
     "font-src 'self'",
