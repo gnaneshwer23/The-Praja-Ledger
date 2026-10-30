@@ -18,6 +18,7 @@ const pages = [
   "/elections",
   "/finances",
   "/corrections",
+  "/issues",
   "/privacy",
   "/community",
   "/me",

@@ -48,6 +48,7 @@ export default async function HomePage({
               {nav("home")}
             </Link>
             <Link href="/leaders">{nav("leaders")}</Link>
+            <Link href="/issues">{nav("issues")}</Link>
             <Link href="/cases">{nav("cases")}</Link>
             <Link href="/manifestos">{nav("promises")}</Link>
             <Link href="/ask">{nav("ask")}</Link>
